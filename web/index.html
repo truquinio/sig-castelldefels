@@ -4,44 +4,76 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mini SIG Castelldefels</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="./css/styles.css" />
+
     <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <script defer src="./js/data.js"></script>
     <script defer src="./js/app.js"></script>
   </head>
+
   <body>
     <header class="topbar">
       <div class="title-block">
         <span class="eyebrow">Mini-proyecto SIG by Fede Trucco @truquinio</span>
         <h1>Castelldefels: actividades y servicios urbanos</h1>
       </div>
+
       <div class="top-actions">
-        <button class="icon-button" id="fit-map" type="button" title="Ajustar vista">
-          <i data-lucide="maximize-2"></i>
+
+        <!-- ✅ BOTÓN DOCS (PRIMERO) -->
+        <a class="action-button" href="./docs.html" title="Ver documentación">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="18" height="18" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
+          </svg>
+          <span>Docs</span>
+        </a>
+
+        <!-- AJUSTAR VISTA -->
+        <button class="action-button" id="fit-map" type="button" title="Ajustar vista">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="18" height="18" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" x2="14" y1="3" y2="10"></line>
+            <line x1="3" x2="10" y1="21" y2="14"></line>
+          </svg>
+          <span>Ajustar vista</span>
         </button>
+
+        <!-- GEOJSON -->
         <button class="action-button" id="download-filtered" type="button">
           <i data-lucide="download"></i>
           <span>GeoJSON</span>
         </button>
+
       </div>
     </header>
 
     <main class="app-shell">
       <aside class="side-panel">
-        <section class="metrics" aria-label="Resumen">
+        <section class="metrics">
           <div class="metric">
             <span class="metric-label">Puntos OSM</span>
             <strong id="metric-total">0</strong>
           </div>
+
           <div class="metric">
             <span class="metric-label">Filtrados</span>
             <strong id="metric-filtered">0</strong>
           </div>
+
           <div class="metric">
             <span class="metric-label">Área ICGC</span>
             <strong id="metric-area">0 km²</strong>
@@ -60,10 +92,11 @@
           <div class="section-heading">
             <span>Vista</span>
           </div>
-          <div class="segmented" role="group" aria-label="Vista del mapa">
-            <button type="button" class="segment is-active" data-mode="points">Puntos</button>
-            <button type="button" class="segment" data-mode="grid">Malla</button>
-            <button type="button" class="segment" data-mode="mixed">Mixta</button>
+
+          <div class="segmented">
+            <button class="segment is-active" data-mode="points">Puntos</button>
+            <button class="segment" data-mode="grid">Malla</button>
+            <button class="segment" data-mode="mixed">Mixta</button>
           </div>
         </section>
 
@@ -71,14 +104,15 @@
           <div class="section-heading">
             <span>Categorías</span>
             <div class="mini-actions">
-              <button class="icon-button small" id="select-all" type="button" title="Seleccionar todo">
+              <button class="icon-button small" id="select-all" type="button">
                 <i data-lucide="list-checks"></i>
               </button>
-              <button class="icon-button small" id="clear-all" type="button" title="Limpiar selección">
+              <button class="icon-button small" id="clear-all" type="button">
                 <i data-lucide="x"></i>
               </button>
             </div>
           </div>
+
           <div class="category-list" id="category-list"></div>
         </section>
 
@@ -91,7 +125,7 @@
         </section>
       </aside>
 
-      <section class="map-panel" aria-label="Mapa">
+      <section class="map-panel">
         <div id="map"></div>
         <div class="legend" id="legend"></div>
       </section>
