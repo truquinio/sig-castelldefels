@@ -252,7 +252,7 @@ No pretende acreditar experiencia avanzada en SIG, sino mostrar una base prácti
 
 ## 👨‍💻 Autor
 
-### Federico Alberto Trucco
+### @truquinio - Federico Trucco
 
 📍 Castelldefels, Barcelona
 
