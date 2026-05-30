@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Docs - SIG Castelldefels</title>
+
+  <link rel="stylesheet" href="./css/styles2.css" />
+</head>
+
+<body>
+
+<header>
+  <strong>📘 Docs - SIG Castelldefels</strong>
+
+  <!-- ✅ vuelve al index correcto -->
+  <a class="btn" href="./index.html">
+    ← Volver al mapa
+  </a>
+</header>
+
+<div class="container">
+
+  <h1>🗺️ SIG Castelldefels</h1>
+
+  <p>Proyecto de análisis geoespacial de servicios urbanos con datos abiertos.</p>
+
+  <div class="card">
+    <h2>🧩 Stack tecnológico</h2>
+
+    <div class="stack-grid">
+
+      <div class="stack-card">
+        <div class="stack-icon">🗺️</div>
+        <div class="stack-text">
+          <strong>Leaflet</strong>
+          <span>Mapa interactivo</span>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-icon">🌍</div>
+        <div class="stack-text">
+          <strong>OpenStreetMap</strong>
+          <span>Datos abiertos geoespaciales</span>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-icon">🐘</div>
+        <div class="stack-text">
+          <strong>PostGIS</strong>
+          <span>Análisis espacial</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h2>🌐 Demo</h2>
+  <p>
+    <a href="./index.html">Abrir visor →</a>
+  </p>
+
+  <h2>📊 Resultados</h2>
+
+  <table>
+    <tr><th>Indicador</th><th>Valor</th></tr>
+    <tr><td>Área</td><td>12,91 km²</td></tr>
+    <tr><td>Puntos OSM</td><td>870</td></tr>
+    <tr><td>Celdas</td><td>57</td></tr>
+    <tr><td>Malla</td><td>500 m</td></tr>
+  </table>
+
+  <h2>🐘 SQL ejemplo</h2>
+
+  <pre>
+SELECT categoria, COUNT(*)
+FROM pois
+GROUP BY categoria;
+  </pre>
+
+  <h2>👨‍💻 Autor</h2>
+  <p>Federico Trucco / @truquinio</p>
+
+  <p>
+    <a href="https://github.com/truquinio" target="_blank">GitHub</a> ·
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+  </p>
+
+</div>
+
+</body>
+</html>
