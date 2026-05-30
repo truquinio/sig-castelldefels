@@ -1,0 +1,3092 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9424694313818098,
+              41.26392382321236
+            ],
+            [
+              1.948446260401446,
+              41.26392382321236
+            ],
+            [
+              1.948446260401446,
+              41.268415379087315
+            ],
+            [
+              1.9424694313818098,
+              41.268415379087315
+            ],
+            [
+              1.9424694313818098,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c1",
+        "count": 15,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 2,
+          "Restauración": 3,
+          "Ocio y turismo": 7,
+          "Otros servicios": 3
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 7
+          },
+          {
+            "category": "Restauración",
+            "value": 3
+          },
+          {
+            "category": "Otros servicios",
+            "value": 3
+          },
+          {
+            "category": "Comercio",
+            "value": 2
+          }
+        ],
+        "density_label": "15 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9484462604014463,
+              41.26392382321236
+            ],
+            [
+              1.9544230894210826,
+              41.26392382321236
+            ],
+            [
+              1.9544230894210826,
+              41.268415379087315
+            ],
+            [
+              1.9484462604014463,
+              41.268415379087315
+            ],
+            [
+              1.9484462604014463,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c2",
+        "count": 17,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 2,
+          "Salud": 1,
+          "Ocio y turismo": 8,
+          "Otros servicios": 6
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 8
+          },
+          {
+            "category": "Otros servicios",
+            "value": 6
+          },
+          {
+            "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Salud",
+            "value": 1
+          }
+        ],
+        "density_label": "17 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9544230894210826,
+              41.26392382321236
+            ],
+            [
+              1.9603999184407188,
+              41.26392382321236
+            ],
+            [
+              1.9603999184407188,
+              41.268415379087315
+            ],
+            [
+              1.9544230894210826,
+              41.268415379087315
+            ],
+            [
+              1.9544230894210826,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c3",
+        "count": 51,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 6,
+          "Restauración": 15,
+          "Ocio y turismo": 20,
+          "Oficinas": 1,
+          "Otros servicios": 9
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 20
+          },
+          {
+            "category": "Restauración",
+            "value": 15
+          },
+          {
+            "category": "Otros servicios",
+            "value": 9
+          },
+          {
+            "category": "Comercio",
+            "value": 6
+          },
+          {
+            "category": "Oficinas",
+            "value": 1
+          }
+        ],
+        "density_label": "51 puntos OSM",
+        "rank": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.960399918440719,
+              41.26392382321236
+            ],
+            [
+              1.9663767474603553,
+              41.26392382321236
+            ],
+            [
+              1.9663767474603553,
+              41.268415379087315
+            ],
+            [
+              1.960399918440719,
+              41.268415379087315
+            ],
+            [
+              1.960399918440719,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c4",
+        "count": 26,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 3,
+          "Restauración": 5,
+          "Administración y servicios": 1,
+          "Ocio y turismo": 16,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 16
+          },
+          {
+            "category": "Restauración",
+            "value": 5
+          },
+          {
+            "category": "Comercio",
+            "value": 3
+          },
+          {
+            "category": "Administración y servicios",
+            "value": 1
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "26 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9663767474603553,
+              41.26392382321236
+            ],
+            [
+              1.9723535764799915,
+              41.26392382321236
+            ],
+            [
+              1.9723535764799915,
+              41.268415379087315
+            ],
+            [
+              1.9663767474603553,
+              41.268415379087315
+            ],
+            [
+              1.9663767474603553,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c5",
+        "count": 77,
+        "top_category": "Restauración",
+        "categories": {
+          "Comercio": 12,
+          "Restauración": 37,
+          "Administración y servicios": 3,
+          "Salud": 1,
+          "Ocio y turismo": 17,
+          "Otros servicios": 7
+        },
+        "category_breakdown": [
+          {
+            "category": "Restauración",
+            "value": 37
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 17
+          },
+          {
+            "category": "Comercio",
+            "value": 12
+          },
+          {
+            "category": "Otros servicios",
+            "value": 7
+          },
+          {
+            "category": "Administración y servicios",
+            "value": 3
+          },
+          {
+            "category": "Salud",
+            "value": 1
+          }
+        ],
+        "density_label": "77 puntos OSM",
+        "rank": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9723535764799915,
+              41.26392382321236
+            ],
+            [
+              1.9783304054996278,
+              41.26392382321236
+            ],
+            [
+              1.9783304054996278,
+              41.268415379087315
+            ],
+            [
+              1.9723535764799915,
+              41.268415379087315
+            ],
+            [
+              1.9723535764799915,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c6",
+        "count": 32,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 11,
+          "Ocio y turismo": 19,
+          "Oficinas": 1,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 19
+          },
+          {
+            "category": "Restauración",
+            "value": 11
+          },
+          {
+            "category": "Oficinas",
+            "value": 1
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "32 puntos OSM",
+        "rank": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.978330405499628,
+              41.26392382321236
+            ],
+            [
+              1.9843072345192643,
+              41.26392382321236
+            ],
+            [
+              1.9843072345192643,
+              41.268415379087315
+            ],
+            [
+              1.978330405499628,
+              41.268415379087315
+            ],
+            [
+              1.978330405499628,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c7",
+        "count": 35,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 7,
+          "Ocio y turismo": 21,
+          "Oficinas": 1,
+          "Otros servicios": 6
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 21
+          },
+          {
+            "category": "Restauración",
+            "value": 7
+          },
+          {
+            "category": "Otros servicios",
+            "value": 6
+          },
+          {
+            "category": "Oficinas",
+            "value": 1
+          }
+        ],
+        "density_label": "35 puntos OSM",
+        "rank": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9843072345192643,
+              41.26392382321236
+            ],
+            [
+              1.9902840635389005,
+              41.26392382321236
+            ],
+            [
+              1.9902840635389005,
+              41.268415379087315
+            ],
+            [
+              1.9843072345192643,
+              41.268415379087315
+            ],
+            [
+              1.9843072345192643,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c8",
+        "count": 12,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 4,
+          "Ocio y turismo": 7,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 7
+          },
+          {
+            "category": "Restauración",
+            "value": 4
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "12 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9902840635389005,
+              41.26392382321236
+            ],
+            [
+              1.9962608925585368,
+              41.26392382321236
+            ],
+            [
+              1.9962608925585368,
+              41.268415379087315
+            ],
+            [
+              1.9902840635389005,
+              41.268415379087315
+            ],
+            [
+              1.9902840635389005,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c9",
+        "count": 28,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 4,
+          "Ocio y turismo": 13,
+          "Otros servicios": 11
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 13
+          },
+          {
+            "category": "Otros servicios",
+            "value": 11
+          },
+          {
+            "category": "Restauración",
+            "value": 4
+          }
+        ],
+        "density_label": "28 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.996260892558537,
+              41.26392382321236
+            ],
+            [
+              2.0022377215781733,
+              41.26392382321236
+            ],
+            [
+              2.0022377215781733,
+              41.268415379087315
+            ],
+            [
+              1.996260892558537,
+              41.268415379087315
+            ],
+            [
+              1.996260892558537,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c10",
+        "count": 19,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 2,
+          "Ocio y turismo": 13,
+          "Otros servicios": 4
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 13
+          },
+          {
+            "category": "Otros servicios",
+            "value": 4
+          },
+          {
+            "category": "Restauración",
+            "value": 2
+          }
+        ],
+        "density_label": "19 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9424694313818098,
+              41.268415379087315
+            ],
+            [
+              1.948446260401446,
+              41.268415379087315
+            ],
+            [
+              1.948446260401446,
+              41.27290693496227
+            ],
+            [
+              1.9424694313818098,
+              41.27290693496227
+            ],
+            [
+              1.9424694313818098,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c1",
+        "count": 14,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 1,
+          "Ocio y turismo": 13
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 13
+          },
+          {
+            "category": "Comercio",
+            "value": 1
+          }
+        ],
+        "density_label": "14 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9484462604014463,
+              41.268415379087315
+            ],
+            [
+              1.9544230894210826,
+              41.268415379087315
+            ],
+            [
+              1.9544230894210826,
+              41.27290693496227
+            ],
+            [
+              1.9484462604014463,
+              41.27290693496227
+            ],
+            [
+              1.9484462604014463,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c2",
+        "count": 6,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 1,
+          "Educación": 1,
+          "Ocio y turismo": 4
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 4
+          },
+          {
+            "category": "Restauración",
+            "value": 1
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "6 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9544230894210826,
+              41.268415379087315
+            ],
+            [
+              1.9603999184407188,
+              41.268415379087315
+            ],
+            [
+              1.9603999184407188,
+              41.27290693496227
+            ],
+            [
+              1.9544230894210826,
+              41.27290693496227
+            ],
+            [
+              1.9544230894210826,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c3",
+        "count": 1,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 1
+          }
+        ],
+        "density_label": "1 punto OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.960399918440719,
+              41.268415379087315
+            ],
+            [
+              1.9663767474603553,
+              41.268415379087315
+            ],
+            [
+              1.9663767474603553,
+              41.27290693496227
+            ],
+            [
+              1.960399918440719,
+              41.27290693496227
+            ],
+            [
+              1.960399918440719,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c4",
+        "count": 10,
+        "top_category": "Otros servicios",
+        "categories": {
+          "Restauración": 1,
+          "Educación": 3,
+          "Ocio y turismo": 1,
+          "Otros servicios": 5
+        },
+        "category_breakdown": [
+          {
+            "category": "Otros servicios",
+            "value": 5
+          },
+          {
+            "category": "Educación",
+            "value": 3
+          },
+          {
+            "category": "Restauración",
+            "value": 1
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 1
+          }
+        ],
+        "density_label": "10 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9663767474603553,
+              41.268415379087315
+            ],
+            [
+              1.9723535764799915,
+              41.268415379087315
+            ],
+            [
+              1.9723535764799915,
+              41.27290693496227
+            ],
+            [
+              1.9663767474603553,
+              41.27290693496227
+            ],
+            [
+              1.9663767474603553,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c5",
+        "count": 5,
+        "top_category": "Otros servicios",
+        "categories": {
+          "Restauración": 1,
+          "Salud": 1,
+          "Ocio y turismo": 1,
+          "Otros servicios": 2
+        },
+        "category_breakdown": [
+          {
+            "category": "Otros servicios",
+            "value": 2
+          },
+          {
+            "category": "Restauración",
+            "value": 1
+          },
+          {
+            "category": "Salud",
+            "value": 1
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 1
+          }
+        ],
+        "density_label": "5 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9723535764799915,
+              41.268415379087315
+            ],
+            [
+              1.9783304054996278,
+              41.268415379087315
+            ],
+            [
+              1.9783304054996278,
+              41.27290693496227
+            ],
+            [
+              1.9723535764799915,
+              41.27290693496227
+            ],
+            [
+              1.9723535764799915,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c6",
+        "count": 9,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Salud": 1,
+          "Ocio y turismo": 5,
+          "Otros servicios": 3
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 5
+          },
+          {
+            "category": "Otros servicios",
+            "value": 3
+          },
+          {
+            "category": "Salud",
+            "value": 1
+          }
+        ],
+        "density_label": "9 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.978330405499628,
+              41.268415379087315
+            ],
+            [
+              1.9843072345192643,
+              41.268415379087315
+            ],
+            [
+              1.9843072345192643,
+              41.27290693496227
+            ],
+            [
+              1.978330405499628,
+              41.27290693496227
+            ],
+            [
+              1.978330405499628,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c7",
+        "count": 17,
+        "top_category": "Restauración",
+        "categories": {
+          "Comercio": 3,
+          "Restauración": 6,
+          "Salud": 1,
+          "Educación": 1,
+          "Ocio y turismo": 4,
+          "Otros servicios": 2
+        },
+        "category_breakdown": [
+          {
+            "category": "Restauración",
+            "value": 6
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 4
+          },
+          {
+            "category": "Comercio",
+            "value": 3
+          },
+          {
+            "category": "Otros servicios",
+            "value": 2
+          },
+          {
+            "category": "Salud",
+            "value": 1
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "17 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9843072345192643,
+              41.268415379087315
+            ],
+            [
+              1.9902840635389005,
+              41.268415379087315
+            ],
+            [
+              1.9902840635389005,
+              41.27290693496227
+            ],
+            [
+              1.9843072345192643,
+              41.27290693496227
+            ],
+            [
+              1.9843072345192643,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c8",
+        "count": 32,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 1,
+          "Educación": 2,
+          "Ocio y turismo": 28,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 28
+          },
+          {
+            "category": "Educación",
+            "value": 2
+          },
+          {
+            "category": "Restauración",
+            "value": 1
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "32 puntos OSM",
+        "rank": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9902840635389005,
+              41.268415379087315
+            ],
+            [
+              1.9962608925585368,
+              41.268415379087315
+            ],
+            [
+              1.9962608925585368,
+              41.27290693496227
+            ],
+            [
+              1.9902840635389005,
+              41.27290693496227
+            ],
+            [
+              1.9902840635389005,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c9",
+        "count": 30,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Educación": 1,
+          "Ocio y turismo": 28,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 28
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "30 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.996260892558537,
+              41.268415379087315
+            ],
+            [
+              2.0022377215781733,
+              41.268415379087315
+            ],
+            [
+              2.0022377215781733,
+              41.27290693496227
+            ],
+            [
+              1.996260892558537,
+              41.27290693496227
+            ],
+            [
+              1.996260892558537,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c10",
+        "count": 13,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Administración y servicios": 1,
+          "Ocio y turismo": 11,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 11
+          },
+          {
+            "category": "Administración y servicios",
+            "value": 1
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "13 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9364926023621736,
+              41.272906934962265
+            ],
+            [
+              1.9424694313818098,
+              41.272906934962265
+            ],
+            [
+              1.9424694313818098,
+              41.27739849083722
+            ],
+            [
+              1.9364926023621736,
+              41.27739849083722
+            ],
+            [
+              1.9364926023621736,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c0",
+        "count": 1,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 1
+          }
+        ],
+        "density_label": "1 punto OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9424694313818098,
+              41.272906934962265
+            ],
+            [
+              1.948446260401446,
+              41.272906934962265
+            ],
+            [
+              1.948446260401446,
+              41.27739849083722
+            ],
+            [
+              1.9424694313818098,
+              41.27739849083722
+            ],
+            [
+              1.9424694313818098,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c1",
+        "count": 6,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 6
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 6
+          }
+        ],
+        "density_label": "6 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9484462604014463,
+              41.272906934962265
+            ],
+            [
+              1.9544230894210826,
+              41.272906934962265
+            ],
+            [
+              1.9544230894210826,
+              41.27739849083722
+            ],
+            [
+              1.9484462604014463,
+              41.27739849083722
+            ],
+            [
+              1.9484462604014463,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c2",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9544230894210826,
+              41.272906934962265
+            ],
+            [
+              1.9603999184407188,
+              41.272906934962265
+            ],
+            [
+              1.9603999184407188,
+              41.27739849083722
+            ],
+            [
+              1.9544230894210826,
+              41.27739849083722
+            ],
+            [
+              1.9544230894210826,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c3",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.960399918440719,
+              41.272906934962265
+            ],
+            [
+              1.9663767474603553,
+              41.272906934962265
+            ],
+            [
+              1.9663767474603553,
+              41.27739849083722
+            ],
+            [
+              1.960399918440719,
+              41.27739849083722
+            ],
+            [
+              1.960399918440719,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c4",
+        "count": 1,
+        "top_category": "Otros servicios",
+        "categories": {
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "1 punto OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9663767474603553,
+              41.272906934962265
+            ],
+            [
+              1.9723535764799915,
+              41.272906934962265
+            ],
+            [
+              1.9723535764799915,
+              41.27739849083722
+            ],
+            [
+              1.9663767474603553,
+              41.27739849083722
+            ],
+            [
+              1.9663767474603553,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c5",
+        "count": 2,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 2
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 2
+          }
+        ],
+        "density_label": "2 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9723535764799915,
+              41.272906934962265
+            ],
+            [
+              1.9783304054996278,
+              41.272906934962265
+            ],
+            [
+              1.9783304054996278,
+              41.27739849083722
+            ],
+            [
+              1.9723535764799915,
+              41.27739849083722
+            ],
+            [
+              1.9723535764799915,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c6",
+        "count": 24,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 1,
+          "Restauración": 2,
+          "Administración y servicios": 1,
+          "Salud": 3,
+          "Educación": 1,
+          "Ocio y turismo": 11,
+          "Otros servicios": 5
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 11
+          },
+          {
+            "category": "Otros servicios",
+            "value": 5
+          },
+          {
+            "category": "Salud",
+            "value": 3
+          },
+          {
+            "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Comercio",
+            "value": 1
+          },
+          {
+            "category": "Administración y servicios",
+            "value": 1
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "24 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.978330405499628,
+              41.272906934962265
+            ],
+            [
+              1.9843072345192643,
+              41.272906934962265
+            ],
+            [
+              1.9843072345192643,
+              41.27739849083722
+            ],
+            [
+              1.978330405499628,
+              41.27739849083722
+            ],
+            [
+              1.978330405499628,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c7",
+        "count": 16,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 3,
+          "Ocio y turismo": 13
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 13
+          },
+          {
+            "category": "Restauración",
+            "value": 3
+          }
+        ],
+        "density_label": "16 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9843072345192643,
+              41.272906934962265
+            ],
+            [
+              1.9902840635389005,
+              41.272906934962265
+            ],
+            [
+              1.9902840635389005,
+              41.27739849083722
+            ],
+            [
+              1.9843072345192643,
+              41.27739849083722
+            ],
+            [
+              1.9843072345192643,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c8",
+        "count": 25,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Restauración": 2,
+          "Educación": 1,
+          "Ocio y turismo": 9,
+          "Oficinas": 4,
+          "Otros servicios": 9
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 9
+          },
+          {
+            "category": "Otros servicios",
+            "value": 9
+          },
+          {
+            "category": "Oficinas",
+            "value": 4
+          },
+          {
+            "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "25 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9902840635389005,
+              41.272906934962265
+            ],
+            [
+              1.9962608925585368,
+              41.272906934962265
+            ],
+            [
+              1.9962608925585368,
+              41.27739849083722
+            ],
+            [
+              1.9902840635389005,
+              41.27739849083722
+            ],
+            [
+              1.9902840635389005,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c9",
+        "count": 3,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 2,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 2
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "3 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9424694313818098,
+              41.27739849083722
+            ],
+            [
+              1.948446260401446,
+              41.27739849083722
+            ],
+            [
+              1.948446260401446,
+              41.28189004671218
+            ],
+            [
+              1.9424694313818098,
+              41.28189004671218
+            ],
+            [
+              1.9424694313818098,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c1",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9484462604014463,
+              41.27739849083722
+            ],
+            [
+              1.9544230894210826,
+              41.27739849083722
+            ],
+            [
+              1.9544230894210826,
+              41.28189004671218
+            ],
+            [
+              1.9484462604014463,
+              41.28189004671218
+            ],
+            [
+              1.9484462604014463,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c2",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9544230894210826,
+              41.27739849083722
+            ],
+            [
+              1.9603999184407188,
+              41.27739849083722
+            ],
+            [
+              1.9603999184407188,
+              41.28189004671218
+            ],
+            [
+              1.9544230894210826,
+              41.28189004671218
+            ],
+            [
+              1.9544230894210826,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c3",
+        "count": 1,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 1
+          }
+        ],
+        "density_label": "1 punto OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.960399918440719,
+              41.27739849083722
+            ],
+            [
+              1.9663767474603553,
+              41.27739849083722
+            ],
+            [
+              1.9663767474603553,
+              41.28189004671218
+            ],
+            [
+              1.960399918440719,
+              41.28189004671218
+            ],
+            [
+              1.960399918440719,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c4",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9663767474603553,
+              41.27739849083722
+            ],
+            [
+              1.9723535764799915,
+              41.27739849083722
+            ],
+            [
+              1.9723535764799915,
+              41.28189004671218
+            ],
+            [
+              1.9663767474603553,
+              41.28189004671218
+            ],
+            [
+              1.9663767474603553,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c5",
+        "count": 9,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Educación": 2,
+          "Ocio y turismo": 7
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 7
+          },
+          {
+            "category": "Educación",
+            "value": 2
+          }
+        ],
+        "density_label": "9 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9723535764799915,
+              41.27739849083722
+            ],
+            [
+              1.9783304054996278,
+              41.27739849083722
+            ],
+            [
+              1.9783304054996278,
+              41.28189004671218
+            ],
+            [
+              1.9723535764799915,
+              41.28189004671218
+            ],
+            [
+              1.9723535764799915,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c6",
+        "count": 77,
+        "top_category": "Restauración",
+        "categories": {
+          "Comercio": 21,
+          "Restauración": 27,
+          "Administración y servicios": 8,
+          "Salud": 5,
+          "Ocio y turismo": 8,
+          "Otros servicios": 8
+        },
+        "category_breakdown": [
+          {
+            "category": "Restauración",
+            "value": 27
+          },
+          {
+            "category": "Comercio",
+            "value": 21
+          },
+          {
+            "category": "Administración y servicios",
+            "value": 8
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 8
+          },
+          {
+            "category": "Otros servicios",
+            "value": 8
+          },
+          {
+            "category": "Salud",
+            "value": 5
+          }
+        ],
+        "density_label": "77 puntos OSM",
+        "rank": 5
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.978330405499628,
+              41.27739849083722
+            ],
+            [
+              1.9843072345192643,
+              41.27739849083722
+            ],
+            [
+              1.9843072345192643,
+              41.28189004671218
+            ],
+            [
+              1.978330405499628,
+              41.28189004671218
+            ],
+            [
+              1.978330405499628,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c7",
+        "count": 36,
+        "top_category": "Otros servicios",
+        "categories": {
+          "Comercio": 7,
+          "Restauración": 7,
+          "Educación": 1,
+          "Ocio y turismo": 6,
+          "Oficinas": 2,
+          "Otros servicios": 13
+        },
+        "category_breakdown": [
+          {
+            "category": "Otros servicios",
+            "value": 13
+          },
+          {
+            "category": "Comercio",
+            "value": 7
+          },
+          {
+            "category": "Restauración",
+            "value": 7
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 6
+          },
+          {
+            "category": "Oficinas",
+            "value": 2
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "36 puntos OSM",
+        "rank": 3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9843072345192643,
+              41.27739849083722
+            ],
+            [
+              1.9902840635389005,
+              41.27739849083722
+            ],
+            [
+              1.9902840635389005,
+              41.28189004671218
+            ],
+            [
+              1.9843072345192643,
+              41.28189004671218
+            ],
+            [
+              1.9843072345192643,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c8",
+        "count": 21,
+        "top_category": "Otros servicios",
+        "categories": {
+          "Comercio": 4,
+          "Restauración": 2,
+          "Ocio y turismo": 6,
+          "Oficinas": 1,
+          "Otros servicios": 8
+        },
+        "category_breakdown": [
+          {
+            "category": "Otros servicios",
+            "value": 8
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 6
+          },
+          {
+            "category": "Comercio",
+            "value": 4
+          },
+          {
+            "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Oficinas",
+            "value": 1
+          }
+        ],
+        "density_label": "21 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9902840635389005,
+              41.27739849083722
+            ],
+            [
+              1.9962608925585368,
+              41.27739849083722
+            ],
+            [
+              1.9962608925585368,
+              41.28189004671218
+            ],
+            [
+              1.9902840635389005,
+              41.28189004671218
+            ],
+            [
+              1.9902840635389005,
+              41.27739849083722
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c9",
+        "count": 6,
+        "top_category": "Otros servicios",
+        "categories": {
+          "Ocio y turismo": 1,
+          "Otros servicios": 5
+        },
+        "category_breakdown": [
+          {
+            "category": "Otros servicios",
+            "value": 5
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 1
+          }
+        ],
+        "density_label": "6 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9544230894210826,
+              41.28189004671218
+            ],
+            [
+              1.9603999184407188,
+              41.28189004671218
+            ],
+            [
+              1.9603999184407188,
+              41.286381602587134
+            ],
+            [
+              1.9544230894210826,
+              41.286381602587134
+            ],
+            [
+              1.9544230894210826,
+              41.28189004671218
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r5_c3",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.960399918440719,
+              41.28189004671218
+            ],
+            [
+              1.9663767474603553,
+              41.28189004671218
+            ],
+            [
+              1.9663767474603553,
+              41.286381602587134
+            ],
+            [
+              1.960399918440719,
+              41.286381602587134
+            ],
+            [
+              1.960399918440719,
+              41.28189004671218
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r5_c4",
+        "count": 1,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 1
+          }
+        ],
+        "density_label": "1 punto OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9663767474603553,
+              41.28189004671218
+            ],
+            [
+              1.9723535764799915,
+              41.28189004671218
+            ],
+            [
+              1.9723535764799915,
+              41.286381602587134
+            ],
+            [
+              1.9663767474603553,
+              41.286381602587134
+            ],
+            [
+              1.9663767474603553,
+              41.28189004671218
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r5_c5",
+        "count": 9,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 8,
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 8
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "9 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9723535764799915,
+              41.28189004671218
+            ],
+            [
+              1.9783304054996278,
+              41.28189004671218
+            ],
+            [
+              1.9783304054996278,
+              41.286381602587134
+            ],
+            [
+              1.9723535764799915,
+              41.286381602587134
+            ],
+            [
+              1.9723535764799915,
+              41.28189004671218
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r5_c6",
+        "count": 48,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 2,
+          "Educación": 3,
+          "Ocio y turismo": 37,
+          "Otros servicios": 6
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 37
+          },
+          {
+            "category": "Otros servicios",
+            "value": 6
+          },
+          {
+            "category": "Educación",
+            "value": 3
+          },
+          {
+            "category": "Comercio",
+            "value": 2
+          }
+        ],
+        "density_label": "48 puntos OSM",
+        "rank": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.978330405499628,
+              41.28189004671218
+            ],
+            [
+              1.9843072345192643,
+              41.28189004671218
+            ],
+            [
+              1.9843072345192643,
+              41.286381602587134
+            ],
+            [
+              1.978330405499628,
+              41.286381602587134
+            ],
+            [
+              1.978330405499628,
+              41.28189004671218
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r5_c7",
+        "count": 52,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 4,
+          "Restauración": 4,
+          "Administración y servicios": 2,
+          "Salud": 3,
+          "Ocio y turismo": 30,
+          "Otros servicios": 9
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 30
+          },
+          {
+            "category": "Otros servicios",
+            "value": 9
+          },
+          {
+            "category": "Comercio",
+            "value": 4
+          },
+          {
+            "category": "Restauración",
+            "value": 4
+          },
+          {
+            "category": "Salud",
+            "value": 3
+          },
+          {
+            "category": "Administración y servicios",
+            "value": 2
+          }
+        ],
+        "density_label": "52 puntos OSM",
+        "rank": 4
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9843072345192643,
+              41.28189004671218
+            ],
+            [
+              1.9902840635389005,
+              41.28189004671218
+            ],
+            [
+              1.9902840635389005,
+              41.286381602587134
+            ],
+            [
+              1.9843072345192643,
+              41.286381602587134
+            ],
+            [
+              1.9843072345192643,
+              41.28189004671218
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r5_c8",
+        "count": 22,
+        "top_category": "Comercio",
+        "categories": {
+          "Comercio": 11,
+          "Restauración": 2,
+          "Salud": 2,
+          "Ocio y turismo": 4,
+          "Otros servicios": 3
+        },
+        "category_breakdown": [
+          {
+            "category": "Comercio",
+            "value": 11
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 4
+          },
+          {
+            "category": "Otros servicios",
+            "value": 3
+          },
+          {
+            "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Salud",
+            "value": 2
+          }
+        ],
+        "density_label": "22 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.960399918440719,
+              41.286381602587134
+            ],
+            [
+              1.9663767474603553,
+              41.286381602587134
+            ],
+            [
+              1.9663767474603553,
+              41.29087315846209
+            ],
+            [
+              1.960399918440719,
+              41.29087315846209
+            ],
+            [
+              1.960399918440719,
+              41.286381602587134
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r6_c4",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9663767474603553,
+              41.286381602587134
+            ],
+            [
+              1.9723535764799915,
+              41.286381602587134
+            ],
+            [
+              1.9723535764799915,
+              41.29087315846209
+            ],
+            [
+              1.9663767474603553,
+              41.29087315846209
+            ],
+            [
+              1.9663767474603553,
+              41.286381602587134
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r6_c5",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9723535764799915,
+              41.286381602587134
+            ],
+            [
+              1.9783304054996278,
+              41.286381602587134
+            ],
+            [
+              1.9783304054996278,
+              41.29087315846209
+            ],
+            [
+              1.9723535764799915,
+              41.29087315846209
+            ],
+            [
+              1.9723535764799915,
+              41.286381602587134
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r6_c6",
+        "count": 12,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 2,
+          "Educación": 1,
+          "Ocio y turismo": 7,
+          "Otros servicios": 2
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 7
+          },
+          {
+            "category": "Comercio",
+            "value": 2
+          },
+          {
+            "category": "Otros servicios",
+            "value": 2
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "12 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.978330405499628,
+              41.286381602587134
+            ],
+            [
+              1.9843072345192643,
+              41.286381602587134
+            ],
+            [
+              1.9843072345192643,
+              41.29087315846209
+            ],
+            [
+              1.978330405499628,
+              41.29087315846209
+            ],
+            [
+              1.978330405499628,
+              41.286381602587134
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r6_c7",
+        "count": 15,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 1,
+          "Restauración": 2,
+          "Salud": 2,
+          "Educación": 1,
+          "Ocio y turismo": 7,
+          "Otros servicios": 2
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 7
+          },
+          {
+            "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Salud",
+            "value": 2
+          },
+          {
+            "category": "Otros servicios",
+            "value": 2
+          },
+          {
+            "category": "Comercio",
+            "value": 1
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "15 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9843072345192643,
+              41.286381602587134
+            ],
+            [
+              1.9902840635389005,
+              41.286381602587134
+            ],
+            [
+              1.9902840635389005,
+              41.29087315846209
+            ],
+            [
+              1.9843072345192643,
+              41.29087315846209
+            ],
+            [
+              1.9843072345192643,
+              41.286381602587134
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r6_c8",
+        "count": 17,
+        "top_category": "Restauración",
+        "categories": {
+          "Comercio": 2,
+          "Restauración": 6,
+          "Ocio y turismo": 5,
+          "Otros servicios": 4
+        },
+        "category_breakdown": [
+          {
+            "category": "Restauración",
+            "value": 6
+          },
+          {
+            "category": "Ocio y turismo",
+            "value": 5
+          },
+          {
+            "category": "Otros servicios",
+            "value": 4
+          },
+          {
+            "category": "Comercio",
+            "value": 2
+          }
+        ],
+        "density_label": "17 puntos OSM",
+        "rank": 2
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9663767474603553,
+              41.29087315846209
+            ],
+            [
+              1.9723535764799915,
+              41.29087315846209
+            ],
+            [
+              1.9723535764799915,
+              41.29536471433705
+            ],
+            [
+              1.9663767474603553,
+              41.29536471433705
+            ],
+            [
+              1.9663767474603553,
+              41.29087315846209
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r7_c5",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9723535764799915,
+              41.29087315846209
+            ],
+            [
+              1.9783304054996278,
+              41.29087315846209
+            ],
+            [
+              1.9783304054996278,
+              41.29536471433705
+            ],
+            [
+              1.9723535764799915,
+              41.29536471433705
+            ],
+            [
+              1.9723535764799915,
+              41.29087315846209
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r7_c6",
+        "count": 0,
+        "top_category": null,
+        "categories": {},
+        "category_breakdown": [],
+        "density_label": "Sin puntos OSM",
+        "rank": 0
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.978330405499628,
+              41.29087315846209
+            ],
+            [
+              1.9843072345192643,
+              41.29087315846209
+            ],
+            [
+              1.9843072345192643,
+              41.29536471433705
+            ],
+            [
+              1.978330405499628,
+              41.29536471433705
+            ],
+            [
+              1.978330405499628,
+              41.29087315846209
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r7_c7",
+        "count": 1,
+        "top_category": "Otros servicios",
+        "categories": {
+          "Otros servicios": 1
+        },
+        "category_breakdown": [
+          {
+            "category": "Otros servicios",
+            "value": 1
+          }
+        ],
+        "density_label": "1 punto OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9902840635389005,
+              41.28189004671218
+            ],
+            [
+              1.9962608925585368,
+              41.28189004671218
+            ],
+            [
+              1.9962608925585368,
+              41.286381602587134
+            ],
+            [
+              1.9902840635389005,
+              41.286381602587134
+            ],
+            [
+              1.9902840635389005,
+              41.28189004671218
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r5_c9",
+        "count": 3,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Comercio": 1,
+          "Ocio y turismo": 2
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 2
+          },
+          {
+            "category": "Comercio",
+            "value": 1
+          }
+        ],
+        "density_label": "3 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.0022377215781733,
+              41.26392382321236
+            ],
+            [
+              2.0082145505978097,
+              41.26392382321236
+            ],
+            [
+              2.0082145505978097,
+              41.268415379087315
+            ],
+            [
+              2.0022377215781733,
+              41.268415379087315
+            ],
+            [
+              2.0022377215781733,
+              41.26392382321236
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r1_c11",
+        "count": 2,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 2
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 2
+          }
+        ],
+        "density_label": "2 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.9364926023621736,
+              41.268415379087315
+            ],
+            [
+              1.9424694313818098,
+              41.268415379087315
+            ],
+            [
+              1.9424694313818098,
+              41.27290693496227
+            ],
+            [
+              1.9364926023621736,
+              41.27290693496227
+            ],
+            [
+              1.9364926023621736,
+              41.268415379087315
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r2_c0",
+        "count": 8,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 8
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 8
+          }
+        ],
+        "density_label": "8 puntos OSM",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.996260892558537,
+              41.272906934962265
+            ],
+            [
+              2.0022377215781733,
+              41.272906934962265
+            ],
+            [
+              2.0022377215781733,
+              41.27739849083722
+            ],
+            [
+              1.996260892558537,
+              41.27739849083722
+            ],
+            [
+              1.996260892558537,
+              41.272906934962265
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r3_c10",
+        "count": 3,
+        "top_category": "Ocio y turismo",
+        "categories": {
+          "Ocio y turismo": 3
+        },
+        "category_breakdown": [
+          {
+            "category": "Ocio y turismo",
+            "value": 3
+          }
+        ],
+        "density_label": "3 puntos OSM",
+        "rank": 1
+      }
+    }
+  ]
+}

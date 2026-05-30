@@ -1,0 +1,19 @@
+[out:json][timeout:90];
+(
+  node["amenity"~"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|parking|bicycle_parking|bicycle_rental|marketplace|community_centre|theatre|cinema|arts_centre)$"](41.253492,1.927375,41.306452,2.013197);
+  node["shop"](41.253492,1.927375,41.306452,2.013197);
+  node["office"](41.253492,1.927375,41.306452,2.013197);
+  node["tourism"~"^(hotel|hostel|apartment|guest_house|information|attraction|museum|viewpoint)$"](41.253492,1.927375,41.306452,2.013197);
+  node["leisure"~"^(park|playground|sports_centre|fitness_centre|pitch|garden|nature_reserve)$"](41.253492,1.927375,41.306452,2.013197);
+  way["amenity"~"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|parking|bicycle_parking|bicycle_rental|marketplace|community_centre|theatre|cinema|arts_centre)$"](41.253492,1.927375,41.306452,2.013197);
+  way["shop"](41.253492,1.927375,41.306452,2.013197);
+  way["office"](41.253492,1.927375,41.306452,2.013197);
+  way["tourism"~"^(hotel|hostel|apartment|guest_house|information|attraction|museum|viewpoint)$"](41.253492,1.927375,41.306452,2.013197);
+  way["leisure"~"^(park|playground|sports_centre|fitness_centre|pitch|garden|nature_reserve)$"](41.253492,1.927375,41.306452,2.013197);
+  relation["amenity"~"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|parking|bicycle_parking|bicycle_rental|marketplace|community_centre|theatre|cinema|arts_centre)$"](41.253492,1.927375,41.306452,2.013197);
+  relation["shop"](41.253492,1.927375,41.306452,2.013197);
+  relation["office"](41.253492,1.927375,41.306452,2.013197);
+  relation["tourism"~"^(hotel|hostel|apartment|guest_house|information|attraction|museum|viewpoint)$"](41.253492,1.927375,41.306452,2.013197);
+  relation["leisure"~"^(park|playground|sports_centre|fitness_centre|pitch|garden|nature_reserve)$"](41.253492,1.927375,41.306452,2.013197);
+);
+out center tags;

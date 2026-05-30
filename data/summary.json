@@ -1,0 +1,89 @@
+{
+  "title": "Actividades y servicios urbanos en Castelldefels",
+  "generated_at": "2026-05-30T15:57:36.043Z",
+  "municipality": "Castelldefels",
+  "comarca": "Baix Llobregat",
+  "area_km2_icgc": 12.91,
+  "total_pois": 870,
+  "cell_size_m": 500,
+  "categories": [
+    {
+      "category": "Comercio",
+      "count": 83
+    },
+    {
+      "category": "Restauración",
+      "count": 157
+    },
+    {
+      "category": "Administración y servicios",
+      "count": 16
+    },
+    {
+      "category": "Salud",
+      "count": 20
+    },
+    {
+      "category": "Educación",
+      "count": 18
+    },
+    {
+      "category": "Ocio y turismo",
+      "count": 424
+    },
+    {
+      "category": "Oficinas",
+      "count": 10
+    },
+    {
+      "category": "Otros servicios",
+      "count": 142
+    }
+  ],
+  "top_cells": [
+    {
+      "id": "r1_c5",
+      "count": 77,
+      "top_category": "Restauración"
+    },
+    {
+      "id": "r4_c6",
+      "count": 77,
+      "top_category": "Restauración"
+    },
+    {
+      "id": "r5_c7",
+      "count": 52,
+      "top_category": "Ocio y turismo"
+    },
+    {
+      "id": "r1_c3",
+      "count": 51,
+      "top_category": "Ocio y turismo"
+    },
+    {
+      "id": "r5_c6",
+      "count": 48,
+      "top_category": "Ocio y turismo"
+    }
+  ],
+  "limitations": [
+    "Los puntos proceden de OpenStreetMap y no equivalen al Censo de Actividades Económicas municipal.",
+    "El análisis usa una selección de etiquetas OSM amenity, shop, office, tourism y leisure dentro del límite oficial ICGC.",
+    "La malla de 500 m resume concentración de puntos, no densidad económica ni afluencia real."
+  ],
+  "sources": {
+    "icgc": {
+      "name": "ICGC - Divisions administratives, municipis 1:5.000",
+      "url": "https://maps.icgc.cat/vector01/rest/services/divisions_administratives_wfs/MapServer/2/query?where=NOMMUNI%3D%27Castelldefels%27&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
+      "data_date": "20/01/2026"
+    },
+    "osm": {
+      "name": "OpenStreetMap via Overpass API",
+      "endpoint": "https://overpass-api.de/api/interpreter",
+      "license": "ODbL",
+      "license_url": "https://www.openstreetmap.org/copyright",
+      "query": "[out:json][timeout:90];\n(\n  node[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|parking|bicycle_parking|bicycle_rental|marketplace|community_centre|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"tourism\"~\"^(hotel|hostel|apartment|guest_house|information|attraction|museum|viewpoint)$\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"leisure\"~\"^(park|playground|sports_centre|fitness_centre|pitch|garden|nature_reserve)$\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|parking|bicycle_parking|bicycle_rental|marketplace|community_centre|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"tourism\"~\"^(hotel|hostel|apartment|guest_house|information|attraction|museum|viewpoint)$\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"leisure\"~\"^(park|playground|sports_centre|fitness_centre|pitch|garden|nature_reserve)$\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|parking|bicycle_parking|bicycle_rental|marketplace|community_centre|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"tourism\"~\"^(hotel|hostel|apartment|guest_house|information|attraction|museum|viewpoint)$\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"leisure\"~\"^(park|playground|sports_centre|fitness_centre|pitch|garden|nature_reserve)$\"](41.253492,1.927375,41.306452,2.013197);\n);\nout center tags;"
+    }
+  }
+}
