@@ -66,7 +66,35 @@ test("history index is consumed as a separate comparable OSM series", () => {
   assert.match(app, /Serie comparable OSM/);
 });
 
-test("institutional shell credits Federico Trucco discreetly and links GitHub", () => {
+test("PWA shell exposes manifest, theme metadata and service worker registration", async () => {
+  assert.match(html, /rel="manifest" href="\.\/manifest\.webmanifest"/);
+  assert.match(html, /apple-mobile-web-app-capable/);
+  assert.match(app, /navigator\.serviceWorker\.register\("\.\/sw\.js"/);
+  const manifest = JSON.parse(await readFile(new URL("../web/manifest.webmanifest", import.meta.url), "utf8"));
+  assert.equal(manifest.display, "standalone");
+  assert.equal(manifest.start_url, "./index.html");
+  assert.ok(Array.isArray(manifest.icons) && manifest.icons.length >= 2);
+});
+
+test("PWA service worker provides versioned cache and offline fallback", async () => {
+  const sw = await readFile(new URL("../web/sw.js", import.meta.url), "utf8");
+  assert.match(sw, /CACHE_VERSION/);
+  assert.match(sw, /offline\.html/);
+  assert.match(sw, /caches\.delete/);
+  const offline = await readFile(new URL("../web/offline.html", import.meta.url), "utf8");
+  assert.match(offline, /Sin conexión/);
+});
+
+test("mobile-first accessibility shell exposes skip link and semantic author links", () => {
+  assert.match(html, /class="skip-link"/);
+  assert.match(html, /href="#dashboard"/);
+  assert.match(html, /aria-label="GitHub de Federico Trucco"/);
+  assert.match(html, /aria-label="LinkedIn de Federico Trucco"/);
+  assert.match(html, /https:\/\/www\.linkedin\.com\/in\/federico-trucco\//);
+});
+
+test("author attribution is more visible without becoming a primary action", () => {
+  assert.match(html, /SIG Castelldefels · v0\.6/);
   assert.match(html, /Federico Trucco/);
   assert.match(html, /https:\/\/github\.com\/truquinio/);
 });

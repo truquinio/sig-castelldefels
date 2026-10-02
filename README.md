@@ -2,7 +2,7 @@
 
 # 🗺️ SIG Castelldefels
 
-### Visor territorial de establecimientos económicos con datos abiertos
+### Visor territorial mobile-first y PWA de establecimientos económicos con datos abiertos
 
 [![Demo](https://img.shields.io/badge/Abrir%20demo-GitHub%20Pages-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white)](https://truquinio.github.io/sig-castelldefels/web/index.html)
 
@@ -43,7 +43,9 @@ flowchart LR
 - identificar si un establecimiento está **corroborado por OSM + Overture** o sólo aparece en una fuente;
 - consultar la evolución anual comparable de registros OSM 2016–2025 como contexto, sin confundirla con un censo administrativo;
 - usar malla de 500 m y 3D contextual como controles secundarios dentro del mapa;
-- exportar el resultado filtrado a GeoJSON.
+- exportar el resultado filtrado a GeoJSON;
+- instalar el visor como **PWA** y seguir accediendo al inventario previamente cargado sin conexión;
+- utilizar la interfaz con navegación táctil, teclado y diseño responsive desde móvil hasta escritorio.
 
 ## 📊 Dataset incluido
 
@@ -81,6 +83,7 @@ El histórico se mantiene separado del inventario actual: `npm run history:stats
 **Datos:** OpenStreetMap · Overpass API · Overture Maps Places · GeoJSON
 **Análisis:** PostgreSQL / PostGIS  
 **Mapa:** Leaflet (2D) · MapLibre GL JS/OpenFreeMap (3D opcional) · HTML · CSS · JavaScript
+**UX/PWA:** mobile-first · manifest web app · service worker · offline fallback · safe areas · targets táctiles · foco visible · reduced motion
 **Referencia territorial:** ICGC / límite municipal utilizado por el proyecto  
 **CRS:** ETRS89 / UTM 31N (EPSG:25831) para la malla métrica · WGS84 / EPSG:4326 para GeoJSON/web
 

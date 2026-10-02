@@ -46,6 +46,16 @@ const poiLayer=L.geoJSON(null,{
 map.fitBounds(boundaryLayer.getBounds(),{padding:[24,24]});
 
 setup();
+registerServiceWorker();
+
+async function registerServiceWorker(){
+  if(!("serviceWorker" in navigator))return;
+  try{
+    await navigator.serviceWorker.register("./sw.js",{scope:"./"});
+  }catch(error){
+    console.warn("Service worker no disponible",error);
+  }
+}
 
 async function setup(){
   buildCategorySelect();
@@ -92,8 +102,12 @@ function bindControls(){
   });
   document.querySelectorAll("[data-section-target]").forEach(button=>{
     button.addEventListener("click",()=>{
-      document.querySelectorAll(".nav-item").forEach(item=>item.classList.remove("is-active"));
+      document.querySelectorAll(".nav-item").forEach(item=>{
+        item.classList.remove("is-active");
+        item.removeAttribute("aria-current");
+      });
       button.classList.add("is-active");
+      button.setAttribute("aria-current","page");
       document.querySelector("#"+button.dataset.sectionTarget)?.scrollIntoView({behavior:"smooth",block:"start"});
     });
   });

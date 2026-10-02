@@ -2,9 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#102a3a" />
+  <meta name="color-scheme" content="light" />
+  <meta name="description" content="SIG Castelldefels: visor territorial de establecimientos económicos observados en fuentes abiertas." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="SIG Castelldefels" />
   <title>SIG Castelldefels · Establecimientos económicos</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="./css/styles.css" />
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -13,31 +21,41 @@
   <script defer src="./js/app.js"></script>
 </head>
 <body>
+<a class="skip-link" href="#dashboard">Saltar al contenido principal</a>
+
 <header class="topbar">
-  <a class="brand" href="./index.html" aria-label="SIG Castelldefels">
+  <a class="brand" href="./index.html" aria-label="SIG Castelldefels, inicio">
     <div class="brand-mark" aria-hidden="true">SIG</div>
-    <div>
+    <div class="brand-copy">
       <div class="brand-line">SIG Castelldefels</div>
       <div class="brand-subtitle">Establecimientos económicos · datos abiertos</div>
     </div>
   </a>
   <div class="top-actions">
-    <span class="status-pill"><span class="status-dot"></span>Inventario cargado</span>
+    <span class="status-pill" aria-live="polite"><span class="status-dot"></span><span>Inventario cargado</span></span>
     <a class="action-button secondary" href="./docs.html"><i data-lucide="database"></i><span>Datos y método</span></a>
     <button class="action-button primary" id="download-filtered" type="button"><i data-lucide="download"></i><span>Exportar</span></button>
   </div>
 </header>
 
 <div class="workspace">
-  <aside class="nav-rail" aria-label="Secciones">
-    <button class="nav-item is-active" type="button" data-section-target="dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
-    <button class="nav-item" type="button" data-section-target="map-section"><i data-lucide="map"></i><span>Establecimientos</span></button>
+  <aside class="nav-rail" aria-label="Navegación principal">
+    <button class="nav-item is-active" type="button" data-section-target="dashboard" aria-current="page"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
+    <button class="nav-item" type="button" data-section-target="map-section"><i data-lucide="map"></i><span>Mapa</span></button>
     <button class="nav-item" type="button" data-section-target="history"><i data-lucide="chart-no-axes-combined"></i><span>Evolución</span></button>
-    <a class="nav-item" href="./docs.html"><i data-lucide="database"></i><span>Datos y método</span></a>
-    <div class="nav-footer">SIG Castelldefels · v0.5<br><a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer">Federico Trucco</a></div>
+    <a class="nav-item" href="./docs.html"><i data-lucide="database"></i><span>Datos</span></a>
+
+    <div class="nav-footer">
+      <div class="author-version">SIG Castelldefels · v0.6</div>
+      <a class="author-name" href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer">Federico Trucco</a>
+      <div class="author-links" aria-label="Perfiles de Federico Trucco">
+        <a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Federico Trucco"><i data-lucide="github"></i><span>GitHub</span></a>
+        <a href="https://www.linkedin.com/in/federico-trucco/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Federico Trucco"><i data-lucide="linkedin"></i><span>LinkedIn</span></a>
+      </div>
+    </div>
   </aside>
 
-  <main class="dashboard" id="dashboard">
+  <main class="dashboard" id="dashboard" tabindex="-1">
     <section class="page-heading">
       <div>
         <span class="eyebrow">Visor territorial de actividades económicas</span>
@@ -54,9 +72,9 @@
     </section>
 
     <section class="toolbar-card" aria-label="Filtros">
-      <div class="search-box"><i data-lucide="search"></i><input id="search-input" type="search" placeholder="Buscar establecimiento, categoría o tipo…" aria-label="Buscar establecimientos" /></div>
+      <div class="search-box"><i data-lucide="search"></i><input id="search-input" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar establecimiento, categoría o tipo…" aria-label="Buscar establecimientos" /></div>
       <label class="select-wrap">Categoría<select id="category-select"><option value="__all__">Todas las categorías</option></select></label>
-      <button class="soft-button" id="reset-filters" type="button"><i data-lucide="rotate-ccw"></i> Restablecer</button>
+      <button class="soft-button" id="reset-filters" type="button"><i data-lucide="rotate-ccw"></i><span>Restablecer</span></button>
     </section>
 
     <section class="content-grid">
@@ -66,7 +84,7 @@
           <span class="panel-badge" id="map-count">0 visibles</span>
         </div>
         <div class="map-wrap">
-          <div id="map"></div>
+          <div id="map" aria-label="Mapa de establecimientos económicos de Castelldefels"></div>
           <div id="map-3d" hidden aria-label="Vista 3D contextual"></div>
           <div class="map-tools" aria-label="Controles del mapa">
             <div class="dimension-switch" id="map-dimension" role="group" aria-label="Modo de mapa">
@@ -110,6 +128,17 @@
         <p class="quality-note">“Corroborado” significa coincidencia suficiente entre fuentes abiertas; no equivale a validación administrativa municipal.</p>
       </article>
     </section>
+
+    <footer class="site-footer">
+      <div>
+        <span>SIG Castelldefels · v0.6</span>
+        <strong>Federico Trucco</strong>
+      </div>
+      <nav aria-label="Perfiles del autor">
+        <a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Federico Trucco"><i data-lucide="github"></i><span>GitHub</span></a>
+        <a href="https://www.linkedin.com/in/federico-trucco/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Federico Trucco"><i data-lucide="linkedin"></i><span>LinkedIn</span></a>
+      </nav>
+    </footer>
   </main>
 </div>
 </body>
