@@ -117,6 +117,14 @@ sig-castelldefels/
 - explorar publicación mediante GeoServer/QGIS Server;
 - añadir nuevos indicadores territoriales verificables.
 
+## 🔏 Uso y reutilización
+
+El código se publica como parte de un portfolio técnico, pero **no concede actualmente una licencia open source de reutilización**.
+
+Los datos y servicios de terceros mantienen sus propias licencias y condiciones de uso.
+
+© 2026 Federico Trucco. All rights reserved.
+
 ---
 
 **Federico Trucco / [@truquinio](https://github.com/truquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
