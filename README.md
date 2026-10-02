@@ -35,21 +35,16 @@ flowchart LR
     M --> L["Leaflet 2D + MapLibre 3D"]
 ~~~
 
-## 📸 Capturas
-
-| Vista general | Malla | Vista mixta |
-| --- | --- | --- |
-| [![Vista general](https://iili.io/C35wAdJ.md.png)](https://freeimage.host/i/C35wAdJ) | [![Vista de malla](https://iili.io/C35wI0g.md.png)](https://freeimage.host/i/C35wI0g) | [![Vista mixta](https://iili.io/C35wTga.md.png)](https://freeimage.host/i/C35wTga) |
-
 ## ✨ Qué permite hacer
 
+- consultar un **dashboard operativo** con KPIs, mapa y gráficos por categoría;
 - visualizar actividades económicas observadas en OpenStreetMap y Overture Maps Places;
-- filtrar por categoría;
-- comparar distribución mediante malla;
-- consultar información mediante popups;
-- ejecutar consultas espaciales con PostGIS;
+- filtrar por categoría y buscar por nombre/subcategoría;
+- recorrer una **ventana móvil de los últimos 10 años → año actual** con una línea temporal que se adapta automáticamente al calendario;
+- consultar la evolución anual OSM histórica; cuando existe geometría histórica local, el mapa también cambia de año;
+- comparar distribución mediante malla de 500 m;
 - alternar entre análisis 2D y una vista 3D ligera de edificios;
-- explorar el resultado en un visor web público.
+- exportar el resultado filtrado a GeoJSON.
 
 ## 📊 Dataset incluido
 
@@ -72,11 +67,15 @@ npm install
 python -m pip install -r requirements-overture.txt
 npm run fetch:overture
 node scripts/build-data.mjs
+npm run history:stats
+# npm run history:maps   # opcional; depende de disponibilidad de Overpass attic
 npm test
 npm run check
 ~~~
 
 Si Overpass está temporalmente caído, `npm run rebuild:offline` reconstruye clasificación, deduplicación y malla usando el último snapshot OSM guardado, sin presentarlo como una descarga nueva.
+
+El histórico usa dos niveles deliberadamente separados: `npm run history:stats` obtiene la serie anual OSM mediante **ohsome API** con el límite municipal exacto; `npm run history:maps` intenta generar snapshots cartográficos mediante datos *attic* de Overpass. Si estos servidores públicos no responden, el dashboard conserva la serie estadística y no mezcla geometrías actuales con años históricos.
 
 ## 🧰 Stack
 
@@ -117,8 +116,9 @@ sig-castelldefels/
 | Fuente | Uso |
 | --- | --- |
 | OpenStreetMap | Actividades/establecimientos observables; ODbL |
-| Overpass API | Extracción reproducible de elementos OSM |
-| Overture Maps Places | Segunda fuente de lugares/negocios con confianza y taxonomía; licencias permisivas según proveedor |
+| Overpass API | Extracción reproducible de elementos OSM y snapshots históricos cartográficos cuando el servicio attic está disponible |
+| ohsome API | Serie estadística histórica anual de OSM, recortada al límite municipal |
+| Overture Maps Places | Segunda fuente actual de lugares/negocios con confianza y taxonomía; licencias permisivas según proveedor |
 | ICGC | Límite municipal y referencia territorial |
 | EPSG:25831 | Construcción métrica de la malla de 500 m |
 | WGS84 / EPSG:4326 | Publicación GeoJSON y web |
@@ -128,6 +128,7 @@ sig-castelldefels/
 - no representa el Censo de Actividades Económicas municipal;
 - no utiliza datos internos ni privados del Ayuntamiento;
 - OpenStreetMap y Overture Maps pueden contener información incompleta, desactualizada o clasificada incorrectamente;
+- la serie histórica refleja **qué estaba representado en OSM al cierre de cada año**, no el número real de establecimientos existentes en ese momento;
 - Overture se filtra por confianza, taxonomía, nombre, límite municipal y reglas de deduplicación; no se acepta ciegamente su categoría;
 - Google Maps y directorios web no se copian al dataset persistente cuando sus condiciones de reutilización no lo permiten;
 - la malla de 500 m se genera en EPSG:25831 y representa concentración de actividades observadas, no actividad económica real;

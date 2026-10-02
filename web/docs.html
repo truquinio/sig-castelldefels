@@ -57,12 +57,29 @@
     </div>
   </div>
 
-  <h2>🌐 Demo</h2>
+  <h2>🌐 Dashboard</h2>
   <p>
-    <a href="./index.html">Abrir visor →</a>
+    <a href="./index.html">Abrir dashboard →</a>
+  </p>
+  <p>
+    La portada está pensada para consulta rápida: KPIs, mapa, filtro por categoría,
+    gráfico de distribución y una línea temporal de los últimos diez años.
   </p>
 
-  <h2>📊 Resultados</h2>
+  <h2>🕒 Histórico</h2>
+  <p>
+    Se conserva una ventana móvil de diez años de conteos OSM obtenida mediante
+    ohsome API sobre el límite municipal exacto (actualmente 2016–2025). Estos valores describen lo que
+    estaba representado en OpenStreetMap al cierre de cada año y no equivalen a
+    un censo real de establecimientos.
+  </p>
+  <p>
+    Los snapshots cartográficos históricos se incorporan sólo cuando el servicio
+    attic de Overpass responde. Si no hay geometría histórica, el dashboard muestra
+    el conteo anual pero deja el mapa vacío para evitar mezclar datos de épocas distintas.
+  </p>
+
+  <h2>📊 Resultados actuales</h2>
 
   <table>
     <tr><th>Indicador</th><th>Valor</th></tr>

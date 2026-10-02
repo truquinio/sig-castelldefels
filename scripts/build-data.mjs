@@ -126,7 +126,7 @@ function pointInFeature(point, feature) {
   return false;
 }
 
-function buildOverpassQuery({ minLon, minLat, maxLon, maxLat }) {
+function buildOverpassQuery({ minLon, minLat, maxLon, maxLat, snapshotDate = null }) {
   const margin = 0.01;
   const south = (minLat - margin).toFixed(6);
   const west = (minLon - margin).toFixed(6);
@@ -148,7 +148,8 @@ function buildOverpassQuery({ minLon, minLat, maxLon, maxLat }) {
     }
   }
 
-  return `[out:json][timeout:90];
+  const dateClause = snapshotDate ? `[date:"${snapshotDate}"]` : "";
+  return `[out:json][timeout:90]${dateClause};
 (
 ${clauses.join("\n")}
 );
@@ -1018,7 +1019,11 @@ async function writeJson(path, data) {
   await writeFile(path, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+export { buildOverpassQuery, fetchOverpass, getBbox, pointInFeature, elementToPoi, sortByCategoryThenName };
+
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

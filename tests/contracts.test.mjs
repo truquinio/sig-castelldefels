@@ -38,3 +38,19 @@ test("segmented view buttons declare button type", () => {
   assert.ok(segments.length >= 3);
   segments.forEach((tag) => assert.match(tag, /type="button"/));
 });
+
+test("dashboard exposes simple KPIs, category chart and temporal controls", () => {
+  for (const id of ["metric-total", "metric-named", "metric-top-category", "category-chart", "history-chart", "year-slider", "year-value"]) {
+    assert.match(html, new RegExp(`id="${id}"`), id);
+  }
+});
+
+test("timeline end year follows the browser current year instead of a hard-coded 2026", () => {
+  assert.match(app, /new Date\(\)\.getFullYear\(\)/);
+  assert.match(app, /year-slider/);
+});
+
+test("historical snapshots are loaded separately from the current combined inventory", () => {
+  assert.match(app, /history\/index\.json/);
+  assert.match(app, /source_scope/);
+});

@@ -1,0 +1,162 @@
+{
+  "generated_at": "2026-10-02T17:42:11.383Z",
+  "source_scope": "OpenStreetMap historical statistics via ohsome; optional cartographic snapshots via Overpass",
+  "note": "Historical totals reflect OSM representation at each year-end and are not an official census. Current year uses combined OSM + Overture data.",
+  "years": [
+    {
+      "year": 2016,
+      "total": 154,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "The operation was aborted due to timeout",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2016-12-31T00:00:00Z"
+    },
+    {
+      "year": 2017,
+      "total": 171,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "HTTP 504 for https://z.overpass-api.de/api/interpreter: <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n    \"htt",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2017-12-31T00:00:00Z"
+    },
+    {
+      "year": 2018,
+      "total": 189,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "The operation was aborted due to timeout",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2018-12-31T00:00:00Z"
+    },
+    {
+      "year": 2019,
+      "total": 212,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "The operation was aborted due to timeout",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2019-12-31T00:00:00Z"
+    },
+    {
+      "year": 2020,
+      "total": 231,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "HTTP 429 for https://z.overpass-api.de/api/interpreter: <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n    \"htt",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2020-12-31T00:00:00Z"
+    },
+    {
+      "year": 2021,
+      "total": 260,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "The operation was aborted due to timeout",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2021-12-31T00:00:00Z"
+    },
+    {
+      "year": 2022,
+      "total": 278,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "The operation was aborted due to timeout",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2022-12-31T00:00:00Z"
+    },
+    {
+      "year": 2023,
+      "total": 281,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "The operation was aborted due to timeout",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2023-12-31T00:00:00Z"
+    },
+    {
+      "year": 2024,
+      "total": 324,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "The operation was aborted due to timeout",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2024-12-31T00:00:00Z"
+    },
+    {
+      "year": 2025,
+      "total": 329,
+      "available": false,
+      "source_scope": "historical-osm",
+      "error": "HTTP 504 for https://z.overpass-api.de/api/interpreter: <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n    \"htt",
+      "stats_available": true,
+      "stats_source": "ohsome-api",
+      "stats_at": "2025-12-31T00:00:00Z"
+    },
+    {
+      "year": 2026,
+      "total": 985,
+      "named_count": null,
+      "available": true,
+      "current": true,
+      "source_scope": "current-combined",
+      "categories": [
+        {
+          "category": "Comercio minorista",
+          "count": 207
+        },
+        {
+          "category": "Restauración",
+          "count": 332
+        },
+        {
+          "category": "Alojamiento turístico",
+          "count": 40
+        },
+        {
+          "category": "Salud y bienestar",
+          "count": 98
+        },
+        {
+          "category": "Educación",
+          "count": 66
+        },
+        {
+          "category": "Servicios financieros",
+          "count": 23
+        },
+        {
+          "category": "Movilidad y automoción",
+          "count": 41
+        },
+        {
+          "category": "Ocio, cultura y deporte",
+          "count": 43
+        },
+        {
+          "category": "Servicios personales",
+          "count": 75
+        },
+        {
+          "category": "Servicios profesionales y empresariales",
+          "count": 51
+        },
+        {
+          "category": "Otros servicios",
+          "count": 9
+        }
+      ],
+      "stats_available": true
+    }
+  ]
+}

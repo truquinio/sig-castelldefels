@@ -4,9 +4,11 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "check": "node --check web/js/app.js && node --check web/js/map3d.js && node --check scripts/build-data.mjs && node --check scripts/enrich-osm-names.mjs",
+    "check": "node --check web/js/app.js && node --check web/js/map3d.js && node --check scripts/build-data.mjs && node --check scripts/enrich-osm-names.mjs && node --check scripts/build-history.mjs && node --check scripts/build-history-stats.mjs",
     "rebuild:offline": "node scripts/build-data.mjs --offline",
     "enrich:names": "node scripts/enrich-osm-names.mjs",
+    "history:stats": "node scripts/build-history-stats.mjs",
+    "history:maps": "node scripts/build-history.mjs",
     "fetch:overture": "python scripts/fetch-overture.py"
   },
   "dependencies": {
