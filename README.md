@@ -9,7 +9,7 @@
 ![PostGIS](https://img.shields.io/badge/PostGIS-4169E1?style=flat&logo=postgresql&logoColor=white)
 ![GeoJSON](https://img.shields.io/badge/GeoJSON-data-5C8C46?style=flat)
 
-[**🌐 Abrir demo**](https://truquinio.github.io/sig-castelldefels/web/index.html) · [**📂 Ver repositorio**](https://github.com/trauquinio/sig-castelldefels)
+[**🌐 Abrir demo**](https://truquinio.github.io/sig-castelldefels/web/index.html) · [**📂 Ver repositorio**](https://github.com/truquinio/sig-castelldefels)
 
 </div>
 
@@ -122,4 +122,4 @@ No hay una licencia de reutilización propia declarada en el repositorio. Los da
 
 ---
 
-**Federico Trucco / [@truquinio](https://github.com/trauquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
+**Federico Trucco / [@truquinio](https://github.com/truquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
