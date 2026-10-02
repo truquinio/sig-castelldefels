@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 const build = await readFile(new URL("../scripts/build-data.mjs", import.meta.url), "utf8");
 const html = await readFile(new URL("../web/index.html", import.meta.url), "utf8");
 const app = await readFile(new URL("../web/js/app.js", import.meta.url), "utf8");
+const css = await readFile(new URL("../web/css/styles.css", import.meta.url), "utf8");
 
 test("OSM economic extraction excludes clearly non-economic features", () => {
   const selectorBlock = build.match(/const selectors = \[([\s\S]*?)\];/)?.[1] ?? "";
@@ -141,4 +142,12 @@ test("Panoramax enrichment is bounded, attributed and explicitly contextual", as
   const summary = JSON.parse(await readFile(new URL("../data/summary.json", import.meta.url), "utf8"));
   assert.equal(summary.panoramax_imagery?.max_distance_m, 40);
   assert.ok(summary.panoramax_imagery?.matched > 0);
+});
+
+test("desktop layout keeps a stable fixed navigation rail and compact map composition", () => {
+  assert.match(css, /v0\.6\.3 desktop composition/);
+  assert.match(css, /\.nav-rail\{[\s\S]*?position:fixed;[\s\S]*?top:60px;[\s\S]*?bottom:0;/);
+  assert.match(css, /\.content-grid\{[\s\S]*?grid-template-columns:minmax\(0,1fr\) 218px/);
+  assert.match(css, /\.map-wrap\{[\s\S]*?height:clamp\(430px,56vh,560px\)/);
+  assert.match(css, /\.bottom-grid\{[\s\S]*?grid-template-columns:minmax\(0,1\.45fr\) minmax\(330px,\.75fr\)/);
 });
