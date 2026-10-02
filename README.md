@@ -1,98 +1,77 @@
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?size=23&color=199900&center=true&vCenter=true&width=1000&height=60&lines=SIG+Castelldefels;Análisis+de+Servicios+Urbanos;Leaflet+%7C+OpenStreetMap+%7C+PostGIS"/>
-</p>
-
 <div align="center">
 
 # 🗺️ SIG Castelldefels
 
-### Análisis geoespacial de servicios urbanos con datos abiertos
+**Análisis geoespacial de servicios urbanos con datos abiertos**
 
-![Leaflet](https://img.shields.io/badge/Leaflet-Mapa_Interactivo-199900?style=for-the-badge&logo=leaflet)
-![OpenStreetMap](https://img.shields.io/badge/OpenStreetMap-Datos_Abiertos-7ebc6f?style=for-the-badge&logo=openstreetmap)
-![PostGIS](https://img.shields.io/badge/PostGIS-Análisis_Espacial-336791?style=for-the-badge&logo=postgresql)
+![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=flat&logo=leaflet&logoColor=white)
+![OpenStreetMap](https://img.shields.io/badge/OpenStreetMap-7EBC6F?style=flat&logo=openstreetmap&logoColor=white)
+![PostGIS](https://img.shields.io/badge/PostGIS-4169E1?style=flat&logo=postgresql&logoColor=white)
+![GeoJSON](https://img.shields.io/badge/GeoJSON-data-5C8C46?style=flat)
+
+[**🌐 Abrir demo**](https://truquinio.github.io/sig-castelldefels/web/index.html) · [**📂 Ver repositorio**](https://github.com/trauquinio/sig-castelldefels)
 
 </div>
 
 ---
 
-## 🌐 Demo
+## 📌 Qué es
 
-🔗 https://truquinio.github.io/sig-castelldefels/web/index.html
+Proyecto SIG que analiza la distribución de servicios urbanos en Castelldefels a partir de datos abiertos.
 
----
-
-## 📸 Capturas
-
-### Vista general
-[![Vista General](https://iili.io/C35wAdJ.md.png)](https://freeimage.host/i/C35wAdJ)
-
-### Vista de malla
-[![Vista Malla](https://iili.io/C35wI0g.md.png)](https://freeimage.host/i/C35wI0g)
-
-### Vista mixta
-[![Vista Mixta](https://iili.io/C35wTga.md.png)](https://freeimage.host/i/C35wTga)
-
----
-
-## 📌 Descripción
-
-Proyecto SIG que analiza la distribución de servicios urbanos en Castelldefels utilizando datos abiertos de OpenStreetMap.
-
-El sistema permite:
-
-- Extraer datos geoespaciales
-- Filtrar por límite municipal
-- Analizar distribución mediante malla
-- Visualizar resultados en un visor web
-
----
-
-## 🧭 Flujo del proyecto
+El flujo combina extracción de puntos de interés, filtrado territorial, análisis espacial y visualización web:
 
 ```text
 OpenStreetMap
-→ Overpass API
-→ GeoJSON
-→ Filtrado municipal (ICGC)
-→ PostGIS
-→ Análisis espacial (malla 500m)
-→ Visualización con Leaflet
+    ↓
+Overpass API
+    ↓
+GeoJSON
+    ↓
+Filtrado municipal
+    ↓
+PostGIS
+    ↓
+Malla de análisis 500 m
+    ↓
+Leaflet
 ```
 
----
+## 📸 Capturas
 
-## 🛠️ Tecnologías
+| Vista general | Malla | Vista mixta |
+| --- | --- | --- |
+| [![Vista general](https://iili.io/C35wAdJ.md.png)](https://freeimage.host/i/C35wAdJ) | [![Vista de malla](https://iili.io/C35wI0g.md.png)](https://freeimage.host/i/C35wI0g) | [![Vista mixta](https://iili.io/C35wTga.md.png)](https://freeimage.host/i/C35wTga) |
 
-- OpenStreetMap
-- Overpass API
-- GeoJSON
-- PostGIS
-- Leaflet.js
-- HTML / CSS / JavaScript
+## ✨ Funcionalidades
 
----
+- Visualización de POIs urbanos.
+- Filtros por categoría.
+- Malla de análisis espacial.
+- Popups informativos.
+- Consultas espaciales con PostGIS.
+- Visor web publicado mediante GitHub Pages.
 
-## 📊 Resultados
+## 📊 Dataset de esta versión
 
 | Indicador | Valor |
-|-----------|------:|
+| --- | ---: |
 | Área analizada | 12,91 km² |
 | Puntos OSM | 870 |
 | Celdas de malla | 57 |
 | Tamaño de celda | 500 m |
 
----
+Estos valores describen el dataset incluido en esta versión del proyecto; no deben interpretarse como un censo municipal oficial.
 
-## ✨ Funcionalidades
+## 🛠️ Tecnologías
 
-- Visualización de POIs urbanos
-- Filtros por categoría
-- Malla de análisis espacial
-- Popups informativos
-- Consultas espaciales (PostGIS)
-
----
+| Área | Tecnología |
+| --- | --- |
+| Datos | OpenStreetMap · Overpass API · GeoJSON |
+| Análisis espacial | PostgreSQL / PostGIS |
+| Frontend cartográfico | Leaflet · HTML · CSS · JavaScript |
+| Referencia territorial | ICGC / límite municipal usado por el proyecto |
+| CRS mostrado en los datos web | WGS84 / EPSG:4326 |
 
 ## 🗂️ Estructura
 
@@ -103,14 +82,11 @@ sig-castelldefels/
 ├── postgis/
 ├── scripts/
 ├── web/
+├── index.html
 └── README.md
 ```
 
----
-
-## 🐘 PostGIS
-
-Ejemplo:
+## 🐘 Ejemplo PostGIS
 
 ```sql
 SELECT categoria, COUNT(*)
@@ -118,63 +94,32 @@ FROM pois
 GROUP BY categoria;
 ```
 
----
+## 📚 Fuentes de datos
 
----
-
-## 📚 Fuentes de Datos
-
-| Fuente | Descripción |
-|----------|-------------|
-| ICGC | División administrativa municipal oficial |
+| Fuente | Uso en el proyecto |
+| --- | --- |
 | OpenStreetMap | Puntos de interés y servicios |
-| Overpass API | Extracción de datos OSM |
-| WGS84 / EPSG:4326 | Sistema de referencia espacial |
+| Overpass API | Extracción de elementos OSM |
+| ICGC | Referencia territorial utilizada por el proyecto |
+| WGS84 / EPSG:4326 | Referencia espacial web |
 
----
-
-## ⚠️ Limitaciones
+## ⚠️ Alcance y limitaciones
 
 - No representa el Censo de Actividades Económicas municipal.
 - No utiliza datos internos ni privados del Ayuntamiento.
-- Los datos OSM pueden contener errores o elementos desactualizados.
-- La malla representa densidad de puntos, no actividad económica real.
-- No sustituye estudios territoriales oficiales ni auditorías SIG profesionales.
+- OpenStreetMap puede contener elementos incompletos o desactualizados.
+- La malla representa densidad/distribución de puntos, no actividad económica real.
+- El proyecto es demostrativo y no sustituye análisis territoriales oficiales.
+
+## 🔭 Evolución posible
+
+- Incorporar capas oficiales complementarias.
+- Documentar más consultas espaciales.
+- Explorar publicación mediante GeoServer/QGIS Server.
+- Añadir nuevos indicadores territoriales verificables.
+
+No hay una licencia de reutilización propia declarada en el repositorio. Los datos de OpenStreetMap mantienen sus términos de licencia correspondientes.
 
 ---
 
-## 🔮 Próximos Pasos
-
-- [ ] Diseñar una versión cartográfica en QGIS.
-- [ ] Publicar el visor mediante GitHub Pages.
-- [ ] Documentar consultas PostGIS con capturas.
-- [ ] Incorporar capas oficiales complementarias.
-- [ ] Explorar despliegue con GeoServer.
-- [ ] Explorar despliegue con QGIS Server.
-- [ ] Añadir indicadores territoriales básicos.
-
----
-
-## 👨‍💻 Autor
-
-### Federico Trucco / @truquinio
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/federico-trucco) [![GitHub](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/truquinio)
-
----
-
-## 📜 Licencia
-
-Datos OpenStreetMap bajo licencia ODbL.
-
-© OpenStreetMap Contributors
-
-https://www.openstreetmap.org/copyright
-
----
-
-<div align="center">
-
-⭐ Si te interesa el análisis territorial, GIS, urbanismo y datos abiertos, considera dejar una estrella al proyecto.
-
-</div>
+**Federico Trucco / [@truquinio](https://github.com/trauquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
