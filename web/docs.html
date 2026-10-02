@@ -14,7 +14,7 @@
   <a class="brand" href="./index.html">
     <div class="brand-mark" aria-hidden="true">SIG</div>
     <div>
-      <div class="brand-line">SIG Castelldefels <span>· by Federico Trucco</span></div>
+      <div class="brand-line">SIG Castelldefels</div>
       <div class="brand-subtitle">Datos, fuentes y metodología</div>
     </div>
   </a>
@@ -30,7 +30,7 @@
     <a class="nav-item" href="./index.html#map-section"><i data-lucide="map"></i><span>Mapa</span></a>
     <a class="nav-item" href="./index.html#history"><i data-lucide="history"></i><span>Histórico</span></a>
     <a class="nav-item is-active" href="./docs.html"><i data-lucide="database"></i><span>Datos y método</span></a>
-    <div class="nav-footer">v0.4<br><a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer">by Federico Trucco</a></div>
+    <div class="nav-footer">SIG Castelldefels · v0.5<br><a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer">Federico Trucco</a></div>
   </aside>
 
   <main class="docs-main">
@@ -43,7 +43,7 @@
     </section>
 
     <section class="doc-kpis" aria-label="Resumen de cobertura">
-      <article class="doc-kpi"><span>Actividades combinadas</span><strong>985</strong></article>
+      <article class="doc-kpi"><span>Establecimientos observados</span><strong>985</strong></article>
       <article class="doc-kpi"><span>Área municipal</span><strong>12,91 km²</strong></article>
       <article class="doc-kpi"><span>Malla analítica</span><strong>500 m</strong></article>
       <article class="doc-kpi"><span>Ventana histórica</span><strong>2016–2026</strong></article>
@@ -62,8 +62,8 @@
 
       <article class="doc-card">
         <h2>Qué representa el dashboard</h2>
-        <p>El inventario actual combina fuentes abiertas y deduplica coincidencias. Es una herramienta de exploración territorial y calidad de datos, no el Censo de Actividades Económicas municipal.</p>
-        <p>El histórico anual refleja lo que estaba representado en OpenStreetMap al cierre de cada año. Por eso no debe interpretarse automáticamente como aperturas o cierres reales.</p>
+        <p>La unidad visible es el <strong>establecimiento observado</strong>: una presencia económica localizada que puede estar descrita por OpenStreetMap, Overture o ambas fuentes. No es todavía un establecimiento administrativo municipal ni el Censo de Actividades Económicas.</p>
+        <p>El objetivo es localizar, contar, clasificar y detectar discrepancias entre fuentes abiertas. Una futura versión interna podría relacionar estos establecimientos con identificadores, expedientes y situación administrativa, pero esos datos no forman parte de esta versión pública.</p>
       </article>
 
       <article class="doc-card">
@@ -84,12 +84,12 @@
       </article>
 
       <article class="doc-card">
-        <h2>Calidad y deduplicación</h2>
-        <p>Los registros OSM y Overture se comparan por nombre, categoría y proximidad. Si coinciden de forma suficiente se fusionan; en caso contrario permanecen separados.</p>
+        <h2>Conciliación de establecimientos</h2>
+        <p>Los registros OSM y Overture se comparan por nombre, categoría y proximidad. Si coinciden de forma suficiente se interpretan como observaciones del mismo establecimiento; en caso contrario permanecen separados.</p>
         <ul>
           <li>216 registros proceden sólo de OSM.</li>
           <li>642 proceden sólo de Overture.</li>
-          <li>127 están corroborados por ambas fuentes.</li>
+          <li>127 están corroborados por ambas fuentes abiertas.</li>
           <li>Los nombres no disponibles se sustituyen por etiquetas semánticas, nunca por nombres inventados.</li>
         </ul>
       </article>
@@ -104,8 +104,8 @@
         <h2>Limitaciones</h2>
         <ul>
           <li>Las fuentes abiertas pueden contener omisiones, duplicados, cierres no reflejados o categorías imperfectas.</li>
-          <li>2026 usa inventario combinado OSM + Overture, mientras que la serie 2016–2025 es histórica OSM; no son universos directamente equivalentes.</li>
-          <li>Sin geometría histórica fiable, el dashboard muestra evolución estadística y no mezcla ubicaciones actuales con años pasados.</li>
+          <li>El inventario actual usa OSM + Overture, mientras que la serie 2016–2025 es histórica OSM; por ello se muestran separadas y no se conectan como una única serie comparable.</li>
+          <li>El histórico se utiliza como contexto de evolución de lo cartografiado en OSM, no como histórico de altas, bajas, licencias o expedientes municipales.</li>
           <li>No se utilizan datos internos ni expedientes municipales en esta versión pública.</li>
         </ul>
       </article>

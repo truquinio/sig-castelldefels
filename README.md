@@ -2,7 +2,7 @@
 
 # 🗺️ SIG Castelldefels
 
-### SIG 2D-first de actividades económicas con datos abiertos y vista 3D opcional
+### Visor territorial de establecimientos económicos con datos abiertos
 
 [![Demo](https://img.shields.io/badge/Abrir%20demo-GitHub%20Pages-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white)](https://truquinio.github.io/sig-castelldefels/web/index.html)
 
@@ -17,7 +17,7 @@
 
 ## 📌 Qué analiza
 
-El proyecto estudia la **distribución de actividades económicas observadas en Castelldefels** mediante fuentes públicas y reutilizables. El análisis principal es 2D; la vista 3D de edificios es opcional y aporta contexto visual.
+El proyecto estudia **establecimientos económicos observados en Castelldefels** mediante fuentes públicas y reutilizables. La unidad visible es un establecimiento observado, no un expediente ni un registro administrativo municipal. La vista 3D y la malla son herramientas contextuales dentro del mapa, no el centro del producto.
 
 No representa datos internos del Ayuntamiento ni pretende sustituir una fuente oficial: es un proyecto técnico de análisis territorial reproducible.
 
@@ -37,13 +37,12 @@ flowchart LR
 
 ## ✨ Qué permite hacer
 
-- consultar un **dashboard operativo** con KPIs, mapa y gráficos por categoría;
-- visualizar actividades económicas observadas en OpenStreetMap y Overture Maps Places;
+- consultar un **dashboard simple** con cuatro KPIs principales, mapa y distribución por categoría;
+- localizar establecimientos observados en OpenStreetMap y Overture Maps Places;
 - filtrar por categoría y buscar por nombre/subcategoría;
-- recorrer una **ventana móvil de los últimos 10 años → año actual** con una línea temporal que se adapta automáticamente al calendario;
-- consultar la evolución anual OSM histórica; cuando existe geometría histórica local, el mapa también cambia de año;
-- comparar distribución mediante malla de 500 m;
-- alternar entre análisis 2D y una vista 3D ligera de edificios;
+- identificar si un establecimiento está **corroborado por OSM + Overture** o sólo aparece en una fuente;
+- consultar la evolución anual comparable de registros OSM 2016–2025 como contexto, sin confundirla con un censo administrativo;
+- usar malla de 500 m y 3D contextual como controles secundarios dentro del mapa;
 - exportar el resultado filtrado a GeoJSON.
 
 ## 📊 Dataset incluido
@@ -51,10 +50,10 @@ flowchart LR
 | Indicador | Valor |
 | --- | ---: |
 | Área analizada | 12,91 km² |
-| Actividades combinadas | 985 |
+| Establecimientos observados combinados | 985 |
 | Registros OSM base | 343 |
 | Overture-only tras filtros/deduplicación | 642 |
-| Coincidencias OSM + Overture fusionadas | 129 |
+| Establecimientos corroborados OSM + Overture | 127 |
 | Celdas de malla | 56 |
 | Tamaño de celda | 500 m |
 
@@ -75,7 +74,7 @@ npm run check
 
 Si Overpass está temporalmente caído, `npm run rebuild:offline` reconstruye clasificación, deduplicación y malla usando el último snapshot OSM guardado, sin presentarlo como una descarga nueva.
 
-El histórico usa dos niveles deliberadamente separados: `npm run history:stats` obtiene la serie anual OSM mediante **ohsome API** con el límite municipal exacto; `npm run history:maps` intenta generar snapshots cartográficos mediante datos *attic* de Overpass. Si estos servidores públicos no responden, el dashboard conserva la serie estadística y no mezcla geometrías actuales con años históricos.
+El histórico se mantiene separado del inventario actual: `npm run history:stats` obtiene la serie anual OSM mediante **ohsome API** con el límite municipal exacto. La interfaz usa esa serie sólo como contexto temporal comparable. No existe un slider que prometa un mapa histórico cuando no hay geometría histórica fiable.
 
 ## 🧰 Stack
 
@@ -137,10 +136,13 @@ sig-castelldefels/
 
 ## 🔭 Evolución
 
-- incorporar capas oficiales complementarias;
-- ampliar consultas espaciales documentadas;
-- explorar publicación mediante GeoServer/QGIS Server;
-- añadir nuevos indicadores territoriales verificables.
+La siguiente evolución prioriza **utilidad para un área municipal de Actividades**, no más controles visuales:
+
+- consolidar el modelo conceptual `establecimiento → actividad → observaciones de fuentes`;
+- mejorar conciliación y detección de discrepancias entre fuentes abiertas;
+- incorporar direcciones, contacto y otros atributos sólo cuando la fuente permita reutilizarlos;
+- preparar, como línea futura separada y no pública, la posible relación con identificadores, expedientes y situación administrativa si existieran autorización y acceso adecuados;
+- mantener 3D, malla e histórico como herramientas secundarias, no como eje del dashboard.
 
 ## 🔏 Uso y reutilización
 

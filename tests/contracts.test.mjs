@@ -8,7 +8,7 @@ const app = await readFile(new URL("../web/js/app.js", import.meta.url), "utf8")
 
 test("OSM economic extraction excludes clearly non-economic features", () => {
   const selectorBlock = build.match(/const selectors = \[([\s\S]*?)\];/)?.[1] ?? "";
-  for (const forbidden of ["park", "playground", "pitch", "garden", "nature_reserve", "bicycle_parking", "townhall", "police", "fire_station", "library", "community_centre"]) {
+  for (const forbidden of ["park","playground","pitch","garden","nature_reserve","bicycle_parking","townhall","police","fire_station","library","community_centre"]) {
     assert.doesNotMatch(selectorBlock, new RegExp("\\b" + forbidden + "\\b"), forbidden);
   }
 });
@@ -22,55 +22,59 @@ test("500 m grid is constructed in ETRS89 UTM 31N", () => {
   assert.match(build, /proj4\(/);
 });
 
-test("viewer exposes an accessible 2D/3D switch", () => {
-  assert.match(html, /id="map-dimension"/);
-  assert.match(html, /aria-label="Modo de mapa"/);
-  assert.match(html, /data-dimension="2d"/);
-  assert.match(html, /data-dimension="3d"/);
+test("v0.5 uses establishment language instead of POI-centric product language", () => {
+  assert.match(html, /Establecimientos observados/);
+  assert.match(html, /establecimientos económicos/i);
+  assert.doesNotMatch(html, /Visor operativo municipal/);
 });
 
-test("3D is lazy-loaded instead of blocking 2D", () => {
+test("dashboard is reduced to four primary KPIs", () => {
+  const cards = [...html.matchAll(/class="kpi-card"/g)];
+  assert.equal(cards.length, 4);
+  for (const id of ["metric-total","metric-named","metric-top-category","metric-hot-cell"]) {
+    assert.match(html, new RegExp(`id="${id}"`), id);
+  }
+});
+
+test("history is informative and no longer controlled by a misleading year slider", () => {
+  assert.match(html, /id="history-chart"/);
+  assert.doesNotMatch(html, /id="year-slider"/);
+  assert.doesNotMatch(app, /selectYear\(/);
+});
+
+test("map keeps advanced controls inside the map workspace", () => {
+  assert.match(html, /class="map-tools"/);
+  assert.match(html, /id="map-dimension"/);
+  assert.match(html, /data-mode="points"/);
+  assert.match(html, /data-mode="grid"/);
+  assert.match(html, /data-mode="mixed"/);
+});
+
+test("3D stays optional and lazy-loaded", () => {
   assert.match(app, /import\("\.\/map3d\.js"\)/);
 });
 
-test("segmented view buttons declare button type", () => {
-  const segments = [...html.matchAll(/<button[^>]*class="[^"]*\bsegment\b[^"]*"[^>]*>/g)].map((m) => m[0]);
-  assert.ok(segments.length >= 3);
-  segments.forEach((tag) => assert.match(tag, /type="button"/));
+test("establishment popup exposes reconciliation and source provenance", () => {
+  assert.match(app, /getReconciliationState/);
+  assert.match(app, /Corroborado por OSM y Overture/);
+  assert.match(app, /Solo OpenStreetMap/);
+  assert.match(app, /Solo Overture/);
 });
 
-test("dashboard exposes simple KPIs, category chart and temporal controls", () => {
-  for (const id of ["metric-total", "metric-named", "metric-top-category", "category-chart", "history-chart", "year-slider", "year-value"]) {
-    assert.match(html, new RegExp(`id="${id}"`), id);
-  }
-});
-
-test("timeline end year follows the browser current year instead of a hard-coded 2026", () => {
-  assert.match(app, /new Date\(\)\.getFullYear\(\)/);
-  assert.match(app, /year-slider/);
-});
-
-test("historical snapshots are loaded separately from the current combined inventory", () => {
+test("history index is consumed as a separate comparable OSM series", () => {
   assert.match(app, /history\/index\.json/);
-  assert.match(app, /source_scope/);
+  assert.match(app, /Serie comparable OSM/);
 });
 
-test("institutional shell uses the full author identity and GitHub profile", () => {
-  assert.match(html, /by Federico Trucco/);
+test("institutional shell credits Federico Trucco discreetly and links GitHub", () => {
+  assert.match(html, /Federico Trucco/);
   assert.match(html, /https:\/\/github\.com\/truquinio/);
-});
-
-test("historical statistics have a dedicated operational summary instead of an empty map", () => {
-  for (const id of ["historical-summary", "history-selected-total", "history-yoy", "history-since-start"]) {
-    assert.match(html, new RegExp(`id="${id}"`), id);
-  }
-  assert.match(app, /historical-summary/);
 });
 
 test("data and methodology page shares the main application shell", async () => {
   const docs = await readFile(new URL("../web/docs.html", import.meta.url), "utf8");
   assert.match(docs, /class="topbar"/);
   assert.match(docs, /class="nav-rail"/);
-  assert.match(docs, /by Federico Trucco/);
+  assert.match(docs, /Federico Trucco/);
   assert.match(docs, /\.\/css\/styles\.css/);
 });
