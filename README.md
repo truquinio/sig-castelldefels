@@ -117,12 +117,6 @@ sig-castelldefels/
 - explorar publicación mediante GeoServer/QGIS Server;
 - añadir nuevos indicadores territoriales verificables.
 
-## 📜 Licencia
-
-El **código propio del proyecto** se publica bajo la [Licencia MIT](LICENSE).
-
-Los datos y servicios de terceros conservan sus propias condiciones de uso y licencias. En particular, los datos de OpenStreetMap están sujetos a la ODbL y las fuentes de ICGC/otros organismos mantienen sus términos correspondientes.
-
 ---
 
 **Federico Trucco / [@truquinio](https://github.com/truquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
