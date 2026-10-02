@@ -8,14 +8,16 @@ El caso elegido es Castelldefels porque conecta con experiencia municipal, infor
 
 ## Flujo de trabajo
 
-1. Se descarga el límite municipal de Castelldefels desde el servicio público de ICGC en GeoJSON y EPSG:4326.
-2. Se calcula la envolvente del municipio para consultar OpenStreetMap mediante Overpass API.
-3. Se descargan puntos y geometrías con etiquetas seleccionadas: `amenity`, `shop`, `office`, `tourism` y `leisure`.
-4. Se convierten nodos, vías y relaciones OSM a puntos. En vías y relaciones se usa el centro devuelto por Overpass.
-5. Se filtran los puntos que caen dentro del límite municipal oficial de ICGC.
-6. Se excluyen equipamientos e infraestructuras que no constituyen actividad económica y se clasifican los registros restantes por categorías funcionales.
-7. Se genera una malla exacta de 500 m en ETRS89 / UTM zona 31N (EPSG:25831), asignando cada actividad a su celda y transformando el resultado a EPSG:4326 para GeoJSON/web.
-8. Se exportan GeoJSON y `web/js/data.js` para el visor Leaflet 2D; la vista MapLibre 3D se carga sólo bajo demanda.
+1. Se usa el límite municipal público de ICGC en GeoJSON / EPSG:4326.
+2. OpenStreetMap se consulta mediante Overpass API con una selección de etiquetas económicas.
+3. Overture Maps Places se extrae para el mismo ámbito territorial y se filtra por nombre, estado, confianza y taxonomía.
+4. Los elementos OSM se normalizan y clasifican con categoría y subcategoría económica.
+5. Los lugares Overture se reclasifican con reglas defensivas; las contradicciones evidentes entre nombre y taxonomía se corrigen antes de integrar.
+6. OSM y Overture se deduplican por nombre normalizado, proximidad y categoría. Overture también puede aportar un nombre a un elemento OSM sin nombre sólo cuando la coincidencia es suficientemente fuerte.
+7. Los registros sin identidad fiable conservan una etiqueta semántica explícita, por ejemplo “Cafetería sin nombre”, en lugar de inventar un comercio.
+8. Se filtra todo contra el límite municipal ICGC.
+9. Se genera una malla exacta de 500 m en ETRS89 / UTM zona 31N (EPSG:25831), transformada después a EPSG:4326 para publicación GeoJSON/web.
+10. Se conserva por separado el snapshot OSM y se genera un GeoJSON combinado para el visor Leaflet 2D y MapLibre 3D.
 
 ## Criterios de selección OSM
 
@@ -29,19 +31,28 @@ No se descarga todo OpenStreetMap. Se usa una selección para evitar ruido exces
 
 Se excluyen parques, jardines, áreas de juego, pistas, aparcamientos, administración pública y otros equipamientos o infraestructuras que inflaban el conteo sin representar adecuadamente el objeto de estudio.
 
+## Integración Overture y nombres
+
+Overture Maps Places se usa como segunda fuente abierta de descubrimiento. No se acepta ciegamente su taxonomía: se aplica un umbral de confianza, se descartan categorías no económicas y se usan reglas basadas en el nombre para corregir contradicciones evidentes.
+
+La coincidencia con OSM se basa en nombre normalizado y distancia. Para elementos OSM sin nombre se exige una coincidencia espacial y de categoría más estricta antes de adoptar un nombre de Overture. Si la evidencia es ambigua, se mantiene un nombre semántico genérico.
+
+Google Maps y directorios web pueden servir como referencia manual, pero no se copian al dataset persistente cuando sus condiciones de uso no permiten esa reutilización.
+
 ## Análisis incluido
 
-- Conteo total de puntos seleccionados.
-- Conteo por categoría.
+- Conteo total de actividades observadas.
+- Conteo por categoría y subcategoría.
 - Distribución espacial mediante malla de 500 m.
-- Identificación visual de zonas con mayor concentración de puntos.
-- Filtro por categoría y búsqueda por nombre o etiqueta.
+- Identificación visual de zonas con mayor concentración.
+- Filtro por categoría y búsqueda por nombre, subcategoría o etiqueta.
+- Trazabilidad de la fuente de cada registro.
 
 ## Limitaciones
 
-Este proyecto no afirma que los datos OSM sean oficiales. OpenStreetMap es una fuente abierta colaborativa y puede tener omisiones o errores. Por eso el mapa debe describirse como una muestra de flujo SIG con datos abiertos, no como inventario municipal validado.
+Este proyecto no afirma que OSM ni Overture sean fuentes oficiales. Ambas pueden tener omisiones, duplicados, cierres no actualizados o errores de clasificación. La integración mejora cobertura, pero no equivale a un inventario municipal validado.
 
-La malla de 500 m no mide densidad económica, empleo, facturación ni afluencia. Solo resume concentración de puntos OSM seleccionados.
+La malla de 500 m no mide densidad económica, empleo, facturación ni afluencia. Solo resume concentración de actividades observadas en las fuentes seleccionadas.
 
 Los centros de vías y relaciones pueden simplificar geometrías de establecimientos representados como polígonos. Para análisis más riguroso convendría conservar polígonos y aplicar intersecciones reales en PostGIS o QGIS.
 

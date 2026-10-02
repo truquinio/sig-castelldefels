@@ -21,7 +21,7 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
-export async function createMap3D({ container, data, center, zoom }) {
+export async function createMap3D({ container, data, center, zoom, categoryColors = {} }) {
   ensureStylesheet();
   const maplibregl = await import(MAPLIBRE_MODULE);
   const map = new maplibregl.Map({
@@ -73,6 +73,13 @@ export async function createMap3D({ container, data, center, zoom }) {
     source: "sig-boundary",
     paint: { "line-color": "#0f463f", "line-width": 2.5 },
   });
+  const categoryColorExpression = [
+    "match",
+    ["get", "category"],
+    ...Object.entries(categoryColors).flatMap(([category, color]) => [category, color]),
+    "#52605a",
+  ];
+
   map.addSource("sig-activities", { type: "geojson", data: data.pois });
   map.addLayer({
     id: "sig-activities",
@@ -80,7 +87,7 @@ export async function createMap3D({ container, data, center, zoom }) {
     source: "sig-activities",
     paint: {
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 13, 3, 17, 7],
-      "circle-color": "#c65a3b",
+      "circle-color": categoryColorExpression,
       "circle-stroke-color": "#ffffff",
       "circle-stroke-width": 1.4,
       "circle-opacity": 0.92,
@@ -93,12 +100,15 @@ export async function createMap3D({ container, data, center, zoom }) {
     const feature = event.features?.[0];
     if (!feature) return;
     const props = feature.properties ?? {};
+    const sourceLabel = Array.isArray(props.sources)
+      ? props.sources.join(" + ")
+      : (props.source ?? "Fuente abierta");
     new maplibregl.Popup({ offset: 14 })
       .setLngLat(feature.geometry.coordinates)
       .setHTML(
-        `<strong>${escapeHtml(props.name)}</strong><br>` +
-        `<span>${escapeHtml(props.category)}</span><br>` +
-        `<small>${escapeHtml(props.primary_tag)}</small>`
+        `<strong>${escapeHtml(props.display_name ?? props.name ?? props.subcategory)}</strong><br>` +
+        `<span>${escapeHtml(props.subcategory ?? props.category)}</span><br>` +
+        `<small>${escapeHtml(props.category)} · ${escapeHtml(sourceLabel)}</small>`
       )
       .addTo(map);
   });

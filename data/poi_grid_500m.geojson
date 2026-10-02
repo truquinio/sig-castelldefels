@@ -32,25 +32,25 @@
       },
       "properties": {
         "id": "r0_c1",
-        "count": 4,
-        "top_category": "Comercio",
+        "count": 5,
+        "top_category": "Restauración",
         "categories": {
-          "Comercio": 2,
-          "Restauración": 2
+          "Comercio minorista": 2,
+          "Restauración": 3
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
-            "value": 2
+            "category": "Restauración",
+            "value": 3
           },
           {
-            "category": "Restauración",
+            "category": "Comercio minorista",
             "value": 2
           }
         ],
-        "density_label": "4 registros OSM",
+        "density_label": "5 actividades observadas",
         "rank": 1
       }
     },
@@ -85,30 +85,30 @@
       },
       "properties": {
         "id": "r0_c2",
-        "count": 6,
+        "count": 8,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 4,
-          "Salud": 1,
-          "Automoción y movilidad": 1
+          "Restauración": 5,
+          "Salud y bienestar": 2,
+          "Movilidad y automoción": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 4
+            "value": 5
           },
           {
-            "category": "Salud",
-            "value": 1
+            "category": "Salud y bienestar",
+            "value": 2
           },
           {
-            "category": "Automoción y movilidad",
+            "category": "Movilidad y automoción",
             "value": 1
           }
         ],
-        "density_label": "6 registros OSM",
+        "density_label": "8 actividades observadas",
         "rank": 1
       }
     },
@@ -143,36 +143,46 @@
       },
       "properties": {
         "id": "r0_c3",
-        "count": 25,
+        "count": 37,
         "top_category": "Restauración",
         "categories": {
-          "Comercio": 6,
-          "Restauración": 16,
-          "Alojamiento": 2,
-          "Oficinas": 1
+          "Comercio minorista": 7,
+          "Restauración": 23,
+          "Alojamiento turístico": 3,
+          "Movilidad y automoción": 1,
+          "Servicios personales": 1,
+          "Servicios profesionales y empresariales": 2
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 16
+            "value": 23
           },
           {
-            "category": "Comercio",
-            "value": 6
+            "category": "Comercio minorista",
+            "value": 7
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
+            "value": 3
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
             "value": 2
           },
           {
-            "category": "Oficinas",
+            "category": "Movilidad y automoción",
+            "value": 1
+          },
+          {
+            "category": "Servicios personales",
             "value": 1
           }
         ],
-        "density_label": "25 registros OSM",
-        "rank": 2
+        "density_label": "37 actividades observadas",
+        "rank": 1
       }
     },
     {
@@ -206,30 +216,39 @@
       },
       "properties": {
         "id": "r0_c4",
-        "count": 14,
+        "count": 20,
         "top_category": "Restauración",
         "categories": {
-          "Comercio": 3,
-          "Restauración": 5,
-          "Alojamiento": 2,
+          "Comercio minorista": 3,
+          "Restauración": 7,
+          "Alojamiento turístico": 3,
+          "Salud y bienestar": 2,
+          "Educación": 2,
           "Servicios financieros": 1,
-          "Salud": 1,
-          "Automoción y movilidad": 1,
-          "Ocio": 1
+          "Movilidad y automoción": 1,
+          "Ocio, cultura y deporte": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 5
+            "value": 7
           },
           {
-            "category": "Comercio",
+            "category": "Comercio minorista",
             "value": 3
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
+            "value": 3
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 2
+          },
+          {
+            "category": "Educación",
             "value": 2
           },
           {
@@ -237,20 +256,16 @@
             "value": 1
           },
           {
-            "category": "Salud",
+            "category": "Movilidad y automoción",
             "value": 1
           },
           {
-            "category": "Automoción y movilidad",
-            "value": 1
-          },
-          {
-            "category": "Ocio",
+            "category": "Ocio, cultura y deporte",
             "value": 1
           }
         ],
-        "density_label": "14 registros OSM",
-        "rank": 2
+        "density_label": "20 actividades observadas",
+        "rank": 1
       }
     },
     {
@@ -284,36 +299,51 @@
       },
       "properties": {
         "id": "r0_c5",
-        "count": 54,
+        "count": 87,
         "top_category": "Restauración",
         "categories": {
-          "Comercio": 12,
-          "Restauración": 37,
-          "Alojamiento": 2,
-          "Servicios financieros": 3
+          "Comercio minorista": 11,
+          "Restauración": 67,
+          "Alojamiento turístico": 3,
+          "Servicios financieros": 3,
+          "Ocio, cultura y deporte": 1,
+          "Servicios personales": 1,
+          "Servicios profesionales y empresariales": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 37
+            "value": 67
           },
           {
-            "category": "Comercio",
-            "value": 12
+            "category": "Comercio minorista",
+            "value": 11
+          },
+          {
+            "category": "Alojamiento turístico",
+            "value": 3
           },
           {
             "category": "Servicios financieros",
             "value": 3
           },
           {
-            "category": "Alojamiento",
-            "value": 2
+            "category": "Ocio, cultura y deporte",
+            "value": 1
+          },
+          {
+            "category": "Servicios personales",
+            "value": 1
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 1
           }
         ],
-        "density_label": "54 registros OSM",
-        "rank": 5
+        "density_label": "87 actividades observadas",
+        "rank": 2
       }
     },
     {
@@ -347,31 +377,36 @@
       },
       "properties": {
         "id": "r0_c6",
-        "count": 14,
+        "count": 28,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 10,
-          "Alojamiento": 3,
-          "Oficinas": 1
+          "Comercio minorista": 1,
+          "Restauración": 21,
+          "Alojamiento turístico": 5,
+          "Servicios profesionales y empresariales": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 10
+            "value": 21
           },
           {
-            "category": "Alojamiento",
-            "value": 3
+            "category": "Alojamiento turístico",
+            "value": 5
           },
           {
-            "category": "Oficinas",
+            "category": "Comercio minorista",
+            "value": 1
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
             "value": 1
           }
         ],
-        "density_label": "14 registros OSM",
-        "rank": 2
+        "density_label": "28 actividades observadas",
+        "rank": 1
       }
     },
     {
@@ -405,30 +440,30 @@
       },
       "properties": {
         "id": "r0_c7",
-        "count": 8,
+        "count": 11,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 5,
-          "Alojamiento": 2,
-          "Oficinas": 1
+          "Restauración": 8,
+          "Alojamiento turístico": 2,
+          "Servicios profesionales y empresariales": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 5
+            "value": 8
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
             "value": 2
           },
           {
-            "category": "Oficinas",
+            "category": "Servicios profesionales y empresariales",
             "value": 1
           }
         ],
-        "density_label": "8 registros OSM",
+        "density_label": "11 actividades observadas",
         "rank": 1
       }
     },
@@ -463,20 +498,20 @@
       },
       "properties": {
         "id": "r0_c8",
-        "count": 5,
+        "count": 10,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 5
+          "Restauración": 10
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 5
+            "value": 10
           }
         ],
-        "density_label": "5 registros OSM",
+        "density_label": "10 actividades observadas",
         "rank": 1
       }
     },
@@ -511,25 +546,25 @@
       },
       "properties": {
         "id": "r0_c9",
-        "count": 4,
+        "count": 7,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 3,
-          "Alojamiento": 1
+          "Restauración": 5,
+          "Alojamiento turístico": 2
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 3
+            "value": 5
           },
           {
-            "category": "Alojamiento",
-            "value": 1
+            "category": "Alojamiento turístico",
+            "value": 2
           }
         ],
-        "density_label": "4 registros OSM",
+        "density_label": "7 actividades observadas",
         "rank": 1
       }
     },
@@ -564,20 +599,25 @@
       },
       "properties": {
         "id": "r0_c10",
-        "count": 2,
+        "count": 4,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 2
+          "Restauración": 3,
+          "Servicios profesionales y empresariales": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 2
+            "value": 3
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 1
           }
         ],
-        "density_label": "2 registros OSM",
+        "density_label": "4 actividades observadas",
         "rank": 1
       }
     },
@@ -618,7 +658,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -654,16 +694,16 @@
       "properties": {
         "id": "r1_c1",
         "count": 2,
-        "top_category": "Comercio",
+        "top_category": "Comercio minorista",
         "categories": {
-          "Comercio": 1,
+          "Comercio minorista": 1,
           "Restauración": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
+            "category": "Comercio minorista",
             "value": 1
           },
           {
@@ -671,7 +711,7 @@
             "value": 1
           }
         ],
-        "density_label": "2 registros OSM",
+        "density_label": "2 actividades observadas",
         "rank": 1
       }
     },
@@ -724,7 +764,7 @@
             "value": 1
           }
         ],
-        "density_label": "2 registros OSM",
+        "density_label": "2 actividades observadas",
         "rank": 1
       }
     },
@@ -765,7 +805,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -800,30 +840,35 @@
       },
       "properties": {
         "id": "r1_c4",
-        "count": 4,
+        "count": 7,
         "top_category": "Educación",
         "categories": {
+          "Comercio minorista": 1,
           "Restauración": 1,
-          "Alojamiento": 1,
-          "Educación": 2
+          "Alojamiento turístico": 1,
+          "Educación": 4
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Educación",
-            "value": 2
+            "value": 4
+          },
+          {
+            "category": "Comercio minorista",
+            "value": 1
           },
           {
             "category": "Restauración",
             "value": 1
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
             "value": 1
           }
         ],
-        "density_label": "4 registros OSM",
+        "density_label": "7 actividades observadas",
         "rank": 1
       }
     },
@@ -858,20 +903,40 @@
       },
       "properties": {
         "id": "r1_c5",
-        "count": 1,
-        "top_category": "Salud",
+        "count": 9,
+        "top_category": "Restauración",
         "categories": {
-          "Salud": 1
+          "Comercio minorista": 2,
+          "Restauración": 3,
+          "Alojamiento turístico": 2,
+          "Salud y bienestar": 1,
+          "Educación": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Salud",
+            "category": "Restauración",
+            "value": 3
+          },
+          {
+            "category": "Comercio minorista",
+            "value": 2
+          },
+          {
+            "category": "Alojamiento turístico",
+            "value": 2
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 1
+          },
+          {
+            "category": "Educación",
             "value": 1
           }
         ],
-        "density_label": "1 registro OSM",
+        "density_label": "9 actividades observadas",
         "rank": 1
       }
     },
@@ -906,30 +971,35 @@
       },
       "properties": {
         "id": "r1_c6",
-        "count": 4,
-        "top_category": "Alojamiento",
+        "count": 5,
+        "top_category": "Alojamiento turístico",
         "categories": {
-          "Alojamiento": 2,
-          "Salud": 1,
-          "Educación": 1
+          "Alojamiento turístico": 2,
+          "Salud y bienestar": 1,
+          "Educación": 1,
+          "Servicios personales": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
             "value": 2
           },
           {
-            "category": "Salud",
+            "category": "Salud y bienestar",
             "value": 1
           },
           {
             "category": "Educación",
             "value": 1
+          },
+          {
+            "category": "Servicios personales",
+            "value": 1
           }
         ],
-        "density_label": "4 registros OSM",
+        "density_label": "5 actividades observadas",
         "rank": 1
       }
     },
@@ -964,41 +1034,56 @@
       },
       "properties": {
         "id": "r1_c7",
-        "count": 14,
+        "count": 24,
         "top_category": "Restauración",
         "categories": {
-          "Comercio": 3,
-          "Restauración": 7,
-          "Alojamiento": 1,
-          "Salud": 1,
-          "Automoción y movilidad": 2
+          "Comercio minorista": 3,
+          "Restauración": 9,
+          "Alojamiento turístico": 1,
+          "Salud y bienestar": 2,
+          "Educación": 1,
+          "Movilidad y automoción": 4,
+          "Ocio, cultura y deporte": 1,
+          "Servicios profesionales y empresariales": 3
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 7
+            "value": 9
           },
           {
-            "category": "Comercio",
+            "category": "Movilidad y automoción",
+            "value": 4
+          },
+          {
+            "category": "Comercio minorista",
             "value": 3
           },
           {
-            "category": "Automoción y movilidad",
+            "category": "Servicios profesionales y empresariales",
+            "value": 3
+          },
+          {
+            "category": "Salud y bienestar",
             "value": 2
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
             "value": 1
           },
           {
-            "category": "Salud",
+            "category": "Educación",
+            "value": 1
+          },
+          {
+            "category": "Ocio, cultura y deporte",
             "value": 1
           }
         ],
-        "density_label": "14 registros OSM",
-        "rank": 2
+        "density_label": "24 actividades observadas",
+        "rank": 1
       }
     },
     {
@@ -1032,18 +1117,23 @@
       },
       "properties": {
         "id": "r1_c8",
-        "count": 5,
+        "count": 11,
         "top_category": "Educación",
         "categories": {
           "Restauración": 1,
-          "Alojamiento": 1,
-          "Educación": 3
+          "Alojamiento turístico": 3,
+          "Educación": 6,
+          "Ocio, cultura y deporte": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Educación",
+            "value": 6
+          },
+          {
+            "category": "Alojamiento turístico",
             "value": 3
           },
           {
@@ -1051,11 +1141,11 @@
             "value": 1
           },
           {
-            "category": "Alojamiento",
+            "category": "Ocio, cultura y deporte",
             "value": 1
           }
         ],
-        "density_label": "5 registros OSM",
+        "density_label": "11 actividades observadas",
         "rank": 1
       }
     },
@@ -1096,7 +1186,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1137,7 +1227,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1178,7 +1268,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1219,7 +1309,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1260,7 +1350,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1308,7 +1398,7 @@
             "value": 1
           }
         ],
-        "density_label": "1 registro OSM",
+        "density_label": "1 actividad observada",
         "rank": 1
       }
     },
@@ -1343,10 +1433,13 @@
       },
       "properties": {
         "id": "r2_c5",
-        "count": 1,
+        "count": 4,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 1
+          "Restauración": 1,
+          "Salud y bienestar": 1,
+          "Educación": 1,
+          "Servicios profesionales y empresariales": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
@@ -1354,9 +1447,21 @@
           {
             "category": "Restauración",
             "value": 1
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 1
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 1
           }
         ],
-        "density_label": "1 registro OSM",
+        "density_label": "4 actividades observadas",
         "rank": 1
       }
     },
@@ -1391,40 +1496,55 @@
       },
       "properties": {
         "id": "r2_c6",
-        "count": 7,
+        "count": 25,
         "top_category": "Restauración",
         "categories": {
-          "Comercio": 1,
-          "Restauración": 2,
-          "Salud": 2,
-          "Educación": 1,
-          "Automoción y movilidad": 1
+          "Comercio minorista": 2,
+          "Restauración": 6,
+          "Salud y bienestar": 6,
+          "Educación": 2,
+          "Movilidad y automoción": 4,
+          "Ocio, cultura y deporte": 2,
+          "Servicios personales": 1,
+          "Servicios profesionales y empresariales": 2
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 2
+            "value": 6
           },
           {
-            "category": "Salud",
-            "value": 2
+            "category": "Salud y bienestar",
+            "value": 6
           },
           {
-            "category": "Comercio",
-            "value": 1
+            "category": "Movilidad y automoción",
+            "value": 4
+          },
+          {
+            "category": "Comercio minorista",
+            "value": 2
           },
           {
             "category": "Educación",
-            "value": 1
+            "value": 2
           },
           {
-            "category": "Automoción y movilidad",
+            "category": "Ocio, cultura y deporte",
+            "value": 2
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 2
+          },
+          {
+            "category": "Servicios personales",
             "value": 1
           }
         ],
-        "density_label": "7 registros OSM",
+        "density_label": "25 actividades observadas",
         "rank": 1
       }
     },
@@ -1459,20 +1579,40 @@
       },
       "properties": {
         "id": "r2_c7",
-        "count": 1,
+        "count": 8,
         "top_category": "Restauración",
         "categories": {
-          "Restauración": 1
+          "Restauración": 2,
+          "Alojamiento turístico": 2,
+          "Salud y bienestar": 1,
+          "Servicios personales": 1,
+          "Servicios profesionales y empresariales": 2
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Alojamiento turístico",
+            "value": 2
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 2
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 1
+          },
+          {
+            "category": "Servicios personales",
             "value": 1
           }
         ],
-        "density_label": "1 registro OSM",
+        "density_label": "8 actividades observadas",
         "rank": 1
       }
     },
@@ -1507,30 +1647,35 @@
       },
       "properties": {
         "id": "r2_c8",
-        "count": 7,
-        "top_category": "Oficinas",
+        "count": 13,
+        "top_category": "Servicios profesionales y empresariales",
         "categories": {
-          "Restauración": 2,
-          "Alojamiento": 1,
-          "Oficinas": 4
+          "Restauración": 3,
+          "Alojamiento turístico": 1,
+          "Educación": 4,
+          "Servicios profesionales y empresariales": 5
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Oficinas",
+            "category": "Servicios profesionales y empresariales",
+            "value": 5
+          },
+          {
+            "category": "Educación",
             "value": 4
           },
           {
             "category": "Restauración",
-            "value": 2
+            "value": 3
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
             "value": 1
           }
         ],
-        "density_label": "7 registros OSM",
+        "density_label": "13 actividades observadas",
         "rank": 1
       }
     },
@@ -1571,7 +1716,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1612,7 +1757,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1653,7 +1798,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1694,7 +1839,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -1729,14 +1874,21 @@
       },
       "properties": {
         "id": "r3_c4",
-        "count": 0,
-        "top_category": null,
-        "categories": {},
+        "count": 1,
+        "top_category": "Servicios personales",
+        "categories": {
+          "Servicios personales": 1
+        },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
-        "category_breakdown": [],
-        "density_label": "Sin registros OSM",
-        "rank": 0
+        "category_breakdown": [
+          {
+            "category": "Servicios personales",
+            "value": 1
+          }
+        ],
+        "density_label": "1 actividad observada",
+        "rank": 1
       }
     },
     {
@@ -1770,30 +1922,40 @@
       },
       "properties": {
         "id": "r3_c5",
-        "count": 3,
-        "top_category": "Alojamiento",
+        "count": 9,
+        "top_category": "Salud y bienestar",
         "categories": {
-          "Alojamiento": 1,
-          "Salud": 1,
-          "Educación": 1
+          "Restauración": 2,
+          "Alojamiento turístico": 1,
+          "Salud y bienestar": 3,
+          "Educación": 2,
+          "Ocio, cultura y deporte": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Alojamiento",
-            "value": 1
+            "category": "Salud y bienestar",
+            "value": 3
           },
           {
-            "category": "Salud",
-            "value": 1
+            "category": "Restauración",
+            "value": 2
           },
           {
             "category": "Educación",
+            "value": 2
+          },
+          {
+            "category": "Alojamiento turístico",
+            "value": 1
+          },
+          {
+            "category": "Ocio, cultura y deporte",
             "value": 1
           }
         ],
-        "density_label": "3 registros OSM",
+        "density_label": "9 actividades observadas",
         "rank": 1
       }
     },
@@ -1828,40 +1990,70 @@
       },
       "properties": {
         "id": "r3_c6",
-        "count": 66,
+        "count": 234,
         "top_category": "Restauración",
         "categories": {
-          "Comercio": 23,
-          "Restauración": 30,
-          "Alojamiento": 2,
-          "Servicios financieros": 7,
-          "Salud": 4
+          "Comercio minorista": 50,
+          "Restauración": 69,
+          "Alojamiento turístico": 4,
+          "Salud y bienestar": 38,
+          "Educación": 9,
+          "Servicios financieros": 11,
+          "Movilidad y automoción": 2,
+          "Ocio, cultura y deporte": 11,
+          "Servicios personales": 32,
+          "Servicios profesionales y empresariales": 7,
+          "Otros servicios": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
-            "value": 30
+            "value": 69
           },
           {
-            "category": "Comercio",
-            "value": 23
+            "category": "Comercio minorista",
+            "value": 50
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 38
+          },
+          {
+            "category": "Servicios personales",
+            "value": 32
           },
           {
             "category": "Servicios financieros",
+            "value": 11
+          },
+          {
+            "category": "Ocio, cultura y deporte",
+            "value": 11
+          },
+          {
+            "category": "Educación",
+            "value": 9
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
             "value": 7
           },
           {
-            "category": "Salud",
+            "category": "Alojamiento turístico",
             "value": 4
           },
           {
-            "category": "Alojamiento",
+            "category": "Movilidad y automoción",
             "value": 2
+          },
+          {
+            "category": "Otros servicios",
+            "value": 1
           }
         ],
-        "density_label": "66 registros OSM",
+        "density_label": "234 actividades observadas",
         "rank": 5
       }
     },
@@ -1896,46 +2088,61 @@
       },
       "properties": {
         "id": "r3_c7",
-        "count": 15,
-        "top_category": "Comercio",
+        "count": 41,
+        "top_category": "Comercio minorista",
         "categories": {
-          "Comercio": 4,
-          "Restauración": 4,
-          "Educación": 1,
-          "Automoción y movilidad": 3,
-          "Ocio": 1,
-          "Oficinas": 2
+          "Comercio minorista": 11,
+          "Restauración": 6,
+          "Salud y bienestar": 5,
+          "Educación": 3,
+          "Servicios financieros": 1,
+          "Movilidad y automoción": 8,
+          "Ocio, cultura y deporte": 1,
+          "Servicios personales": 3,
+          "Servicios profesionales y empresariales": 3
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
-            "value": 4
+            "category": "Comercio minorista",
+            "value": 11
+          },
+          {
+            "category": "Movilidad y automoción",
+            "value": 8
           },
           {
             "category": "Restauración",
-            "value": 4
+            "value": 6
           },
           {
-            "category": "Automoción y movilidad",
-            "value": 3
-          },
-          {
-            "category": "Oficinas",
-            "value": 2
+            "category": "Salud y bienestar",
+            "value": 5
           },
           {
             "category": "Educación",
+            "value": 3
+          },
+          {
+            "category": "Servicios personales",
+            "value": 3
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 3
+          },
+          {
+            "category": "Servicios financieros",
             "value": 1
           },
           {
-            "category": "Ocio",
+            "category": "Ocio, cultura y deporte",
             "value": 1
           }
         ],
-        "density_label": "15 registros OSM",
-        "rank": 2
+        "density_label": "41 actividades observadas",
+        "rank": 1
       }
     },
     {
@@ -1969,35 +2176,55 @@
       },
       "properties": {
         "id": "r3_c8",
-        "count": 8,
-        "top_category": "Comercio",
+        "count": 15,
+        "top_category": "Comercio minorista",
         "categories": {
-          "Comercio": 4,
-          "Alojamiento": 2,
-          "Automoción y movilidad": 1,
-          "Oficinas": 1
+          "Comercio minorista": 6,
+          "Restauración": 1,
+          "Alojamiento turístico": 2,
+          "Educación": 1,
+          "Movilidad y automoción": 2,
+          "Servicios personales": 1,
+          "Servicios profesionales y empresariales": 1,
+          "Otros servicios": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
-            "value": 4
+            "category": "Comercio minorista",
+            "value": 6
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
             "value": 2
           },
           {
-            "category": "Automoción y movilidad",
+            "category": "Movilidad y automoción",
+            "value": 2
+          },
+          {
+            "category": "Restauración",
             "value": 1
           },
           {
-            "category": "Oficinas",
+            "category": "Educación",
+            "value": 1
+          },
+          {
+            "category": "Servicios personales",
+            "value": 1
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 1
+          },
+          {
+            "category": "Otros servicios",
             "value": 1
           }
         ],
-        "density_label": "8 registros OSM",
+        "density_label": "15 actividades observadas",
         "rank": 1
       }
     },
@@ -2032,14 +2259,21 @@
       },
       "properties": {
         "id": "r3_c9",
-        "count": 0,
-        "top_category": null,
-        "categories": {},
+        "count": 1,
+        "top_category": "Restauración",
+        "categories": {
+          "Restauración": 1
+        },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
-        "category_breakdown": [],
-        "density_label": "Sin registros OSM",
-        "rank": 0
+        "category_breakdown": [
+          {
+            "category": "Restauración",
+            "value": 1
+          }
+        ],
+        "density_label": "1 actividad observada",
+        "rank": 1
       }
     },
     {
@@ -2079,7 +2313,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -2120,7 +2354,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -2155,14 +2389,26 @@
       },
       "properties": {
         "id": "r4_c4",
-        "count": 0,
-        "top_category": null,
-        "categories": {},
+        "count": 3,
+        "top_category": "Comercio minorista",
+        "categories": {
+          "Comercio minorista": 2,
+          "Educación": 1
+        },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
-        "category_breakdown": [],
-        "density_label": "Sin registros OSM",
-        "rank": 0
+        "category_breakdown": [
+          {
+            "category": "Comercio minorista",
+            "value": 2
+          },
+          {
+            "category": "Educación",
+            "value": 1
+          }
+        ],
+        "density_label": "3 actividades observadas",
+        "rank": 1
       }
     },
     {
@@ -2196,20 +2442,30 @@
       },
       "properties": {
         "id": "r4_c5",
-        "count": 2,
+        "count": 5,
         "top_category": "Educación",
         "categories": {
-          "Educación": 2
+          "Restauración": 1,
+          "Educación": 3,
+          "Ocio, cultura y deporte": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Educación",
-            "value": 2
+            "value": 3
+          },
+          {
+            "category": "Restauración",
+            "value": 1
+          },
+          {
+            "category": "Ocio, cultura y deporte",
+            "value": 1
           }
         ],
-        "density_label": "2 registros OSM",
+        "density_label": "5 actividades observadas",
         "rank": 1
       }
     },
@@ -2244,36 +2500,66 @@
       },
       "properties": {
         "id": "r4_c6",
-        "count": 8,
-        "top_category": "Comercio",
+        "count": 57,
+        "top_category": "Restauración",
         "categories": {
-          "Comercio": 4,
-          "Restauración": 2,
-          "Salud": 1,
-          "Educación": 1
+          "Comercio minorista": 11,
+          "Restauración": 12,
+          "Salud y bienestar": 11,
+          "Educación": 3,
+          "Servicios financieros": 1,
+          "Movilidad y automoción": 1,
+          "Ocio, cultura y deporte": 2,
+          "Servicios personales": 10,
+          "Servicios profesionales y empresariales": 5,
+          "Otros servicios": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
-            "value": 4
-          },
-          {
             "category": "Restauración",
-            "value": 2
+            "value": 12
           },
           {
-            "category": "Salud",
-            "value": 1
+            "category": "Comercio minorista",
+            "value": 11
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 11
+          },
+          {
+            "category": "Servicios personales",
+            "value": 10
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 5
           },
           {
             "category": "Educación",
+            "value": 3
+          },
+          {
+            "category": "Ocio, cultura y deporte",
+            "value": 2
+          },
+          {
+            "category": "Servicios financieros",
+            "value": 1
+          },
+          {
+            "category": "Movilidad y automoción",
+            "value": 1
+          },
+          {
+            "category": "Otros servicios",
             "value": 1
           }
         ],
-        "density_label": "8 registros OSM",
-        "rank": 1
+        "density_label": "57 actividades observadas",
+        "rank": 2
       }
     },
     {
@@ -2307,36 +2593,66 @@
       },
       "properties": {
         "id": "r4_c7",
-        "count": 10,
-        "top_category": "Restauración",
+        "count": 109,
+        "top_category": "Comercio minorista",
         "categories": {
-          "Comercio": 2,
-          "Restauración": 4,
-          "Salud": 3,
-          "Otros servicios": 1
+          "Comercio minorista": 30,
+          "Restauración": 22,
+          "Salud y bienestar": 16,
+          "Educación": 8,
+          "Servicios financieros": 2,
+          "Movilidad y automoción": 4,
+          "Ocio, cultura y deporte": 5,
+          "Servicios personales": 11,
+          "Servicios profesionales y empresariales": 7,
+          "Otros servicios": 4
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
+            "category": "Comercio minorista",
+            "value": 30
+          },
+          {
             "category": "Restauración",
+            "value": 22
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 16
+          },
+          {
+            "category": "Servicios personales",
+            "value": 11
+          },
+          {
+            "category": "Educación",
+            "value": 8
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 7
+          },
+          {
+            "category": "Ocio, cultura y deporte",
+            "value": 5
+          },
+          {
+            "category": "Movilidad y automoción",
             "value": 4
           },
           {
-            "category": "Salud",
-            "value": 3
-          },
-          {
-            "category": "Comercio",
-            "value": 2
-          },
-          {
             "category": "Otros servicios",
-            "value": 1
+            "value": 4
+          },
+          {
+            "category": "Servicios financieros",
+            "value": 2
           }
         ],
-        "density_label": "10 registros OSM",
-        "rank": 1
+        "density_label": "109 actividades observadas",
+        "rank": 3
       }
     },
     {
@@ -2370,45 +2686,60 @@
       },
       "properties": {
         "id": "r4_c8",
-        "count": 24,
-        "top_category": "Comercio",
+        "count": 80,
+        "top_category": "Comercio minorista",
         "categories": {
-          "Comercio": 12,
-          "Restauración": 4,
-          "Alojamiento": 2,
-          "Salud": 2,
-          "Automoción y movilidad": 2,
-          "Ocio": 2
+          "Comercio minorista": 41,
+          "Restauración": 14,
+          "Alojamiento turístico": 2,
+          "Salud y bienestar": 4,
+          "Servicios financieros": 1,
+          "Movilidad y automoción": 7,
+          "Ocio, cultura y deporte": 7,
+          "Servicios personales": 2,
+          "Otros servicios": 2
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
-            "value": 12
+            "category": "Comercio minorista",
+            "value": 41
           },
           {
             "category": "Restauración",
+            "value": 14
+          },
+          {
+            "category": "Movilidad y automoción",
+            "value": 7
+          },
+          {
+            "category": "Ocio, cultura y deporte",
+            "value": 7
+          },
+          {
+            "category": "Salud y bienestar",
             "value": 4
           },
           {
-            "category": "Alojamiento",
+            "category": "Alojamiento turístico",
             "value": 2
           },
           {
-            "category": "Salud",
+            "category": "Servicios personales",
             "value": 2
           },
           {
-            "category": "Automoción y movilidad",
+            "category": "Otros servicios",
             "value": 2
           },
           {
-            "category": "Ocio",
-            "value": 2
+            "category": "Servicios financieros",
+            "value": 1
           }
         ],
-        "density_label": "24 registros OSM",
+        "density_label": "80 actividades observadas",
         "rank": 2
       }
     },
@@ -2449,7 +2780,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -2490,7 +2821,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -2525,30 +2856,45 @@
       },
       "properties": {
         "id": "r5_c6",
-        "count": 4,
-        "top_category": "Comercio",
+        "count": 14,
+        "top_category": "Educación",
         "categories": {
-          "Comercio": 2,
-          "Restauración": 1,
-          "Educación": 1
+          "Comercio minorista": 3,
+          "Restauración": 2,
+          "Educación": 5,
+          "Ocio, cultura y deporte": 1,
+          "Servicios personales": 2,
+          "Servicios profesionales y empresariales": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
-            "value": 2
+            "category": "Educación",
+            "value": 5
+          },
+          {
+            "category": "Comercio minorista",
+            "value": 3
           },
           {
             "category": "Restauración",
+            "value": 2
+          },
+          {
+            "category": "Servicios personales",
+            "value": 2
+          },
+          {
+            "category": "Ocio, cultura y deporte",
             "value": 1
           },
           {
-            "category": "Educación",
+            "category": "Servicios profesionales y empresariales",
             "value": 1
           }
         ],
-        "density_label": "4 registros OSM",
+        "density_label": "14 actividades observadas",
         "rank": 1
       }
     },
@@ -2583,40 +2929,60 @@
       },
       "properties": {
         "id": "r5_c7",
-        "count": 10,
-        "top_category": "Comercio",
+        "count": 44,
+        "top_category": "Comercio minorista",
         "categories": {
-          "Comercio": 3,
-          "Restauración": 3,
-          "Salud": 2,
-          "Educación": 1,
-          "Otros servicios": 1
+          "Comercio minorista": 10,
+          "Restauración": 8,
+          "Salud y bienestar": 4,
+          "Educación": 3,
+          "Servicios financieros": 2,
+          "Movilidad y automoción": 1,
+          "Ocio, cultura y deporte": 4,
+          "Servicios personales": 6,
+          "Servicios profesionales y empresariales": 6
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
-            "category": "Comercio",
-            "value": 3
+            "category": "Comercio minorista",
+            "value": 10
           },
           {
             "category": "Restauración",
-            "value": 3
+            "value": 8
           },
           {
-            "category": "Salud",
-            "value": 2
+            "category": "Servicios personales",
+            "value": 6
+          },
+          {
+            "category": "Servicios profesionales y empresariales",
+            "value": 6
+          },
+          {
+            "category": "Salud y bienestar",
+            "value": 4
+          },
+          {
+            "category": "Ocio, cultura y deporte",
+            "value": 4
           },
           {
             "category": "Educación",
-            "value": 1
+            "value": 3
           },
           {
-            "category": "Otros servicios",
+            "category": "Servicios financieros",
+            "value": 2
+          },
+          {
+            "category": "Movilidad y automoción",
             "value": 1
           }
         ],
-        "density_label": "10 registros OSM",
+        "density_label": "44 actividades observadas",
         "rank": 1
       }
     },
@@ -2651,30 +3017,60 @@
       },
       "properties": {
         "id": "r5_c8",
-        "count": 7,
+        "count": 40,
         "top_category": "Restauración",
         "categories": {
-          "Comercio": 2,
-          "Restauración": 4,
-          "Automoción y movilidad": 1
+          "Comercio minorista": 9,
+          "Restauración": 13,
+          "Alojamiento turístico": 1,
+          "Salud y bienestar": 1,
+          "Educación": 4,
+          "Movilidad y automoción": 5,
+          "Ocio, cultura y deporte": 3,
+          "Servicios personales": 2,
+          "Servicios profesionales y empresariales": 2
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [
           {
             "category": "Restauración",
+            "value": 13
+          },
+          {
+            "category": "Comercio minorista",
+            "value": 9
+          },
+          {
+            "category": "Movilidad y automoción",
+            "value": 5
+          },
+          {
+            "category": "Educación",
             "value": 4
           },
           {
-            "category": "Comercio",
+            "category": "Ocio, cultura y deporte",
+            "value": 3
+          },
+          {
+            "category": "Servicios personales",
             "value": 2
           },
           {
-            "category": "Automoción y movilidad",
+            "category": "Servicios profesionales y empresariales",
+            "value": 2
+          },
+          {
+            "category": "Alojamiento turístico",
+            "value": 1
+          },
+          {
+            "category": "Salud y bienestar",
             "value": 1
           }
         ],
-        "density_label": "7 registros OSM",
+        "density_label": "40 actividades observadas",
         "rank": 1
       }
     },
@@ -2715,7 +3111,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -2756,7 +3152,7 @@
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
         "category_breakdown": [],
-        "density_label": "Sin registros OSM",
+        "density_label": "Sin actividades observadas",
         "rank": 0
       }
     },
@@ -2791,14 +3187,69 @@
       },
       "properties": {
         "id": "r6_c7",
-        "count": 0,
-        "top_category": null,
-        "categories": {},
+        "count": 1,
+        "top_category": "Restauración",
+        "categories": {
+          "Restauración": 1
+        },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
-        "category_breakdown": [],
-        "density_label": "Sin registros OSM",
-        "rank": 0
+        "category_breakdown": [
+          {
+            "category": "Restauración",
+            "value": 1
+          }
+        ],
+        "density_label": "1 actividad observada",
+        "rank": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              1.990963365208198,
+              41.28151865259868
+            ],
+            [
+              1.9969331167784823,
+              41.28157082608819
+            ],
+            [
+              1.9968641493525023,
+              41.286074031295385
+            ],
+            [
+              1.990893987491909,
+              41.286021849589105
+            ],
+            [
+              1.990963365208198,
+              41.28151865259868
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "r4_c9",
+        "count": 1,
+        "top_category": "Comercio minorista",
+        "categories": {
+          "Comercio minorista": 1
+        },
+        "cell_size_m": 500,
+        "analytic_crs": "EPSG:25831",
+        "category_breakdown": [
+          {
+            "category": "Comercio minorista",
+            "value": 1
+          }
+        ],
+        "density_label": "1 actividad observada",
+        "rank": 1
       }
     },
     {
@@ -2832,10 +3283,11 @@
       },
       "properties": {
         "id": "r1_c10",
-        "count": 1,
+        "count": 2,
         "top_category": "Servicios financieros",
         "categories": {
-          "Servicios financieros": 1
+          "Servicios financieros": 1,
+          "Ocio, cultura y deporte": 1
         },
         "cell_size_m": 500,
         "analytic_crs": "EPSG:25831",
@@ -2843,9 +3295,13 @@
           {
             "category": "Servicios financieros",
             "value": 1
+          },
+          {
+            "category": "Ocio, cultura y deporte",
+            "value": 1
           }
         ],
-        "density_label": "1 registro OSM",
+        "density_label": "2 actividades observadas",
         "rank": 1
       }
     }

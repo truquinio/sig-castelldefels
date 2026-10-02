@@ -8,7 +8,7 @@ Desarrollo de una visualización web de actividades económicas observadas en Ca
 
 ## Versión corta para LinkedIn o GitHub
 
-Mini-proyecto SIG de aprendizaje aplicado: mapa web de Castelldefels con límite municipal ICGC, puntos OSM/Overpass y análisis básico por categorías y malla de 500 m. El objetivo es demostrar un flujo completo y reproducible: obtención de datos, tratamiento GeoJSON, visualización Leaflet y consultas PostGIS.
+Mini-proyecto SIG de aprendizaje aplicado: mapa web de Castelldefels con límite municipal ICGC, actividades observadas desde OpenStreetMap y Overture Maps Places, deduplicación trazable y análisis por categorías y malla métrica de 500 m. El objetivo es demostrar un flujo completo y reproducible: obtención de datos, tratamiento GeoJSON, visualización Leaflet y consultas PostGIS.
 
 ## Texto para enviar a PSIG
 

@@ -4,7 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "check": "node --check web/js/app.js && node --check web/js/map3d.js && node --check scripts/build-data.mjs"
+    "check": "node --check web/js/app.js && node --check web/js/map3d.js && node --check scripts/build-data.mjs && node --check scripts/enrich-osm-names.mjs",
+    "rebuild:offline": "node scripts/build-data.mjs --offline",
+    "enrich:names": "node scripts/enrich-osm-names.mjs",
+    "fetch:overture": "python scripts/fetch-overture.py"
   },
   "dependencies": {
     "proj4": "^2.22.0"

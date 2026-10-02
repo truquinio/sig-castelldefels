@@ -6,9 +6,10 @@ const build = await readFile(new URL("../scripts/build-data.mjs", import.meta.ur
 const html = await readFile(new URL("../web/index.html", import.meta.url), "utf8");
 const app = await readFile(new URL("../web/js/app.js", import.meta.url), "utf8");
 
-test("economic extraction excludes clearly non-economic features", () => {
+test("OSM economic extraction excludes clearly non-economic features", () => {
+  const selectorBlock = build.match(/const selectors = \[([\s\S]*?)\];/)?.[1] ?? "";
   for (const forbidden of ["park", "playground", "pitch", "garden", "nature_reserve", "bicycle_parking", "townhall", "police", "fire_station", "library", "community_centre"]) {
-    assert.doesNotMatch(build, new RegExp("\\b" + forbidden + "\\b"), forbidden);
+    assert.doesNotMatch(selectorBlock, new RegExp("\\b" + forbidden + "\\b"), forbidden);
   }
 });
 

@@ -26,11 +26,13 @@ No representa datos internos del Ayuntamiento ni pretende sustituir una fuente o
 ~~~mermaid
 flowchart LR
     O["OpenStreetMap"] --> A["Overpass API"]
-    A --> G["GeoJSON"]
-    G --> F["Filtrado territorial"]
-    F --> P[("PostGIS")]
-    P --> M["Malla 500 m"]
-    M --> L["Visor Leaflet"]
+    V["Overture Maps Places"] --> C["Clasificación + confianza"]
+    A --> G["OSM GeoJSON"]
+    G --> D["Deduplicación / enriquecimiento"]
+    C --> D
+    D --> F["Filtrado territorial ICGC"]
+    F --> M["Malla 500 m · EPSG:25831"]
+    M --> L["Leaflet 2D + MapLibre 3D"]
 ~~~
 
 ## 📸 Capturas
@@ -41,7 +43,7 @@ flowchart LR
 
 ## ✨ Qué permite hacer
 
-- visualizar actividades económicas observadas en OpenStreetMap;
+- visualizar actividades económicas observadas en OpenStreetMap y Overture Maps Places;
 - filtrar por categoría;
 - comparar distribución mediante malla;
 - consultar información mediante popups;
@@ -54,15 +56,31 @@ flowchart LR
 | Indicador | Valor |
 | --- | ---: |
 | Área analizada | 12,91 km² |
-| Registros OSM seleccionados | 343 |
-| Celdas de malla | 55 |
+| Actividades combinadas | 985 |
+| Registros OSM base | 343 |
+| Overture-only tras filtros/deduplicación | 642 |
+| Coincidencias OSM + Overture fusionadas | 129 |
+| Celdas de malla | 56 |
 | Tamaño de celda | 500 m |
 
 > Estos valores describen el dataset de esta versión. No son un censo municipal oficial.
 
+## 🔁 Reproducibilidad
+
+~~~bash
+npm install
+python -m pip install -r requirements-overture.txt
+npm run fetch:overture
+node scripts/build-data.mjs
+npm test
+npm run check
+~~~
+
+Si Overpass está temporalmente caído, `npm run rebuild:offline` reconstruye clasificación, deduplicación y malla usando el último snapshot OSM guardado, sin presentarlo como una descarga nueva.
+
 ## 🧰 Stack
 
-**Datos:** OpenStreetMap · Overpass API · GeoJSON  
+**Datos:** OpenStreetMap · Overpass API · Overture Maps Places · GeoJSON
 **Análisis:** PostgreSQL / PostGIS  
 **Mapa:** Leaflet (2D) · MapLibre GL JS/OpenFreeMap (3D opcional) · HTML · CSS · JavaScript
 **Referencia territorial:** ICGC / límite municipal utilizado por el proyecto  
@@ -98,17 +116,21 @@ sig-castelldefels/
 
 | Fuente | Uso |
 | --- | --- |
-| OpenStreetMap | Actividades/establecimientos observables y geometría de edificios |
-| Overpass API | Extracción de elementos OSM |
-| ICGC | Referencia territorial |
-| WGS84 / EPSG:4326 | Referencia espacial web |
+| OpenStreetMap | Actividades/establecimientos observables; ODbL |
+| Overpass API | Extracción reproducible de elementos OSM |
+| Overture Maps Places | Segunda fuente de lugares/negocios con confianza y taxonomía; licencias permisivas según proveedor |
+| ICGC | Límite municipal y referencia territorial |
+| EPSG:25831 | Construcción métrica de la malla de 500 m |
+| WGS84 / EPSG:4326 | Publicación GeoJSON y web |
 
 ### Limitaciones
 
 - no representa el Censo de Actividades Económicas municipal;
 - no utiliza datos internos ni privados del Ayuntamiento;
-- OpenStreetMap puede contener información incompleta o desactualizada;
-- la malla de 500 m se genera en EPSG:25831 y representa concentración de registros observados, no actividad económica real;
+- OpenStreetMap y Overture Maps pueden contener información incompleta, desactualizada o clasificada incorrectamente;
+- Overture se filtra por confianza, taxonomía, nombre, límite municipal y reglas de deduplicación; no se acepta ciegamente su categoría;
+- Google Maps y directorios web no se copian al dataset persistente cuando sus condiciones de reutilización no lo permiten;
+- la malla de 500 m se genera en EPSG:25831 y representa concentración de actividades observadas, no actividad económica real;
 - el 3D es una capa visual contextual, no un Digital Twin ni una representación oficial de edificios;
 - no sustituye análisis territoriales oficiales.
 

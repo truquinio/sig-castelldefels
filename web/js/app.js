@@ -1,13 +1,14 @@
 const CATEGORY_COLORS = {
-  Comercio: "#c65a3b",
+  "Comercio minorista": "#c65a3b",
   Restauración: "#0f766e",
-  Alojamiento: "#8b6f2f",
-  "Servicios financieros": "#355c7d",
-  Salud: "#b23a48",
+  "Alojamiento turístico": "#8b6f2f",
+  "Salud y bienestar": "#b23a48",
   Educación: "#326fa8",
-  "Automoción y movilidad": "#7a5c3e",
-  Ocio: "#8a4f7d",
-  Oficinas: "#6a4c93",
+  "Servicios financieros": "#355c7d",
+  "Movilidad y automoción": "#7a5c3e",
+  "Ocio, cultura y deporte": "#8a4f7d",
+  "Servicios personales": "#a35f75",
+  "Servicios profesionales y empresariales": "#6a4c93",
   "Otros servicios": "#6f7672",
 };
 
@@ -94,15 +95,24 @@ function gridStyle(feature) {
 
 function bindPoiPopup(feature, layer) {
   const props = feature.properties;
-  const osmUrl = `https://www.openstreetmap.org/${props.osm_id}`;
+  const sources = props.sources ?? [props.source].filter(Boolean);
+  const sourceLinks = [
+    props.osm_id
+      ? `<a class="popup-link" href="https://www.openstreetmap.org/${escapeHtml(props.osm_id)}" target="_blank" rel="noreferrer">OpenStreetMap</a>`
+      : "",
+    props.overture_id
+      ? '<a class="popup-link" href="https://docs.overturemaps.org/guides/places/" target="_blank" rel="noreferrer">Overture Maps</a>'
+      : "",
+  ].filter(Boolean).join(" · ");
 
   layer.bindPopup(`
-    <h2 class="popup-title">${escapeHtml(props.name)}</h2>
+    <h2 class="popup-title">${escapeHtml(props.display_name ?? props.name ?? props.subcategory)}</h2>
     <p class="popup-meta">
+      <strong>${escapeHtml(props.subcategory ?? props.category)}</strong><br />
       ${escapeHtml(props.category)}<br />
-      ${escapeHtml(props.primary_tag)}
+      <small>Fuente: ${escapeHtml(sources.join(" + "))}</small>
     </p>
-    <a class="popup-link" href="${osmUrl}" target="_blank" rel="noreferrer">OpenStreetMap</a>
+    ${sourceLinks}
   `);
 }
 
@@ -235,6 +245,7 @@ async function switchMapDimension(dimension) {
           data,
           center: [center.lng, center.lat],
           zoom: map.getZoom(),
+          categoryColors: CATEGORY_COLORS,
         }),
       );
       map3dController = await map3dLoading;
@@ -308,7 +319,7 @@ function render() {
 function getFilteredPois() {
   return data.pois.features.filter((feature) => {
     const props = feature.properties;
-    const text = `${props.name} ${props.category} ${props.primary_tag}`.toLowerCase();
+    const text = `${props.display_name ?? ""} ${props.name ?? ""} ${props.category} ${props.subcategory ?? ""} ${props.primary_tag}`.toLowerCase();
 
     return state.selectedCategories.has(props.category) && (!state.query || text.includes(state.query));
   });
@@ -418,7 +429,7 @@ function updateLegend(filteredPois, filteredGrid) {
 function downloadFilteredGeojson() {
   const collection = {
     type: "FeatureCollection",
-    name: "osm_pois_castelldefels_filtrado",
+    name: "actividades_castelldefels_filtrado",
     features: getFilteredPois(),
   };
   const blob = new Blob([JSON.stringify(collection, null, 2)], {
@@ -427,7 +438,7 @@ function downloadFilteredGeojson() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "osm_pois_castelldefels_filtrado.geojson";
+  link.download = "actividades_castelldefels_filtrado.geojson";
   link.click();
   URL.revokeObjectURL(url);
 }
