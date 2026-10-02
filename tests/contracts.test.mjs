@@ -54,3 +54,23 @@ test("historical snapshots are loaded separately from the current combined inven
   assert.match(app, /history\/index\.json/);
   assert.match(app, /source_scope/);
 });
+
+test("institutional shell uses the full author identity and GitHub profile", () => {
+  assert.match(html, /by Federico Trucco/);
+  assert.match(html, /https:\/\/github\.com\/truquinio/);
+});
+
+test("historical statistics have a dedicated operational summary instead of an empty map", () => {
+  for (const id of ["historical-summary", "history-selected-total", "history-yoy", "history-since-start"]) {
+    assert.match(html, new RegExp(`id="${id}"`), id);
+  }
+  assert.match(app, /historical-summary/);
+});
+
+test("data and methodology page shares the main application shell", async () => {
+  const docs = await readFile(new URL("../web/docs.html", import.meta.url), "utf8");
+  assert.match(docs, /class="topbar"/);
+  assert.match(docs, /class="nav-rail"/);
+  assert.match(docs, /by Federico Trucco/);
+  assert.match(docs, /\.\/css\/styles\.css/);
+});

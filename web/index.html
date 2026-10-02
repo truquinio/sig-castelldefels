@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#071b2e" />
+  <meta name="theme-color" content="#102a3a" />
   <title>SIG Castelldefels · Actividades económicas</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="./css/styles.css" />
@@ -13,136 +13,122 @@
   <script defer src="./js/app.js"></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-mark" aria-hidden="true">SIG</div>
-      <div>
-        <div class="brand-line">SIG Castelldefels <span>· by truquinio</span></div>
-        <div class="brand-subtitle">Actividades económicas · datos abiertos</div>
-      </div>
+<header class="topbar">
+  <a class="brand" href="./index.html" aria-label="SIG Castelldefels">
+    <div class="brand-mark" aria-hidden="true">SIG</div>
+    <div>
+      <div class="brand-line">SIG Castelldefels <span>· by Federico Trucco</span></div>
+      <div class="brand-subtitle">Actividades económicas · datos abiertos</div>
     </div>
-    <div class="top-actions">
-      <span class="status-pill" id="data-status"><span class="status-dot"></span>Datos cargados</span>
-      <a class="action-button secondary" href="./docs.html"><i data-lucide="file-text"></i><span>Fuentes</span></a>
-      <button class="action-button primary" id="download-filtered" type="button"><i data-lucide="download"></i><span>Exportar</span></button>
-    </div>
-  </header>
-
-  <div class="workspace">
-    <aside class="nav-rail" aria-label="Secciones">
-      <button class="nav-item is-active" type="button" data-section-target="dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
-      <button class="nav-item" type="button" data-section-target="map"><i data-lucide="map"></i><span>Mapa</span></button>
-      <button class="nav-item" type="button" data-section-target="history"><i data-lucide="history"></i><span>Histórico</span></button>
-      <a class="nav-item" href="./docs.html"><i data-lucide="database"></i><span>Datos y método</span></a>
-      <div class="nav-footer">v0.3 · by truquinio</div>
-    </aside>
-
-    <main class="dashboard" id="dashboard">
-      <section class="page-heading">
-        <div>
-          <h1>Dashboard de actividades económicas</h1>
-          <p>Consulta rápida por año, categoría y ubicación. El histórico refleja lo observado en fuentes públicas.</p>
-        </div>
-        <div class="view-actions">
-          <button class="soft-button" id="fit-map" type="button"><i data-lucide="focus"></i> Ajustar mapa</button>
-          <div class="dimension-switch" id="map-dimension" role="group" aria-label="Modo de mapa">
-            <button class="dimension-button is-active" type="button" data-dimension="2d" aria-pressed="true">2D</button>
-            <button class="dimension-button" type="button" data-dimension="3d" aria-pressed="false">3D</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="kpi-grid" aria-label="Indicadores principales">
-        <article class="kpi-card">
-          <div class="kpi-icon"><i data-lucide="store"></i></div>
-          <div><span>Actividades visibles</span><strong id="metric-total">0</strong><small id="metric-total-note">Inventario actual</small></div>
-        </article>
-        <article class="kpi-card">
-          <div class="kpi-icon"><i data-lucide="tags"></i></div>
-          <div><span>Categoría principal</span><strong id="metric-top-category">—</strong><small id="metric-top-category-note">—</small></div>
-        </article>
-        <article class="kpi-card">
-          <div class="kpi-icon"><i data-lucide="badge-check"></i></div>
-          <div><span>Identificadas por nombre</span><strong id="metric-named">0%</strong><small id="metric-named-note">0 de 0</small></div>
-        </article>
-        <article class="kpi-card">
-          <div class="kpi-icon"><i data-lucide="calendar-range"></i></div>
-          <div><span>Año consultado</span><strong id="metric-year">—</strong><small id="metric-source-scope">Inventario combinado actual</small></div>
-        </article>
-      </section>
-
-      <section class="toolbar-card">
-        <div class="search-box">
-          <i data-lucide="search"></i>
-          <input id="search-input" type="search" placeholder="Buscar actividad, subcategoría o nombre…" aria-label="Buscar actividades" />
-        </div>
-        <label class="select-wrap">Categoría
-          <select id="category-select"><option value="__all__">Todas las categorías</option></select>
-        </label>
-        <button class="soft-button" id="reset-filters" type="button"><i data-lucide="rotate-ccw"></i> Restablecer</button>
-        <div class="segmented" aria-label="Vista analítica">
-          <button class="segment is-active" type="button" data-mode="points" aria-pressed="true">Puntos</button>
-          <button class="segment" type="button" data-mode="grid" aria-pressed="false">Malla</button>
-          <button class="segment" type="button" data-mode="mixed" aria-pressed="false">Mixta</button>
-        </div>
-      </section>
-
-      <section class="timeline-card" id="history">
-        <div class="timeline-head">
-          <div><span class="section-kicker">Evolución histórica</span><strong id="year-value">—</strong></div>
-          <div class="history-scope" id="history-scope">Actual: OSM + Overture</div>
-        </div>
-        <div class="slider-row">
-          <span id="year-min">—</span>
-          <input id="year-slider" type="range" min="0" max="0" step="1" value="0" aria-label="Año del histórico" />
-          <span id="year-max">—</span>
-        </div>
-        <p class="timeline-help" id="timeline-help">Mueve el año para consultar el histórico OSM disponible. El año actual muestra el inventario combinado.</p>
-      </section>
-
-      <section class="content-grid">
-        <article class="panel map-card" id="map-section">
-          <div class="panel-head">
-            <div><span class="section-kicker">Mapa</span><h2>Actividades por ubicación</h2></div>
-            <span class="panel-badge" id="map-count">0 visibles</span>
-          </div>
-          <div class="map-wrap">
-            <div id="map"></div>
-            <div id="map-3d" hidden aria-label="Vista 3D de edificios y actividades"></div>
-            <div class="map-status" id="map-status" role="status" aria-live="polite"></div>
-          </div>
-        </article>
-
-        <article class="panel category-card">
-          <div class="panel-head">
-            <div><span class="section-kicker">Distribución</span><h2>Actividades por categoría</h2></div>
-          </div>
-          <div id="category-chart" class="bar-chart" aria-label="Gráfico de actividades por categoría"></div>
-        </article>
-      </section>
-
-      <section class="bottom-grid">
-        <article class="panel">
-          <div class="panel-head">
-            <div><span class="section-kicker">Tendencia</span><h2>Evolución anual</h2></div>
-            <span class="panel-badge">Histórico OSM</span>
-          </div>
-          <div id="history-chart" class="history-chart" aria-label="Gráfico de evolución histórica"></div>
-        </article>
-        <article class="panel">
-          <div class="panel-head">
-            <div><span class="section-kicker">Calidad rápida</span><h2>Estado de los datos</h2></div>
-          </div>
-          <div class="quality-grid">
-            <div><span>Con nombre</span><strong id="quality-named">—</strong></div>
-            <div><span>Sin nombre explícito</span><strong id="quality-unnamed">—</strong></div>
-            <div><span>Fuentes actuales</span><strong id="quality-sources">—</strong></div>
-            <div><span>Otros servicios</span><strong id="quality-other">—</strong></div>
-          </div>
-          <p class="quality-note">“Sin nombre” se muestra con una etiqueta semántica útil; no se inventan nombres comerciales.</p>
-        </article>
-      </section>
-    </main>
+  </a>
+  <div class="top-actions">
+    <span class="status-pill" id="data-status"><span class="status-dot"></span>Datos cargados</span>
+    <a class="action-button secondary" href="./docs.html"><i data-lucide="database"></i><span>Datos y método</span></a>
+    <a class="action-button secondary author-link" href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer"><i data-lucide="github"></i><span>GitHub</span></a>
+    <button class="action-button primary" id="download-filtered" type="button"><i data-lucide="download"></i><span>Exportar</span></button>
   </div>
+</header>
+
+<div class="workspace">
+  <aside class="nav-rail" aria-label="Secciones">
+    <button class="nav-item is-active" type="button" data-section-target="dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
+    <button class="nav-item" type="button" data-section-target="map"><i data-lucide="map"></i><span>Mapa</span></button>
+    <button class="nav-item" type="button" data-section-target="history"><i data-lucide="history"></i><span>Histórico</span></button>
+    <a class="nav-item" href="./docs.html"><i data-lucide="database"></i><span>Datos y método</span></a>
+    <div class="nav-footer">v0.4<br><a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer">by Federico Trucco</a></div>
+  </aside>
+
+  <main class="dashboard" id="dashboard">
+    <section class="page-heading">
+      <div>
+        <span class="eyebrow">Visor operativo municipal</span>
+        <h1>Actividades económicas de Castelldefels</h1>
+        <p>Consulta rápida del inventario abierto, distribución territorial, calidad de datos y evolución histórica.</p>
+      </div>
+      <div class="view-actions">
+        <button class="soft-button" id="fit-map" type="button"><i data-lucide="focus"></i> Ajustar mapa</button>
+        <div class="dimension-switch" id="map-dimension" role="group" aria-label="Modo de mapa">
+          <button class="dimension-button is-active" type="button" data-dimension="2d" aria-pressed="true">2D</button>
+          <button class="dimension-button" type="button" data-dimension="3d" aria-pressed="false">3D</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="kpi-grid" aria-label="Indicadores principales">
+      <article class="kpi-card"><div class="kpi-icon"><i data-lucide="store"></i></div><div><span>Actividades visibles</span><strong id="metric-total">0</strong><small id="metric-total-note">Inventario actual</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon"><i data-lucide="badge-check"></i></div><div><span>Identificadas por nombre</span><strong id="metric-named">0%</strong><small id="metric-named-note">0 de 0</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon"><i data-lucide="tags"></i></div><div><span>Categoría principal</span><strong id="metric-top-category">—</strong><small id="metric-top-category-note">—</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon"><i data-lucide="layers-3"></i></div><div><span>Cobertura multifuente</span><strong id="metric-multisource">—</strong><small id="metric-multisource-note">OSM + Overture</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon"><i data-lucide="map-pinned"></i></div><div><span>Mayor concentración</span><strong id="metric-hot-cell">—</strong><small id="metric-hot-cell-note">Malla de 500 m</small></div></article>
+      <article class="kpi-card"><div class="kpi-icon"><i data-lucide="calendar-range"></i></div><div><span>Año consultado</span><strong id="metric-year">—</strong><small id="metric-source-scope">Inventario combinado actual</small></div></article>
+    </section>
+
+    <section class="toolbar-card" aria-label="Filtros">
+      <div class="search-box"><i data-lucide="search"></i><input id="search-input" type="search" placeholder="Buscar actividad, subcategoría o nombre…" aria-label="Buscar actividades" /></div>
+      <label class="select-wrap">Categoría<select id="category-select"><option value="__all__">Todas las categorías</option></select></label>
+      <button class="soft-button" id="reset-filters" type="button"><i data-lucide="rotate-ccw"></i> Restablecer</button>
+      <div class="segmented" aria-label="Vista analítica">
+        <button class="segment is-active" type="button" data-mode="points" aria-pressed="true">Puntos</button>
+        <button class="segment" type="button" data-mode="grid" aria-pressed="false">Malla</button>
+        <button class="segment" type="button" data-mode="mixed" aria-pressed="false">Mixta</button>
+      </div>
+    </section>
+
+    <section class="timeline-card" id="history">
+      <div class="timeline-head">
+        <div><span class="section-kicker">Evolución histórica</span><strong id="year-value">—</strong></div>
+        <div class="history-scope" id="history-scope">Actual · OSM + Overture</div>
+      </div>
+      <div class="slider-row"><span id="year-min">—</span><input id="year-slider" type="range" min="0" max="0" step="1" value="0" aria-label="Año del histórico" /><span id="year-max">—</span></div>
+      <p class="timeline-help" id="timeline-help">Mueve el año para consultar la evolución histórica disponible.</p>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel map-card" id="map-section">
+        <div class="panel-head">
+          <div><span class="section-kicker">Territorio</span><h2>Actividades por ubicación</h2></div>
+          <span class="panel-badge" id="map-count">0 visibles</span>
+        </div>
+        <div class="map-wrap">
+          <div id="map"></div>
+          <div id="map-3d" hidden aria-label="Vista 3D de edificios y actividades"></div>
+          <section id="historical-summary" class="historical-summary" hidden aria-live="polite">
+            <div class="history-summary-head"><span class="section-kicker">Resumen del año</span><strong id="history-summary-year">—</strong></div>
+            <div class="history-summary-grid">
+              <div><span>Registros observados</span><strong id="history-selected-total">—</strong></div>
+              <div><span>Variación interanual</span><strong id="history-yoy">—</strong></div>
+              <div><span>Variación desde 2016</span><strong id="history-since-start">—</strong></div>
+            </div>
+            <div id="history-mini-chart" class="history-mini-chart"></div>
+            <p>El histórico refleja la presencia registrada en OpenStreetMap al cierre de cada año. No equivale a un censo administrativo ni a aperturas/cierres reales.</p>
+          </section>
+          <div class="map-status" id="map-status" role="status" aria-live="polite"></div>
+        </div>
+      </article>
+
+      <article class="panel category-card">
+        <div class="panel-head"><div><span class="section-kicker">Distribución</span><h2>Actividades por categoría</h2></div></div>
+        <div id="category-chart" class="bar-chart" aria-label="Gráfico de actividades por categoría"></div>
+      </article>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="panel">
+        <div class="panel-head"><div><span class="section-kicker">Tendencia</span><h2>Evolución anual</h2></div><span class="panel-badge">Histórico OSM</span></div>
+        <div id="history-chart" class="history-chart" aria-label="Gráfico de evolución histórica"></div>
+      </article>
+      <article class="panel">
+        <div class="panel-head"><div><span class="section-kicker">Calidad operativa</span><h2>Estado del inventario</h2></div></div>
+        <div class="quality-grid">
+          <div><span>Con nombre</span><strong id="quality-named">—</strong></div>
+          <div><span>Sin nombre explícito</span><strong id="quality-unnamed">—</strong></div>
+          <div><span>Fuentes activas</span><strong id="quality-sources">—</strong></div>
+          <div><span>Otros servicios</span><strong id="quality-other">—</strong></div>
+        </div>
+        <p class="quality-note">Los nombres no disponibles se sustituyen por etiquetas semánticas; el sistema no inventa nombres comerciales.</p>
+      </article>
+    </section>
+  </main>
+</div>
 </body>
 </html>

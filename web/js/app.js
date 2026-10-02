@@ -1,10 +1,10 @@
 const CATEGORY_COLORS={
-"Comercio minorista":"#f28b50",Restauración:"#23c5a5","Alojamiento turístico":"#d5a84f",
-"Salud y bienestar":"#ee6677",Educación:"#4ba5e8","Servicios financieros":"#5686d8",
-"Movilidad y automoción":"#c28b5c","Ocio, cultura y deporte":"#b97dcc","Servicios personales":"#d977a8",
-"Servicios profesionales y empresariales":"#9277d9","Otros servicios":"#8394a3"
+"Comercio minorista":"#d66b37",Restauración:"#118a72","Alojamiento turístico":"#ad7d20",
+"Salud y bienestar":"#c74b5d",Educación:"#347da7","Servicios financieros":"#496ca5",
+"Movilidad y automoción":"#936b43","Ocio, cultura y deporte":"#825b93","Servicios personales":"#ad567f",
+"Servicios profesionales y empresariales":"#6d5aa2","Otros servicios":"#71808a"
 };
-const GRID_COLORS=["#17314a","#17435b","#17677a","#158c91","#16aaa3","#23c5a5"];
+const GRID_COLORS=["#e8f1f2","#cde4e2","#a8d4cf","#77bdb3","#3f9f92","#167d72"];
 const baseData=window.SIG_DATA;
 const currentYear=new Date().getFullYear();
 const state={mode:"points",dimension:"2d",query:"",category:"__all__",year:currentYear,features:baseData.pois.features,source_scope:"current-combined",statsTotal:null};
@@ -16,7 +16,7 @@ const historyCache=new Map();
 const map=L.map("map",{zoomControl:false,preferCanvas:true});
 L.control.zoom({position:"topright"}).addTo(map);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-const boundaryLayer=L.geoJSON(baseData.boundary,{style:{color:"#1faee8",weight:2,opacity:.95,fillOpacity:.025}}).addTo(map);
+const boundaryLayer=L.geoJSON(baseData.boundary,{style:{color:"#0d6b86",weight:2.2,opacity:.95,fillColor:"#0d6b86",fillOpacity:.025}}).addTo(map);
 const gridLayer=L.geoJSON(null,{style:gridStyle,onEachFeature:bindGridPopup});
 const poiLayer=L.geoJSON(null,{pointToLayer(feature,latlng){return L.circleMarker(latlng,{radius:5,stroke:true,weight:1,color:"#fff",fillColor:getCategoryColor(feature.properties.category),fillOpacity:.9});},onEachFeature:bindPoiPopup});
 map.fitBounds(boundaryLayer.getBounds(),{padding:[24,24]});
@@ -139,9 +139,9 @@ function setScopeLabels(){
   document.querySelector("#history-scope").textContent=current?"Actual · OSM + Overture":statsOnly?"Histórico OSM · resumen anual":unavailable?"Sin histórico disponible":"Histórico · OpenStreetMap";
   document.querySelector("#metric-source-scope").textContent=current?"Inventario combinado actual":statsOnly?"Conteo histórico OSM":unavailable?"Sin datos cartográficos":"Snapshot histórico OSM";
   document.querySelector("#metric-total-note").textContent=current?"OSM + Overture deduplicado":statsOnly?"OSM al cierre del año":unavailable?"No disponible para este año":"OSM observado en ese año";
-  document.querySelector("#timeline-help").textContent=current?"El año actual muestra el inventario combinado. Los años anteriores usan el histórico OSM disponible.":statsOnly?"Hay un recuento histórico verificable para este año. El mapa no mezcla geometrías actuales con el pasado.":unavailable?"No hay datos históricos disponibles para este año.":"Snapshot OSM histórico: representa lo cartografiado en la fuente, no un censo administrativo.";
+  document.querySelector("#timeline-help").textContent=current?"El año actual muestra el inventario combinado OSM + Overture. La serie anterior corresponde a OSM histórico.":statsOnly?"Resumen histórico OSM del año seleccionado. Las variaciones describen cambios en lo cartografiado, no aperturas o cierres administrativos.":unavailable?"No hay datos históricos disponibles para este año.":"Snapshot OSM histórico: representa lo cartografiado en la fuente, no un censo administrativo.";
   const mapStatus=document.querySelector("#map-status");
-  if(statsOnly)mapStatus.textContent=`Año ${state.year}: recuento histórico disponible; snapshot cartográfico no disponible.`;
+  if(statsOnly)mapStatus.textContent="";
   else if(unavailable)mapStatus.textContent=`Año ${state.year}: histórico no disponible.`;
   else if(state.dimension==="2d")mapStatus.textContent="";
 }
@@ -171,7 +171,9 @@ function render(){
   if(showPoints){poiLayer.addData({type:"FeatureCollection",features:filtered});if(!map.hasLayer(poiLayer))poiLayer.addTo(map);}else if(map.hasLayer(poiLayer))map.removeLayer(poiLayer);
   boundaryLayer.bringToFront();if(showPoints)poiLayer.bringToFront();
   if(state.dimension==="3d"&&map3dController)map3dController.setActivities(filtered);
-  updateDashboard(filtered);drawCategoryChart(filtered);
+  updateHistoricalSummary();
+  updateDashboard(filtered);
+  drawCategoryChart(filtered);
 }
 
 function getFilteredPois(){
@@ -182,17 +184,71 @@ function getFilteredPois(){
   });
 }
 
+function updateHistoricalSummary(){
+  const summary=document.querySelector("#historical-summary");
+  const statsOnly=state.source_scope==="historical-stats";
+  summary.hidden=!statsOnly;
+  if(!statsOnly)return;
+
+  const rows=(historyIndex.years??[]).filter(item=>Number.isFinite(item.total)&&item.year<currentYear).sort((a,b)=>a.year-b.year);
+  const current=rows.find(item=>item.year===state.year);
+  const previous=rows.find(item=>item.year===state.year-1);
+  const first=rows[0];
+  document.querySelector("#history-summary-year").textContent=String(state.year);
+  document.querySelector("#history-selected-total").textContent=formatNumber(current?.total??state.statsTotal??0);
+
+  const yoy=current&&previous&&previous.total?((current.total-previous.total)/previous.total)*100:null;
+  const since=current&&first&&first.total?((current.total-first.total)/first.total)*100:null;
+  document.querySelector("#history-yoy").textContent=yoy===null?"—":formatDelta(yoy);
+  document.querySelector("#history-since-start").textContent=since===null?"—":formatDelta(since);
+
+  const selectedRows=rows.filter(item=>item.year<=state.year);
+  const max=Math.max(1,...selectedRows.map(item=>item.total));
+  document.querySelector("#history-mini-chart").innerHTML=selectedRows.length>1
+    ? `<svg viewBox="0 0 560 140" role="img" aria-label="Evolución hasta ${state.year}">${buildHistoryPolyline(selectedRows,560,140,max)}</svg>`
+    : "";
+}
+
+function buildHistoryPolyline(rows,width,height,max){
+  const pad=18;
+  const minYear=rows[0].year,maxYear=rows.at(-1).year;
+  const x=year=>pad+(year-minYear)/Math.max(1,maxYear-minYear)*(width-pad*2);
+  const y=value=>height-pad-(value/max)*(height-pad*2);
+  const points=rows.map(row=>`${x(row.year)},${y(row.total)}`).join(" ");
+  const dots=rows.map(row=>`<circle cx="${x(row.year)}" cy="${y(row.total)}" r="4" fill="#fff" stroke="#0d6b86" stroke-width="2"/><text x="${x(row.year)}" y="${height-3}" text-anchor="middle" fill="#60717d" font-size="9">${String(row.year).slice(2)}</text>`).join("");
+  return `<line x1="${pad}" y1="${height-pad}" x2="${width-pad}" y2="${height-pad}" stroke="#d6e1e6"/><polyline points="${points}" fill="none" stroke="#0d6b86" stroke-width="3"/>${dots}`;
+}
+
+function formatDelta(value){
+  const rounded=Math.round(value*10)/10;
+  return `${rounded>0?"+":""}${formatNumber(rounded)}%`;
+}
+
 function updateDashboard(filtered){
-  const displayedTotal=state.source_scope==="historical-stats"&&Number.isFinite(state.statsTotal)?state.statsTotal:filtered.length;
+  const statsOnly=state.source_scope==="historical-stats";
+  const displayedTotal=statsOnly&&Number.isFinite(state.statsTotal)?state.statsTotal:filtered.length;
   document.querySelector("#metric-total").textContent=formatNumber(displayedTotal);
-  document.querySelector("#map-count").textContent=state.source_scope==="historical-stats"?"Mapa no disponible":`${formatNumber(filtered.length)} visibles`;
+  document.querySelector("#map-count").textContent=statsOnly?"Resumen histórico":`${formatNumber(filtered.length)} visibles`;
   document.querySelector("#metric-year").textContent=String(state.year);
-  const counts=countByCategory(filtered);const top=counts[0];const statsOnly=state.source_scope==="historical-stats";
+
+  const counts=countByCategory(filtered);const top=counts[0];
   document.querySelector("#metric-top-category").textContent=statsOnly?"—":(top?.[0]??"—");
-  document.querySelector("#metric-top-category-note").textContent=statsOnly?"Requiere snapshot cartográfico":top?`${formatNumber(top[1])} actividades`:"Sin resultados";
+  document.querySelector("#metric-top-category-note").textContent=statsOnly?"Sin desglose histórico":top?`${formatNumber(top[1])} actividades`:"Sin resultados";
+
   const named=filtered.filter(hasExplicitName).length;const pct=filtered.length?Math.round(named/filtered.length*100):0;
   document.querySelector("#metric-named").textContent=statsOnly?"—":`${pct}%`;
-  document.querySelector("#metric-named-note").textContent=statsOnly?"No calculable sin geometría":`${formatNumber(named)} de ${formatNumber(filtered.length)}`;
+  document.querySelector("#metric-named-note").textContent=statsOnly?"No disponible por año":`${formatNumber(named)} de ${formatNumber(filtered.length)}`;
+
+  const merged=baseData.summary?.source_counts?.merged??0;
+  const combined=baseData.summary?.total_pois??0;
+  const multiPct=combined?Math.round(merged/combined*100):0;
+  document.querySelector("#metric-multisource").textContent=statsOnly?"—":`${multiPct}%`;
+  document.querySelector("#metric-multisource-note").textContent=statsOnly?"Sólo histórico OSM":`${formatNumber(merged)} corroboradas por ambas fuentes`;
+
+  const topCell=baseData.summary?.top_cells?.[0];
+  document.querySelector("#metric-hot-cell").textContent=statsOnly?"—":formatNumber(topCell?.count??0);
+  document.querySelector("#metric-hot-cell-note").textContent=statsOnly?"Sin geometría histórica":topCell?`Celda ${topCell.id} · ${topCell.top_category}`:"Sin datos";
+
   document.querySelector("#quality-named").textContent=statsOnly?"—":formatNumber(named);
   document.querySelector("#quality-unnamed").textContent=statsOnly?"—":formatNumber(Math.max(0,filtered.length-named));
   const sourceCount=new Set(filtered.flatMap(f=>f.properties?.sources??[f.properties?.source].filter(Boolean))).size;
@@ -204,7 +260,15 @@ function countByCategory(features){const m=new Map();for(const f of features){co
 function drawCategoryChart(features){
   const container=document.querySelector("#category-chart");
   if(state.source_scope==="historical-stats"){
-    container.innerHTML='<div class="timeline-help">La distribución por categoría requiere snapshot cartográfico histórico. El total anual sí está disponible.</div>';
+    const rows=(historyIndex.years??[]).filter(item=>Number.isFinite(item.total)&&item.year<currentYear).sort((a,b)=>a.year-b.year);
+    const current=rows.find(item=>item.year===state.year);
+    const previous=rows.find(item=>item.year===state.year-1);
+    const change=current&&previous?current.total-previous.total:null;
+    container.innerHTML=`<div class="historical-side">
+      <div class="historical-side-item"><span>Total OSM ${state.year}</span><strong>${formatNumber(current?.total??state.statsTotal??0)}</strong></div>
+      <div class="historical-side-item"><span>Cambio vs. ${state.year-1}</span><strong>${change===null?"—":`${change>0?"+":""}${formatNumber(change)}`}</strong></div>
+      <div class="historical-side-note">El desglose por categoría necesita geometría histórica completa. El total anual sí está verificado.</div>
+    </div>`;
     return;
   }
   const counts=countByCategory(features);const max=Math.max(1,...counts.map(x=>x[1]));
@@ -213,13 +277,15 @@ function drawCategoryChart(features){
 }
 function drawHistoryChart(){
   const container=document.querySelector("#history-chart");
-  const rows=(historyIndex.years??[]).filter(x=>Number.isFinite(x.total)).sort((a,b)=>a.year-b.year);
-  if(!rows.length){container.innerHTML='<div class="timeline-help">La serie aparecerá al generar los snapshots históricos.</div>';return;}
+  const rows=(historyIndex.years??[]).filter(x=>Number.isFinite(x.total)&&x.year<currentYear).sort((a,b)=>a.year-b.year);
+  const currentCombined=(historyIndex.years??[]).find(x=>x.year===currentYear&&Number.isFinite(x.total));
+  if(!rows.length){container.innerHTML='<div class="timeline-help">La serie histórica aparecerá cuando haya conteos anuales OSM.</div>';return;}
   const w=720,h=180,p=28,max=Math.max(1,...rows.map(x=>x.total)),minYear=rows[0].year,maxYear=rows.at(-1).year;
-  const x=y=>p+(y-minYear)/Math.max(1,maxYear-minYear)*(w-p*2);const yy=v=>h-p-(v/max)*(h-p*2);
-  const points=rows.map(r=>[x(r.year),yy(r.total),r]).map(([a,b])=>`${a},${b}`).join(" ");
+  const x=year=>p+(year-minYear)/Math.max(1,maxYear-minYear)*(w-p*2);const yy=value=>h-p-(value/max)*(h-p*2);
+  const points=rows.map(r=>`${x(r.year)},${yy(r.total)}`).join(" ");
   const dots=rows.map(r=>`<circle class="history-point" cx="${x(r.year)}" cy="${yy(r.total)}" r="4"/><text class="history-label" x="${x(r.year)}" y="${h-6}" text-anchor="middle">${String(r.year).slice(2)}</text>`).join("");
-  container.innerHTML=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Evolución anual de registros OSM"><defs><linearGradient id="historyGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#28bdff" stop-opacity=".25"/><stop offset="100%" stop-color="#28bdff" stop-opacity="0"/></linearGradient></defs><line class="history-axis" x1="${p}" y1="${h-p}" x2="${w-p}" y2="${h-p}"/><polygon class="history-area" points="${p},${h-p} ${points} ${w-p},${h-p}"/><polyline class="history-line" points="${points}"/>${dots}</svg>`;
+  const latest=rows.at(-1);
+  container.innerHTML=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Evolución anual de registros OpenStreetMap 2016 a ${latest.year}"><defs><linearGradient id="historyGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d6b86" stop-opacity=".18"/><stop offset="100%" stop-color="#0d6b86" stop-opacity="0"/></linearGradient></defs><line class="history-axis" x1="${p}" y1="${h-p}" x2="${w-p}" y2="${h-p}"/><polygon class="history-area" points="${p},${h-p} ${points} ${w-p},${h-p}"/><polyline class="history-line" points="${points}"/>${dots}</svg><div class="history-comparison"><strong>Serie comparable OSM: ${rows[0].year}–${latest.year}</strong><span>${currentCombined?`${currentYear}: ${formatNumber(currentCombined.total)} registros en inventario combinado OSM + Overture; se muestra aparte porque no es directamente comparable.`:""}</span></div>`;
 }
 
 function buildFilteredGrid(filtered){
