@@ -139,7 +139,11 @@ function setScopeLabels(){
   document.querySelector("#history-scope").textContent=current?"Actual · OSM + Overture":statsOnly?"Histórico OSM · resumen anual":unavailable?"Sin histórico disponible":"Histórico · OpenStreetMap";
   document.querySelector("#metric-source-scope").textContent=current?"Inventario combinado actual":statsOnly?"Conteo histórico OSM":unavailable?"Sin datos cartográficos":"Snapshot histórico OSM";
   document.querySelector("#metric-total-note").textContent=current?"OSM + Overture deduplicado":statsOnly?"OSM al cierre del año":unavailable?"No disponible para este año":"OSM observado en ese año";
-  document.querySelector("#timeline-help").textContent=current?"El año actual muestra el inventario combinado. Los años anteriores usan el histórico OSM disponible.":statsOnly?"Hay conteo histórico fiable para este año, pero no geometría local: el mapa queda vacío para no mezclar épocas.":unavailable?"No hay datos históricos disponibles para este año.":"Snapshot OSM histórico: representa lo cartografiado en la fuente, no un censo administrativo.";
+  document.querySelector("#timeline-help").textContent=current?"El año actual muestra el inventario combinado. Los años anteriores usan el histórico OSM disponible.":statsOnly?"Hay un recuento histórico verificable para este año. El mapa no mezcla geometrías actuales con el pasado.":unavailable?"No hay datos históricos disponibles para este año.":"Snapshot OSM histórico: representa lo cartografiado en la fuente, no un censo administrativo.";
+  const mapStatus=document.querySelector("#map-status");
+  if(statsOnly)mapStatus.textContent=`Año ${state.year}: recuento histórico disponible; snapshot cartográfico no disponible.`;
+  else if(unavailable)mapStatus.textContent=`Año ${state.year}: histórico no disponible.`;
+  else if(state.dimension==="2d")mapStatus.textContent="";
 }
 
 function setHistoricalControlAvailability(enabled){
@@ -147,6 +151,14 @@ function setHistoricalControlAvailability(enabled){
   document.querySelector("#category-select").disabled=!enabled;
   document.querySelector("#reset-filters").disabled=!enabled;
   document.querySelectorAll(".segment").forEach(button=>button.disabled=!enabled);
+  document.querySelectorAll("[data-dimension]").forEach(button=>button.disabled=!enabled);
+  if(!enabled&&state.dimension!=="2d"){
+    state.dimension="2d";
+    document.querySelector("#map-3d").hidden=true;
+    document.querySelector("#map").hidden=false;
+    updateDimensionButtons();
+    requestAnimationFrame(()=>map.invalidateSize());
+  }
 }
 
 function render(){
@@ -190,7 +202,12 @@ function updateDashboard(filtered){
 function hasExplicitName(feature){const p=feature.properties??{};const n=(p.name??"").trim();return Boolean(n&&!/^sin nombre$/i.test(n)&&!/ sin nombre$/i.test(n));}
 function countByCategory(features){const m=new Map();for(const f of features){const c=f.properties?.category??"Otros servicios";m.set(c,(m.get(c)??0)+1);}return [...m.entries()].sort((a,b)=>b[1]-a[1]);}
 function drawCategoryChart(features){
-  const container=document.querySelector("#category-chart");const counts=countByCategory(features);const max=Math.max(1,...counts.map(x=>x[1]));
+  const container=document.querySelector("#category-chart");
+  if(state.source_scope==="historical-stats"){
+    container.innerHTML='<div class="timeline-help">La distribución por categoría requiere snapshot cartográfico histórico. El total anual sí está disponible.</div>';
+    return;
+  }
+  const counts=countByCategory(features);const max=Math.max(1,...counts.map(x=>x[1]));
   container.innerHTML=counts.map(([category,count])=>`<button class="bar-row ${state.category===category?"is-active":""}" type="button" data-chart-category="${escapeHtml(category)}"><span class="bar-label">${escapeHtml(category)}</span><span class="bar-track"><span class="bar-fill" style="width:${Math.max(2,count/max*100)}%;background:${getCategoryColor(category)}"></span></span><span class="bar-value">${formatNumber(count)}</span></button>`).join("")||'<div class="timeline-help">Sin actividades para los filtros actuales.</div>';
   container.querySelectorAll("[data-chart-category]").forEach(button=>button.addEventListener("click",()=>{state.category=state.category===button.dataset.chartCategory?"__all__":button.dataset.chartCategory;document.querySelector("#category-select").value=state.category;render();}));
 }
