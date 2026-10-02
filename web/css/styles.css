@@ -640,3 +640,56 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[t
   .establishment-popup{min-width:250px}
   .establishment-media{height:150px}
 }
+
+.popup-classification{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:6px;
+  margin:10px 0 9px;
+}
+.popup-classification>div,
+.technical-details .popup-details>div{
+  display:grid;
+  grid-template-columns:minmax(92px,.9fr) minmax(0,1.4fr);
+  gap:8px;
+  align-items:start;
+}
+.popup-classification dt{
+  color:var(--muted);
+  font-size:.67rem;
+  font-weight:800;
+}
+.popup-classification dd{
+  margin:0;
+  color:var(--ink);
+  font-size:.75rem;
+  font-weight:800;
+  line-height:1.35;
+}
+.popup-source-block{
+  margin-top:10px;
+  padding-top:9px;
+  border-top:1px solid var(--line);
+}
+.popup-source-block>strong{
+  display:block;
+  margin-bottom:5px;
+  color:var(--muted);
+  font-size:.67rem;
+  font-weight:850;
+}
+.technical-details{
+  margin-top:9px;
+  border-top:1px solid var(--line);
+  padding-top:8px;
+}
+.technical-details summary{
+  cursor:pointer;
+  color:var(--muted);
+  font-size:.67rem;
+  font-weight:800;
+}
+.technical-details[open] summary{margin-bottom:7px}
+.technical-details .popup-details{
+  margin:0;
+}

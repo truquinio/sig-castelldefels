@@ -54,11 +54,17 @@ test("3D stays optional and lazy-loaded", () => {
   assert.match(app, /import\("\.\/map3d\.js"\)/);
 });
 
-test("establishment popup exposes reconciliation and source provenance", () => {
+test("establishment popup uses clear source provenance language", () => {
   assert.match(app, /getReconciliationState/);
-  assert.match(app, /Corroborado por OSM y Overture/);
-  assert.match(app, /Solo OpenStreetMap/);
-  assert.match(app, /Solo Overture/);
+  assert.match(app, /Fuentes: OpenStreetMap \+ Overture Maps/);
+  assert.match(app, /Fuente: OpenStreetMap/);
+  assert.match(app, /Fuente: Overture Maps/);
+  assert.match(app, /Ficha de actividad económica/);
+  assert.match(app, /Tipo de actividad/);
+  assert.match(app, /Sector/);
+  assert.match(app, /Detalles técnicos/);
+  assert.doesNotMatch(app, /<dt>Identificación<\/dt>/);
+  assert.doesNotMatch(app, /<dt>Celda 500 m<\/dt>/);
 });
 
 test("history index is consumed as a separate comparable OSM series", () => {

@@ -179,7 +179,7 @@ function updateDashboard(filtered,filteredGrid){
   const topCell=[...filteredGrid.features].sort((a,b)=>(b.properties.count??0)-(a.properties.count??0))[0];
   document.querySelector("#metric-hot-cell").textContent=topCell?.properties.count?formatNumber(topCell.properties.count):"—";
   document.querySelector("#metric-hot-cell-note").textContent=topCell?.properties.count
-    ? `Celda ${topCell.properties.id} · ${topCell.properties.top_category??"sin categoría dominante"}`
+    ? `Zona de 500 × 500 m · ${topCell.properties.top_category??"sin sector dominante"}`
     : "Sin concentración para el filtro";
 
   const sourceCounts=getSourceCounts(filtered);
@@ -202,10 +202,10 @@ function getSourceCounts(features){
 function getReconciliationState(properties){
   const hasOsm=Boolean(properties.osm_id);
   const hasOverture=Boolean(properties.overture_id);
-  if(hasOsm&&hasOverture)return {key:"merged",label:"Corroborado por OSM y Overture",tone:"good"};
-  if(hasOsm)return {key:"osm",label:"Solo OpenStreetMap",tone:"neutral"};
-  if(hasOverture)return {key:"overture",label:"Solo Overture",tone:"neutral"};
-  return {key:"unknown",label:"Fuente no identificada",tone:"warning"};
+  if(hasOsm&&hasOverture)return {key:"merged",label:"Fuentes: OpenStreetMap + Overture Maps",tone:"good"};
+  if(hasOsm)return {key:"osm",label:"Fuente: OpenStreetMap",tone:"neutral"};
+  if(hasOverture)return {key:"overture",label:"Fuente: Overture Maps",tone:"neutral"};
+  return {key:"unknown",label:"Fuente abierta no identificada",tone:"warning"};
 }
 
 function hasExplicitName(feature){
@@ -376,9 +376,19 @@ function bindGridPopup(feature,layer){
     .join("<br>");
   layer.bindPopup(`
     <div class="establishment-popup">
-      <div class="popup-eyebrow">Concentración territorial</div>
-      <h2 class="popup-title">Celda ${escapeHtml(p.id)}</h2>
-      <p class="popup-meta"><strong>${formatNumber(p.count??0)} establecimientos observados</strong><br>${rows||"Sin registros"}</p>
+      <div class="popup-body">
+        <div class="popup-eyebrow">Análisis territorial</div>
+        <h2 class="popup-title">Zona de 500 × 500 m</h2>
+        <p class="popup-meta"><strong>${formatNumber(p.count??0)} establecimientos observados</strong></p>
+        <div class="popup-source-block">
+          <strong>Distribución por sector</strong>
+          <div class="popup-meta">${rows||"Sin establecimientos observados"}</div>
+        </div>
+        <details class="technical-details">
+          <summary>Detalles técnicos</summary>
+          <dl class="popup-details"><div><dt>ID de cuadrícula</dt><dd>${escapeHtml(p.id)}</dd></div></dl>
+        </details>
+      </div>
     </div>`);
 }
 
@@ -508,43 +518,55 @@ function formatAddress(properties){
 function bindEstablishmentPopup(feature,layer){
   const p=feature.properties??{};
   const reconciliation=getReconciliationState(p);
-  const title=p.display_name??p.name??p.subcategory??"Establecimiento sin identificar";
+  const title=p.display_name??p.name??p.subcategory??"Actividad sin identificar";
   const sourceLinks=[];
   if(p.osm_id){
-    sourceLinks.push(`<a class="popup-link" href="https://www.openstreetmap.org/${escapeHtml(p.osm_id)}" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>`);
+    sourceLinks.push(`<a class="popup-link" href="https://www.openstreetmap.org/${escapeHtml(p.osm_id)}" target="_blank" rel="noopener noreferrer">Ver en OpenStreetMap</a>`);
   }
   if(p.overture_id){
-    sourceLinks.push('<a class="popup-link" href="https://docs.overturemaps.org/guides/places/" target="_blank" rel="noopener noreferrer">Overture</a>');
+    sourceLinks.push('<a class="popup-link" href="https://docs.overturemaps.org/guides/places/" target="_blank" rel="noopener noreferrer">Acerca de Overture Maps</a>');
   }
   const website=safeHttpUrl(p.website);
   if(website){
-    sourceLinks.push(`<a class="popup-link" href="${escapeHtml(website)}" target="_blank" rel="noopener noreferrer">Web</a>`);
+    sourceLinks.push(`<a class="popup-link" href="${escapeHtml(website)}" target="_blank" rel="noopener noreferrer">Sitio web</a>`);
   }
 
-  const ids=[
-    p.osm_id?`OSM: ${escapeHtml(p.osm_id)}`:"",
-    p.overture_id?`Overture: ${escapeHtml(p.overture_id)}`:""
-  ].filter(Boolean).join("<br>");
   const address=formatAddress(p);
+  const technicalRows=[
+    p.grid_id?`<div><dt>Cuadrícula analítica</dt><dd>500 × 500 m · ID ${escapeHtml(p.grid_id)}</dd></div>`:"",
+    p.osm_id?`<div><dt>ID OpenStreetMap</dt><dd>${escapeHtml(p.osm_id)}</dd></div>`:"",
+    p.overture_id?`<div><dt>Identificador Overture Maps</dt><dd>${escapeHtml(p.overture_id)}</dd></div>`:""
+  ].filter(Boolean).join("");
 
   layer.bindPopup(`
     <article class="establishment-popup">
       ${renderEstablishmentMedia(feature,title)}
       <div class="popup-body">
-        <div class="popup-eyebrow">Establecimiento observado</div>
+        <div class="popup-eyebrow">Ficha de actividad económica</div>
         <h2 class="popup-title">${escapeHtml(title)}</h2>
-        <p class="popup-meta"><strong>${escapeHtml(p.subcategory??p.category??"Sin tipo detallado")}</strong><br>${escapeHtml(p.category??"Sin categoría")}</p>
+
+        <dl class="popup-classification">
+          <div><dt>Tipo de actividad</dt><dd>${escapeHtml(p.subcategory??"Tipo no especificado")}</dd></div>
+          <div><dt>Sector</dt><dd>${escapeHtml(p.category??"Sector no clasificado")}</dd></div>
+        </dl>
+
         <div class="reconciliation-badge ${reconciliation.tone}">${escapeHtml(reconciliation.label)}</div>
+
         <dl class="popup-details">
           ${address?`<div><dt>Dirección</dt><dd>${address}</dd></div>`:""}
           ${p.phone?`<div><dt>Teléfono</dt><dd>${escapeHtml(p.phone)}</dd></div>`:""}
-          ${p.opening_hours?`<div><dt>Horario OSM</dt><dd>${escapeHtml(p.opening_hours)}</dd></div>`:""}
-          <div><dt>Identificación</dt><dd>${hasExplicitName(feature)?"Nombre disponible":"Nombre comercial no disponible"}</dd></div>
-          <div><dt>Celda 500 m</dt><dd>${escapeHtml(p.grid_id??"—")}</dd></div>
-          ${ids?`<div><dt>Referencias abiertas</dt><dd>${ids}</dd></div>`:""}
+          ${p.opening_hours?`<div><dt>Horario publicado</dt><dd>${escapeHtml(p.opening_hours)}</dd></div>`:""}
         </dl>
-        <div class="popup-links">${sourceLinks.join(" · ")}</div>
-        <small class="popup-disclaimer">Registro procedente de fuentes abiertas; no acredita situación administrativa municipal.</small>
+
+        ${sourceLinks.length?`<div class="popup-source-block"><strong>Fuentes y enlaces</strong><div class="popup-links">${sourceLinks.join(" · ")}</div></div>`:""}
+
+        ${technicalRows?`
+          <details class="technical-details">
+            <summary>Detalles técnicos</summary>
+            <dl class="popup-details">${technicalRows}</dl>
+          </details>`:""}
+
+        <small class="popup-disclaimer">Datos de fuentes abiertas. Esta ficha no equivale a un registro, licencia ni expediente municipal.</small>
       </div>
     </article>`,{maxWidth:390,minWidth:250});
 

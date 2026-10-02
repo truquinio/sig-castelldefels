@@ -1,6 +1,6 @@
 {
   "title": "Actividades económicas observadas en Castelldefels",
-  "generated_at": "2026-10-02T21:54:56.506Z",
+  "generated_at": "2026-10-02T22:26:23.953Z",
   "municipality": "Castelldefels",
   "comarca": "Baix Llobregat",
   "area_km2_icgc": 12.91,
@@ -69,7 +69,8 @@
   "panoramax_imagery": {
     "matched": 34,
     "available": 3752,
-    "max_distance_m": 40
+    "max_distance_m": 40,
+    "reused_previous": true
   },
   "media_coverage": {
     "explicit_osm_media_reference": 2,

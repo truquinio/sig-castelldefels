@@ -527,6 +527,159 @@ const OVERTURE_LABELS = {
   shipping_or_delivery_service: "Mensajería / paquetería",
 };
 
+
+// Traducciones de taxonomías Overture que aparecen en el inventario actual.
+// Evita exponer nombres internos en inglés en la interfaz pública.
+Object.assign(OVERTURE_LABELS, {
+  after_school_program: "Programa extraescolar",
+  american_restaurant: "Restaurante estadounidense",
+  apartment_agent: "Gestión de apartamentos",
+  architect: "Arquitecto / estudio de arquitectura",
+  architectural_designer: "Diseño arquitectónico",
+  argentine_restaurant: "Restaurante argentino",
+  arts_crafts_and_hobby_store: "Manualidades y hobbies",
+  auto_insurance: "Seguro de automóvil",
+  auto_parts_store: "Recambios de automóvil",
+  automotive_service: "Servicios de automoción",
+  b2b_clinical_lab: "Laboratorio clínico",
+  b2b_dental_lab: "Laboratorio dental",
+  b2b_marketing_consultant: "Consultoría de marketing B2B",
+  barbecue_restaurant: "Restaurante de barbacoa",
+  beauty_supply_store: "Productos de belleza",
+  brazilian_restaurant: "Restaurante brasileño",
+  bridal_shop: "Tienda nupcial",
+  british_restaurant: "Restaurante británico",
+  buffet_restaurant: "Restaurante bufé",
+  burger_restaurant: "Hamburguesería",
+  candy_store: "Tienda de dulces",
+  car_rental_service: "Alquiler de vehículos",
+  car_wash: "Lavado de vehículos",
+  catalan_restaurant: "Restaurante catalán",
+  chicken_restaurant: "Restaurante de pollo",
+  childrens_clothing_store: "Ropa infantil",
+  cocktail_bar: "Coctelería",
+  college_university: "Universidad / centro universitario",
+  computer_store: "Tienda de informática",
+  convenience_store: "Tienda de conveniencia",
+  cooking_school: "Escuela de cocina",
+  cosmetics_and_fragrance_store: "Cosmética y perfumería",
+  costume_store: "Tienda de disfraces",
+  courier_and_delivery_service: "Mensajería y reparto",
+  currency_exchange: "Cambio de divisas",
+  dance_club: "Club de baile",
+  dance_studio: "Academia de danza",
+  day_care_preschool: "Guardería / educación infantil",
+  designer_clothing: "Moda de diseñador",
+  dim_sum_restaurant: "Restaurante dim sum",
+  doctors_office: "Consulta médica",
+  driving_school: "Autoescuela",
+  education: "Servicios educativos",
+  educational_research_institute: "Instituto de investigación educativa",
+  educational_service: "Servicios educativos",
+  electrical_supply_store: "Material eléctrico",
+  electronics_store: "Electrónica",
+  elementary_school: "Escuela primaria",
+  european_restaurant: "Restaurante europeo",
+  fashion_accessories_store: "Accesorios de moda",
+  fitness_trainer: "Entrenador personal",
+  food_and_beverage_store: "Alimentación y bebidas",
+  frozen_yogurt_shop: "Yogur helado",
+  furniture_wholesaler: "Mayorista de muebles",
+  gelato_shop: "Heladería",
+  georgian_restaurant: "Restaurante georgiano",
+  german_restaurant: "Restaurante alemán",
+  gift_shop: "Tienda de regalos",
+  gun_and_ammo_store: "Armería",
+  gymnastics_center: "Centro de gimnasia",
+  hair_replacement: "Tratamiento capilar",
+  handbag_store: "Bolsos",
+  hardware_home_and_garden_store: "Hogar, ferretería y jardín",
+  health_care: "Servicios sanitarios",
+  health_insurance_office: "Seguro de salud",
+  hearing_aid_store: "Audífonos",
+  high_school: "Instituto / educación secundaria",
+  home_decor_store: "Decoración del hogar",
+  home_goods_store: "Artículos para el hogar",
+  hookah_bar: "Bar de cachimbas",
+  hot_dog_restaurant: "Perritos calientes",
+  ice_cream_shop: "Heladería",
+  it_service_and_computer_repair: "Informática y reparación de ordenadores",
+  jewelry_and_watches_manufacturer: "Fabricación de joyería y relojería",
+  jewelry_store: "Joyería",
+  linen_store: "Ropa de hogar",
+  lingerie_store: "Lencería",
+  liquor_store: "Tienda de bebidas alcohólicas",
+  lodging: "Alojamiento",
+  masonry_contractor: "Empresa de albañilería",
+  massage_therapy: "Masajes terapéuticos",
+  mattress_store: "Colchonería",
+  medical_research_institute: "Instituto de investigación médica",
+  medical_service_organization: "Servicios médicos",
+  medical_spa: "Centro médico estético",
+  medical_supply_store: "Suministros médicos",
+  medical_transportation: "Transporte sanitario",
+  mens_clothing_store: "Ropa masculina",
+  mexican_restaurant: "Restaurante mexicano",
+  motorcycle_dealer: "Concesionario de motocicletas",
+  movie_theater: "Cine",
+  music_and_dvd_store: "Música y vídeo",
+  music_school: "Escuela de música",
+  nail_salon: "Centro de manicura y uñas",
+  office_supply_store: "Material de oficina",
+  optometry: "Optometría",
+  osteopathic_medicine: "Osteopatía",
+  paralegal_service: "Servicios jurídicos auxiliares",
+  peruvian_restaurant: "Restaurante peruano",
+  pet_store: "Tienda de animales",
+  plastic_and_reconstructive_surgery: "Cirugía plástica y reconstructiva",
+  podiatry: "Podología",
+  poke_restaurant: "Restaurante poke",
+  post_office: "Oficina de correos",
+  preschool: "Educación infantil",
+  produce_store: "Frutería y verdulería",
+  public_school: "Centro educativo público",
+  ramen_restaurant: "Restaurante ramen",
+  religious_school: "Centro educativo religioso",
+  resort: "Complejo turístico",
+  sandwich_shop: "Bocadillería",
+  seafood_restaurant: "Restaurante de pescado y marisco",
+  second_hand_store: "Tienda de segunda mano",
+  service_apartment: "Apartamento con servicios",
+  shoe_store: "Zapatería",
+  shopping: "Comercio",
+  smoke_and_vape_store: "Tabaco y vapeo",
+  smoothie_juice_bar: "Zumos y batidos",
+  specialty_foods_store: "Alimentación especializada",
+  specialty_school: "Centro de formación especializada",
+  sport_or_fitness_facility: "Instalación deportiva / fitness",
+  sporting_goods_store: "Tienda de deporte",
+  sports_bar: "Bar deportivo",
+  sportswear_store: "Ropa deportiva",
+  surf_store: "Tienda de surf",
+  t_shirt_printing_service: "Impresión de camisetas",
+  tennis_court: "Pista de tenis",
+  theme_restaurant: "Restaurante temático",
+  tutoring_service: "Clases particulares",
+  uniform_store: "Uniformes",
+  vacation_rental_agent: "Gestión de alquiler vacacional",
+  vegetarian_restaurant: "Restaurante vegetariano",
+  venezuelan_restaurant: "Restaurante venezolano",
+  video_game_store: "Videojuegos",
+  vitamin_and_supplement_store: "Vitaminas y suplementos",
+  vocational_and_technical_school: "Formación profesional / técnica",
+  warehouse_club_store: "Gran almacén mayorista",
+  welding_supply_store: "Suministros de soldadura",
+  wine_bar: "Bar de vinos",
+  bar_and_grill_restaurant: "Bar y parrilla",
+  basque_restaurant: "Restaurante vasco",
+  cuban_restaurant: "Restaurante cubano",
+  marketing_agency: "Agencia de marketing",
+  furniture_manufacturer: "Fabricante de muebles",
+  furniture_assembly: "Montaje de muebles",
+  shopping_mall: "Centro comercial",
+  motorcycle_repair: "Taller de motocicletas"
+});
+
 function classifyOverturePlace(taxonomy, name = "") {
   const t = String(taxonomy ?? "").toLowerCase();
   if (!t) return null;
@@ -754,6 +907,73 @@ async function mergeOverturePlaces(osmPois, boundary) {
 
 const PANORAMAX_MAX_DISTANCE_M=40;
 const PANORAMAX_BUCKET_DEGREES=0.001;
+const PANORAMAX_PROPERTY_FIELDS=[
+  "panoramax_id",
+  "panoramax_thumbnail_url",
+  "panoramax_visual_url",
+  "panoramax_captured_at",
+  "panoramax_distance_m",
+  "panoramax_license",
+  "panoramax_providers",
+  "panoramax_instance_name",
+  "panoramax_instance_url",
+];
+
+function activityIdentityKeys(properties){
+  return [
+    properties?.osm_id ? `osm:${properties.osm_id}` : null,
+    properties?.overture_id ? `overture:${properties.overture_id}` : null,
+  ].filter(Boolean);
+}
+
+function copyPanoramaxProperties(target,source){
+  for(const field of PANORAMAX_PROPERTY_FIELDS){
+    if(source?.[field]!==undefined){
+      target[field]=Array.isArray(source[field])?[...source[field]]:source[field];
+    }
+  }
+}
+
+async function restorePreviousPanoramax(features){
+  let previous;
+  let previousSummary={};
+  try{
+    previous=JSON.parse(await readFile(join(dataDir,"activities_castelldefels.geojson"),"utf8"));
+  }catch(error){
+    if(error.code==="ENOENT"){
+      return {matched:0,available:0,max_distance_m:PANORAMAX_MAX_DISTANCE_M,reused_previous:false};
+    }
+    throw error;
+  }
+  try{
+    previousSummary=JSON.parse(await readFile(join(dataDir,"summary.json"),"utf8"));
+  }catch(error){
+    if(error.code!=="ENOENT")throw error;
+  }
+
+  const byIdentity=new Map();
+  for(const feature of previous.features??[]){
+    const p=feature.properties??{};
+    if(!p.panoramax_thumbnail_url)continue;
+    for(const key of activityIdentityKeys(p))byIdentity.set(key,p);
+  }
+
+  let matched=0;
+  for(const feature of features){
+    const p=feature.properties??{};
+    const source=activityIdentityKeys(p).map(key=>byIdentity.get(key)).find(Boolean);
+    if(!source)continue;
+    copyPanoramaxProperties(p,source);
+    matched+=1;
+  }
+
+  return {
+    matched,
+    available:previousSummary.panoramax_imagery?.available??0,
+    max_distance_m:PANORAMAX_MAX_DISTANCE_M,
+    reused_previous:true,
+  };
+}
 
 function panoramaxBucketKey([lon,lat]){
   return `${Math.floor(lon/PANORAMAX_BUCKET_DEGREES)}:${Math.floor(lat/PANORAMAX_BUCKET_DEGREES)}`;
@@ -794,7 +1014,7 @@ async function enrichWithPanoramax(features){
   try{
     collection=JSON.parse(await readFile(join(dataDir,"panoramax_castelldefels.geojson"),"utf8"));
   }catch(error){
-    if(error.code==="ENOENT")return {matched:0,available:0};
+    if(error.code==="ENOENT")return restorePreviousPanoramax(features);
     throw error;
   }
 

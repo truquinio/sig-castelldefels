@@ -84,3 +84,17 @@ test("every activity references an existing metric grid cell", () => {
   }
   for (const feature of activities.features) assert.ok(cells.has(feature.properties.grid_id));
 });
+
+test("Overture labels exposed to users are localized and understandable", () => {
+  const reforfels = activities.features.find((f) => f.properties.display_name === "Reforfels");
+  assert.ok(reforfels, "Reforfels missing");
+  assert.equal(reforfels.properties.subcategory, "Empresa de albañilería");
+  assert.equal(reforfels.properties.category, "Servicios profesionales y empresariales");
+
+  const obviousEnglish = /\b(Store|Restaurant|Shop|School|Service|Office|Contractor|Health|Care|Insurance|Theater|Lodging|Rental|Education|Fitness|Supply|Program|Designer|Architect|Courier|Delivery|Transportation|Marketing|Consultant|Agency)\b/;
+  const leaking = activities.features
+    .filter((f) => f.properties.overture_id)
+    .map((f) => f.properties.subcategory)
+    .filter((label) => obviousEnglish.test(label ?? ""));
+  assert.deepEqual([...new Set(leaking)], []);
+});
