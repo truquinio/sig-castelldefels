@@ -6,7 +6,7 @@ Archivos creados por `scripts/build-data.mjs`.
 
 - `castelldefels_boundary.geojson`: límite municipal oficial de Castelldefels desde ICGC.
 - `osm_pois_castelldefels.geojson`: puntos OSM seleccionados y filtrados dentro del municipio.
-- `poi_grid_500m.geojson`: malla aproximada de 500 m con conteo de puntos.
+- `poi_grid_500m.geojson`: malla métrica de 500 m construida en EPSG:25831 y publicada en GeoJSON EPSG:4326.
 - `summary.json`: resumen de resultados, fuentes y limitaciones.
 - `overpass-query.txt`: consulta exacta enviada a Overpass API.
 

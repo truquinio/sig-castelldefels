@@ -1,0 +1,12 @@
+{
+  "name": "sig-castelldefels",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check web/js/app.js && node --check web/js/map3d.js && node --check scripts/build-data.mjs"
+  },
+  "dependencies": {
+    "proj4": "^2.22.0"
+  }
+}

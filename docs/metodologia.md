@@ -13,9 +13,9 @@ El caso elegido es Castelldefels porque conecta con experiencia municipal, infor
 3. Se descargan puntos y geometrías con etiquetas seleccionadas: `amenity`, `shop`, `office`, `tourism` y `leisure`.
 4. Se convierten nodos, vías y relaciones OSM a puntos. En vías y relaciones se usa el centro devuelto por Overpass.
 5. Se filtran los puntos que caen dentro del límite municipal oficial de ICGC.
-6. Se clasifican por categorías funcionales: comercio, restauración, administración/servicios, salud, educación, ocio/turismo, oficinas y otros servicios.
-7. Se genera una malla de 500 metros y se cuentan los puntos por celda.
-8. Se exportan GeoJSON y un archivo `web/js/data.js` para visualizar el resultado en Leaflet.
+6. Se excluyen equipamientos e infraestructuras que no constituyen actividad económica y se clasifican los registros restantes por categorías funcionales.
+7. Se genera una malla exacta de 500 m en ETRS89 / UTM zona 31N (EPSG:25831), asignando cada actividad a su celda y transformando el resultado a EPSG:4326 para GeoJSON/web.
+8. Se exportan GeoJSON y `web/js/data.js` para el visor Leaflet 2D; la vista MapLibre 3D se carga sólo bajo demanda.
 
 ## Criterios de selección OSM
 
@@ -23,11 +23,11 @@ No se descarga todo OpenStreetMap. Se usa una selección para evitar ruido exces
 
 - `shop`: comercios.
 - `office`: oficinas y servicios profesionales.
-- `amenity`: restauración, salud, educación, bancos, administración, aparcamiento, carga, movilidad y equipamientos concretos.
-- `tourism`: hoteles, información turística, atracciones y puntos relacionados.
-- `leisure`: parques, zonas deportivas, jardines, juegos y espacios de ocio.
+- `amenity`: restauración, salud, educación, servicios financieros, combustible/carga, mercado y ocio económico seleccionado.
+- `tourism`: alojamiento (`hotel`, `hostel`, `apartment`, `guest_house`).
+- `leisure`: únicamente `fitness_centre` dentro de esta extracción.
 
-Se excluyen elementos muy granulares como bancos, papeleras, duchas o piscinas privadas porque inflan el conteo y no ayudan al caso de uso.
+Se excluyen parques, jardines, áreas de juego, pistas, aparcamientos, administración pública y otros equipamientos o infraestructuras que inflaban el conteo sin representar adecuadamente el objeto de estudio.
 
 ## Análisis incluido
 
@@ -43,7 +43,7 @@ Este proyecto no afirma que los datos OSM sean oficiales. OpenStreetMap es una f
 
 La malla de 500 m no mide densidad económica, empleo, facturación ni afluencia. Solo resume concentración de puntos OSM seleccionados.
 
-Los centros de vías y relaciones pueden simplificar geometrías grandes, por ejemplo parques o zonas deportivas. Para análisis más riguroso convendría conservar polígonos y aplicar intersecciones reales en PostGIS o QGIS.
+Los centros de vías y relaciones pueden simplificar geometrías de establecimientos representados como polígonos. Para análisis más riguroso convendría conservar polígonos y aplicar intersecciones reales en PostGIS o QGIS.
 
 ## Relación con QGIS y PostGIS
 
@@ -53,7 +53,7 @@ Para PostGIS, el proyecto incluye consultas de ejemplo en `postgis/consultas_pos
 
 ## Siguientes pasos razonables
 
-- Validar una muestra de puntos comparándola con ortofoto, callejero o datos municipales.
+- Validar una muestra de registros comparándola con ortofoto, callejero o fuentes oficiales públicas y reutilizables.
 - Separar actividad económica, equipamientos públicos e infraestructura urbana en capas distintas.
 - Añadir secciones censales o barrios oficiales si se consigue una fuente pública fiable.
 - Publicar el mapa en GitHub Pages.

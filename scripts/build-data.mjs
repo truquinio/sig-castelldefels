@@ -1,6 +1,7 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import proj4 from "proj4";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dataDir = join(root, "data");
@@ -17,14 +18,19 @@ const OVERPASS_ENDPOINTS = [
 ];
 
 const CELL_METERS = 500;
+const ANALYTIC_CRS = "EPSG:25831";
+const OFFLINE_REBUILD = process.argv.includes("--offline");
+proj4.defs(ANALYTIC_CRS, "+proj=utm +zone=31 +ellps=GRS80 +units=m +no_defs +type=crs");
 
 const CATEGORY_ORDER = [
   "Comercio",
   "Restauración",
-  "Administración y servicios",
+  "Alojamiento",
+  "Servicios financieros",
   "Salud",
   "Educación",
-  "Ocio y turismo",
+  "Automoción y movilidad",
+  "Ocio",
   "Oficinas",
   "Otros servicios",
 ];
@@ -32,8 +38,9 @@ const CATEGORY_ORDER = [
 async function fetchJson(url, options = {}) {
   const response = await fetch(url, {
     ...options,
+    signal: options.signal ?? AbortSignal.timeout(25_000),
     headers: {
-      "user-agent": "mini-sig-castelldefels/1.0 (learning project)",
+      "user-agent": "sig-castelldefels/2.0 (open-data portfolio project)",
       ...(options.headers ?? {}),
     },
   });
@@ -126,11 +133,11 @@ function buildOverpassQuery({ minLon, minLat, maxLon, maxLat }) {
   const east = (maxLon + margin).toFixed(6);
   const bbox = `${south},${west},${north},${east}`;
   const selectors = [
-    '["amenity"~"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|parking|bicycle_parking|bicycle_rental|marketplace|community_centre|theatre|cinema|arts_centre)$"]',
+    '["amenity"~"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|post_office|fuel|charging_station|marketplace|theatre|cinema|arts_centre)$"]',
     '["shop"]',
     '["office"]',
-    '["tourism"~"^(hotel|hostel|apartment|guest_house|information|attraction|museum|viewpoint)$"]',
-    '["leisure"~"^(park|playground|sports_centre|fitness_centre|pitch|garden|nature_reserve)$"]',
+    '["tourism"~"^(hotel|hostel|apartment|guest_house)$"]',
+    '["leisure"="fitness_centre"]',
   ];
 
   const clauses = [];
@@ -168,6 +175,22 @@ async function fetchOverpass(query) {
   throw lastError;
 }
 
+const ECONOMIC_AMENITIES = new Set([
+  "restaurant", "cafe", "bar", "pub", "fast_food", "pharmacy", "bank", "atm",
+  "clinic", "doctors", "dentist", "hospital", "school", "kindergarten", "post_office",
+  "fuel", "charging_station", "marketplace", "theatre", "cinema", "arts_centre",
+]);
+
+function isEconomicCandidate(tags) {
+  return Boolean(
+    tags.shop ||
+      tags.office ||
+      ECONOMIC_AMENITIES.has(tags.amenity) ||
+      ["hotel", "hostel", "apartment", "guest_house"].includes(tags.tourism) ||
+      tags.leisure === "fitness_centre",
+  );
+}
+
 function getPrimaryTag(tags) {
   for (const key of ["amenity", "shop", "office", "tourism", "leisure"]) {
     if (tags[key]) {
@@ -189,20 +212,28 @@ function getCategory(tags) {
     return "Restauración";
   }
 
-  if (["townhall", "post_office", "police", "fire_station", "bank", "atm", "courthouse"].includes(amenity)) {
-    return "Administración y servicios";
+  if (["bank", "atm"].includes(amenity)) {
+    return "Servicios financieros";
   }
 
   if (["pharmacy", "clinic", "doctors", "dentist", "hospital", "veterinary", "social_facility"].includes(amenity)) {
     return "Salud";
   }
 
-  if (["school", "kindergarten", "college", "university", "library", "music_school", "language_school"].includes(amenity)) {
+  if (["school", "kindergarten", "college", "university", "music_school", "language_school"].includes(amenity)) {
     return "Educación";
   }
 
-  if (tags.tourism || tags.leisure) {
-    return "Ocio y turismo";
+  if (["fuel", "charging_station"].includes(amenity)) {
+    return "Automoción y movilidad";
+  }
+
+  if (["theatre", "cinema", "arts_centre"].includes(amenity) || tags.leisure === "fitness_centre") {
+    return "Ocio";
+  }
+
+  if (tags.tourism) {
+    return "Alojamiento";
   }
 
   if (tags.office) {
@@ -221,6 +252,9 @@ function elementToPoi(element) {
   }
 
   const tags = element.tags;
+  if (!isEconomicCandidate(tags)) {
+    return null;
+  }
   const category = getCategory(tags);
 
   return {
@@ -241,6 +275,23 @@ function elementToPoi(element) {
   };
 }
 
+function normalizeExistingPoi(feature) {
+  const tags = feature.properties ?? {};
+  if (feature.geometry?.type !== "Point" || !isEconomicCandidate(tags)) {
+    return null;
+  }
+
+  return {
+    ...feature,
+    properties: {
+      ...tags,
+      category: getCategory(tags),
+      primary_tag: getPrimaryTag(tags),
+      source: "OpenStreetMap via Overpass API",
+    },
+  };
+}
+
 function sortByCategoryThenName(a, b) {
   const categoryDiff =
     CATEGORY_ORDER.indexOf(a.properties.category) - CATEGORY_ORDER.indexOf(b.properties.category);
@@ -253,57 +304,61 @@ function sortByCategoryThenName(a, b) {
 }
 
 function createGrid(boundary, pois) {
-  const box = getBbox(boundary);
-  const midLat = (box.minLat + box.maxLat) / 2;
-  const latStep = CELL_METERS / 111_320;
-  const lonStep = CELL_METERS / (111_320 * Math.cos((midLat * Math.PI) / 180));
-  const startLon = Math.floor(box.minLon / lonStep) * lonStep;
-  const startLat = Math.floor(box.minLat / latStep) * latStep;
-  const columns = Math.ceil((box.maxLon - startLon) / lonStep);
-  const rows = Math.ceil((box.maxLat - startLat) / latStep);
+  const projectedBoundary = flattenCoordinates(boundary.geometry).map((coord) =>
+    proj4("EPSG:4326", ANALYTIC_CRS, coord),
+  );
+  const metricBox = projectedBoundary.reduce(
+    (box, [x, y]) => ({
+      minX: Math.min(box.minX, x),
+      minY: Math.min(box.minY, y),
+      maxX: Math.max(box.maxX, x),
+      maxY: Math.max(box.maxY, y),
+    }),
+    { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity },
+  );
+  const startX = Math.floor(metricBox.minX / CELL_METERS) * CELL_METERS;
+  const startY = Math.floor(metricBox.minY / CELL_METERS) * CELL_METERS;
+  const columns = Math.ceil((metricBox.maxX - startX) / CELL_METERS);
+  const rows = Math.ceil((metricBox.maxY - startY) / CELL_METERS);
   const cells = new Map();
 
   function makeCellFeature(row, col) {
-    const minLon = startLon + col * lonStep;
-    const minLat = startLat + row * latStep;
-    const maxLon = minLon + lonStep;
-    const maxLat = minLat + latStep;
+    const minX = startX + col * CELL_METERS;
+    const minY = startY + row * CELL_METERS;
+    const maxX = minX + CELL_METERS;
+    const maxY = minY + CELL_METERS;
     const id = `r${row}_c${col}`;
+    const ring = [
+      [minX, minY],
+      [maxX, minY],
+      [maxX, maxY],
+      [minX, maxY],
+      [minX, minY],
+    ].map((coord) => proj4(ANALYTIC_CRS, "EPSG:4326", coord));
 
     return {
       type: "Feature",
-      geometry: {
-        type: "Polygon",
-        coordinates: [
-          [
-            [minLon, minLat],
-            [maxLon, minLat],
-            [maxLon, maxLat],
-            [minLon, maxLat],
-            [minLon, minLat],
-          ],
-        ],
-      },
+      geometry: { type: "Polygon", coordinates: [ring] },
       properties: {
         id,
         count: 0,
         top_category: null,
         categories: {},
+        cell_size_m: CELL_METERS,
+        analytic_crs: ANALYTIC_CRS,
       },
     };
   }
 
   for (let row = 0; row <= rows; row += 1) {
     for (let col = 0; col <= columns; col += 1) {
-      const minLon = startLon + col * lonStep;
-      const minLat = startLat + row * latStep;
-      const maxLon = minLon + lonStep;
-      const maxLat = minLat + latStep;
-      const center = [(minLon + maxLon) / 2, (minLat + maxLat) / 2];
+      const centerMetric = [
+        startX + (col + 0.5) * CELL_METERS,
+        startY + (row + 0.5) * CELL_METERS,
+      ];
+      const centerWgs84 = proj4(ANALYTIC_CRS, "EPSG:4326", centerMetric);
 
-      if (!pointInFeature(center, boundary)) {
-        continue;
-      }
+      if (!pointInFeature(centerWgs84, boundary)) continue;
 
       const id = `r${row}_c${col}`;
       cells.set(id, makeCellFeature(row, col));
@@ -311,9 +366,9 @@ function createGrid(boundary, pois) {
   }
 
   for (const poi of pois) {
-    const [lon, lat] = poi.geometry.coordinates;
-    const col = Math.floor((lon - startLon) / lonStep);
-    const row = Math.floor((lat - startLat) / latStep);
+    const [x, y] = proj4("EPSG:4326", ANALYTIC_CRS, poi.geometry.coordinates);
+    const col = Math.floor((x - startX) / CELL_METERS);
+    const row = Math.floor((y - startY) / CELL_METERS);
     const id = `r${row}_c${col}`;
     let cell = cells.get(id);
 
@@ -338,20 +393,20 @@ function createGrid(boundary, pois) {
         ...cell.properties,
         top_category: categories[0]?.[0] ?? null,
         category_breakdown: categories.map(([category, value]) => ({ category, value })),
-        density_label: count === 0 ? "Sin puntos OSM" : `${count} punto${count === 1 ? "" : "s"} OSM`,
+        density_label: count === 0 ? "Sin registros OSM" : `${count} registro${count === 1 ? "" : "s"} OSM`,
       },
     };
   });
 
   const maxCount = Math.max(1, ...features.map((feature) => feature.properties.count));
   for (const feature of features) {
-    feature.properties.rank = feature.properties.count === 0 ? 0 : Math.ceil((feature.properties.count / maxCount) * 5);
+    feature.properties.rank =
+      feature.properties.count === 0
+        ? 0
+        : Math.ceil((feature.properties.count / maxCount) * 5);
   }
 
-  return {
-    type: "FeatureCollection",
-    features,
-  };
+  return { type: "FeatureCollection", features };
 }
 
 function groupCounts(features, field) {
@@ -368,7 +423,7 @@ function groupCounts(features, field) {
   })).filter((entry) => entry.count > 0);
 }
 
-function buildSummary(boundary, pois, grid, overpassEndpoint, overpassQuery) {
+function buildSummary(boundary, pois, grid, overpassEndpoint, overpassQuery, provenance = {}) {
   const byCategory = groupCounts(pois, "category");
   const topCells = grid.features
     .filter((feature) => feature.properties.count > 0)
@@ -385,13 +440,16 @@ function buildSummary(boundary, pois, grid, overpassEndpoint, overpassQuery) {
     (boundary.properties.SHAPE_Area ? boundary.properties.SHAPE_Area / 1_000_000 : null);
 
   return {
-    title: "Actividades y servicios urbanos en Castelldefels",
+    title: "Actividades económicas observadas en Castelldefels",
     generated_at: new Date().toISOString(),
     municipality: boundary.properties.NOMMUNI ?? "Castelldefels",
     comarca: boundary.properties.NOMCOMAR ?? "Baix Llobregat",
     area_km2_icgc: areaKm2 ? Number(areaKm2.toFixed(2)) : null,
     total_pois: pois.length,
     cell_size_m: CELL_METERS,
+    analytic_crs: ANALYTIC_CRS,
+    rebuild_mode: provenance.mode ?? "online",
+    source_snapshot_at: provenance.sourceSnapshotAt ?? new Date().toISOString(),
     categories: byCategory,
     top_cells: topCells,
     limitations: [
@@ -421,26 +479,40 @@ async function main() {
   await mkdir(webDir, { recursive: true });
   await mkdir(webJsDir, { recursive: true });
 
-  const boundaryCollection = await fetchJson(ICGC_URL);
-  const boundary = boundaryCollection.features?.[0];
+  let boundary;
+  let pois;
+  let endpoint;
+  let overpassQuery;
+  let provenance = { mode: "online" };
 
-  if (!boundary) {
-    throw new Error("No se encontro el limite municipal de Castelldefels en ICGC.");
+  if (OFFLINE_REBUILD) {
+    const [boundaryCollection, existingPois, previousSummary] = await Promise.all([
+      readFile(join(dataDir, "castelldefels_boundary.geojson"), "utf8").then(JSON.parse),
+      readFile(join(dataDir, "osm_pois_castelldefels.geojson"), "utf8").then(JSON.parse),
+      readFile(join(dataDir, "summary.json"), "utf8").then(JSON.parse),
+    ]);
+    boundary = boundaryCollection.features?.[0];
+    endpoint = previousSummary.sources?.osm?.endpoint ?? "snapshot local";
+    overpassQuery = previousSummary.sources?.osm?.query ?? buildOverpassQuery(getBbox(boundary));
+    provenance = { mode: "offline-snapshot", sourceSnapshotAt: previousSummary.source_snapshot_at ?? previousSummary.generated_at };
+    pois = existingPois.features.map(normalizeExistingPoi).filter(Boolean);
+  } else {
+    const boundaryCollection = await fetchJson(ICGC_URL);
+    boundary = boundaryCollection.features?.[0];
+    if (!boundary) throw new Error("No se encontro el limite municipal de Castelldefels en ICGC.");
+    overpassQuery = buildOverpassQuery(getBbox(boundary));
+    const result = await fetchOverpass(overpassQuery);
+    endpoint = result.endpoint;
+    pois = result.payload.elements.map(elementToPoi).filter(Boolean);
   }
 
-  const overpassQuery = buildOverpassQuery(getBbox(boundary));
-  const { payload: overpassData, endpoint } = await fetchOverpass(overpassQuery);
+  if (!boundary) throw new Error("No se encontro el limite municipal de Castelldefels.");
 
   const seen = new Set();
-  const pois = overpassData.elements
-    .map(elementToPoi)
-    .filter(Boolean)
+  pois = pois
     .filter((feature) => pointInFeature(feature.geometry.coordinates, boundary))
     .filter((feature) => {
-      if (seen.has(feature.properties.osm_id)) {
-        return false;
-      }
-
+      if (seen.has(feature.properties.osm_id)) return false;
       seen.add(feature.properties.osm_id);
       return true;
     })
@@ -449,7 +521,7 @@ async function main() {
   const boundaryOutput = { type: "FeatureCollection", features: [boundary] };
   const poisOutput = { type: "FeatureCollection", features: pois };
   const gridOutput = createGrid(boundary, pois);
-  const summary = buildSummary(boundary, pois, gridOutput, endpoint, overpassQuery);
+  const summary = buildSummary(boundary, pois, gridOutput, endpoint, overpassQuery, provenance);
 
   await writeJson(join(dataDir, "castelldefels_boundary.geojson"), boundaryOutput);
   await writeJson(join(dataDir, "osm_pois_castelldefels.geojson"), poisOutput);

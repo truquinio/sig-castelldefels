@@ -2,7 +2,7 @@
 
 # 🗺️ SIG Castelldefels
 
-### Análisis geoespacial de servicios urbanos con datos abiertos
+### SIG 2D-first de actividades económicas con datos abiertos y vista 3D opcional
 
 [![Demo](https://img.shields.io/badge/Abrir%20demo-GitHub%20Pages-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white)](https://truquinio.github.io/sig-castelldefels/web/index.html)
 
@@ -17,7 +17,7 @@
 
 ## 📌 Qué analiza
 
-El proyecto estudia la **distribución de servicios urbanos en Castelldefels** utilizando datos abiertos y una malla espacial de 500 m.
+El proyecto estudia la **distribución de actividades económicas observadas en Castelldefels** mediante fuentes públicas y reutilizables. El análisis principal es 2D; la vista 3D de edificios es opcional y aporta contexto visual.
 
 No representa datos internos del Ayuntamiento ni pretende sustituir una fuente oficial: es un proyecto técnico de análisis territorial reproducible.
 
@@ -41,11 +41,12 @@ flowchart LR
 
 ## ✨ Qué permite hacer
 
-- visualizar POIs urbanos;
+- visualizar actividades económicas observadas en OpenStreetMap;
 - filtrar por categoría;
 - comparar distribución mediante malla;
 - consultar información mediante popups;
 - ejecutar consultas espaciales con PostGIS;
+- alternar entre análisis 2D y una vista 3D ligera de edificios;
 - explorar el resultado en un visor web público.
 
 ## 📊 Dataset incluido
@@ -53,8 +54,8 @@ flowchart LR
 | Indicador | Valor |
 | --- | ---: |
 | Área analizada | 12,91 km² |
-| Puntos OSM | 870 |
-| Celdas de malla | 57 |
+| Registros OSM seleccionados | 343 |
+| Celdas de malla | 55 |
 | Tamaño de celda | 500 m |
 
 > Estos valores describen el dataset de esta versión. No son un censo municipal oficial.
@@ -63,9 +64,9 @@ flowchart LR
 
 **Datos:** OpenStreetMap · Overpass API · GeoJSON  
 **Análisis:** PostgreSQL / PostGIS  
-**Mapa:** Leaflet · HTML · CSS · JavaScript  
+**Mapa:** Leaflet (2D) · MapLibre GL JS/OpenFreeMap (3D opcional) · HTML · CSS · JavaScript
 **Referencia territorial:** ICGC / límite municipal utilizado por el proyecto  
-**CRS web:** WGS84 / EPSG:4326
+**CRS:** ETRS89 / UTM 31N (EPSG:25831) para la malla métrica · WGS84 / EPSG:4326 para GeoJSON/web
 
 ## 🐘 Ejemplo PostGIS
 
@@ -97,7 +98,7 @@ sig-castelldefels/
 
 | Fuente | Uso |
 | --- | --- |
-| OpenStreetMap | POIs y servicios |
+| OpenStreetMap | Actividades/establecimientos observables y geometría de edificios |
 | Overpass API | Extracción de elementos OSM |
 | ICGC | Referencia territorial |
 | WGS84 / EPSG:4326 | Referencia espacial web |
@@ -107,7 +108,8 @@ sig-castelldefels/
 - no representa el Censo de Actividades Económicas municipal;
 - no utiliza datos internos ni privados del Ayuntamiento;
 - OpenStreetMap puede contener información incompleta o desactualizada;
-- la malla representa distribución/densidad de puntos, no actividad económica real;
+- la malla de 500 m se genera en EPSG:25831 y representa concentración de registros observados, no actividad económica real;
+- el 3D es una capa visual contextual, no un Digital Twin ni una representación oficial de edificios;
 - no sustituye análisis territoriales oficiales.
 
 ## 🔭 Evolución

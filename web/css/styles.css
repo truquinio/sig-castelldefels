@@ -504,3 +504,72 @@ input:focus-visible {
     bottom: 12px;
   }
 }
+
+.dimension-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 42px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #edf3ef;
+}
+
+.dimension-button {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.dimension-button + .dimension-button {
+  border-left: 1px solid var(--line);
+}
+
+.dimension-button.is-active {
+  background: var(--teal);
+  color: #fff;
+}
+
+.dimension-button:focus-visible {
+  outline: 3px solid rgba(32, 78, 207, 0.24);
+  outline-offset: -3px;
+}
+
+.control-help {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+#map-3d {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+#map-3d[hidden],
+#map[hidden] {
+  display: none;
+}
+
+.map-status {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 550;
+  max-width: min(520px, calc(100% - 36px));
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--muted);
+  font-size: 0.78rem;
+  box-shadow: 0 6px 20px rgba(33, 42, 37, 0.1);
+}
+
+.map-status:empty {
+  display: none;
+}

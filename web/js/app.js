@@ -1,10 +1,12 @@
 const CATEGORY_COLORS = {
   Comercio: "#c65a3b",
   Restauración: "#0f766e",
-  "Administración y servicios": "#596b2f",
+  Alojamiento: "#8b6f2f",
+  "Servicios financieros": "#355c7d",
   Salud: "#b23a48",
   Educación: "#326fa8",
-  "Ocio y turismo": "#8b6f2f",
+  "Automoción y movilidad": "#7a5c3e",
+  Ocio: "#8a4f7d",
   Oficinas: "#6a4c93",
   "Otros servicios": "#6f7672",
 };
@@ -15,9 +17,13 @@ const data = window.SIG_DATA;
 const categories = data.summary.categories.map((entry) => entry.category);
 const state = {
   mode: "points",
+  dimension: "2d",
   selectedCategories: new Set(categories),
   query: "",
 };
+
+let map3dController = null;
+let map3dLoading = null;
 
 const map = L.map("map", {
   zoomControl: false,
@@ -138,7 +144,15 @@ function buildCategoryControls() {
 
 function bindControls() {
   document.querySelector("#fit-map").addEventListener("click", () => {
+    if (state.dimension === "3d" && map3dController) {
+      map3dController.fitBoundary();
+      return;
+    }
     map.fitBounds(boundaryLayer.getBounds(), { padding: [24, 24] });
+  });
+
+  document.querySelectorAll("[data-dimension]").forEach((button) => {
+    button.addEventListener("click", () => switchMapDimension(button.dataset.dimension));
   });
 
   document.querySelector("#download-filtered").addEventListener("click", downloadFilteredGeojson);
@@ -151,8 +165,11 @@ function bindControls() {
   document.querySelectorAll(".segment").forEach((button) => {
     button.addEventListener("click", () => {
       state.mode = button.dataset.mode;
-      document.querySelectorAll(".segment").forEach((item) => item.classList.remove("is-active"));
-      button.classList.add("is-active");
+      document.querySelectorAll(".segment").forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
       render();
     });
   });
@@ -178,6 +195,73 @@ function bindControls() {
     });
     state.selectedCategories = new Set();
     render();
+  });
+}
+
+async function switchMapDimension(dimension) {
+  if (dimension === state.dimension) return;
+
+  const map2d = document.querySelector("#map");
+  const map3d = document.querySelector("#map-3d");
+  const status = document.querySelector("#map-status");
+
+  if (dimension === "2d") {
+    if (map3dController) {
+      const view = map3dController.getView();
+      map.setView([view.center[1], view.center[0]], view.zoom, { animate: false });
+    }
+    state.dimension = "2d";
+    map3d.hidden = true;
+    map2d.hidden = false;
+    status.textContent = "";
+    updateDimensionButtons();
+    requestAnimationFrame(() => map.invalidateSize());
+    return;
+  }
+
+  const probe = document.createElement("canvas");
+  if (!(probe.getContext("webgl2") || probe.getContext("webgl"))) {
+    status.textContent = "La vista 3D no está disponible en este dispositivo. Se mantiene el mapa 2D.";
+    return;
+  }
+
+  status.textContent = "Cargando vista 3D…";
+  try {
+    if (!map3dController) {
+      const center = map.getCenter();
+      map3dLoading ??= import("./map3d.js").then(({ createMap3D }) =>
+        createMap3D({
+          container: map3d,
+          data,
+          center: [center.lng, center.lat],
+          zoom: map.getZoom(),
+        }),
+      );
+      map3dController = await map3dLoading;
+    } else {
+      const center = map.getCenter();
+      map3dController.setView([center.lng, center.lat], map.getZoom());
+    }
+
+    state.dimension = "3d";
+    map2d.hidden = true;
+    map3d.hidden = false;
+    map3dController.setActivities(getFilteredPois());
+    map3dController.resize();
+    status.textContent = "Vista 3D: edificios de OpenStreetMap/OpenFreeMap como contexto visual.";
+    updateDimensionButtons();
+  } catch (error) {
+    console.error("No se pudo iniciar la vista 3D", error);
+    map3dLoading = null;
+    status.textContent = "No se pudo cargar el 3D. El visor 2D continúa disponible.";
+  }
+}
+
+function updateDimensionButtons() {
+  document.querySelectorAll("[data-dimension]").forEach((button) => {
+    const active = button.dataset.dimension === state.dimension;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
   });
 }
 
@@ -211,6 +295,10 @@ function render() {
   boundaryLayer.bringToFront();
   if (showPoints) {
     poiLayer.bringToFront();
+  }
+
+  if (state.dimension === "3d" && map3dController) {
+    map3dController.setActivities(filteredPois);
   }
 
   updateMetrics(filteredPois);

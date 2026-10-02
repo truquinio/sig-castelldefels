@@ -4,7 +4,7 @@
 
 **Mini-proyecto SIG personal | GeoJSON, Leaflet, OpenStreetMap, ICGC, PostGIS**
 
-Desarrollo de una visualización web de actividades y servicios urbanos en Castelldefels con datos abiertos. Integración de límite municipal ICGC y puntos OpenStreetMap/Overpass, filtrado espacial, clasificación por categorías, malla de 500 m, mapa interactivo en Leaflet y consultas PostGIS básicas para conteos e intersecciones.
+Desarrollo de una visualización web de actividades económicas observadas en Castelldefels con datos abiertos. Integración de límite municipal ICGC y puntos OpenStreetMap/Overpass, filtrado espacial, clasificación por categorías, malla de 500 m, mapa interactivo en Leaflet y consultas PostGIS básicas para conteos e intersecciones.
 
 ## Versión corta para LinkedIn o GitHub
 

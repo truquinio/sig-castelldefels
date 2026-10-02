@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mini SIG Castelldefels by Fede Trucco</title>
+    <title>SIG Castelldefels · Actividades económicas</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="./css/styles.css" />
@@ -18,7 +18,7 @@
     <header class="topbar">
       <div class="title-block">
         <span class="eyebrow">Mini-proyecto SIG by Fede Trucco @truquinio</span>
-        <h1>Castelldefels: actividades y servicios urbanos</h1>
+        <h1>Castelldefels: actividades económicas observadas</h1>
       </div>
 
       <div class="top-actions">
@@ -90,13 +90,24 @@
 
         <section class="control-section">
           <div class="section-heading">
-            <span>Vista</span>
+            <span>Mapa</span>
+          </div>
+          <div class="dimension-switch" id="map-dimension" role="group" aria-label="Modo de mapa">
+            <button class="dimension-button is-active" type="button" data-dimension="2d" aria-pressed="true">2D</button>
+            <button class="dimension-button" type="button" data-dimension="3d" aria-pressed="false">3D</button>
+          </div>
+          <p class="control-help">3D añade volumen de edificios como contexto visual; el análisis sigue siendo 2D.</p>
+        </section>
+
+        <section class="control-section">
+          <div class="section-heading">
+            <span>Vista analítica</span>
           </div>
 
           <div class="segmented">
-            <button class="segment is-active" data-mode="points">Puntos</button>
-            <button class="segment" data-mode="grid">Malla</button>
-            <button class="segment" data-mode="mixed">Mixta</button>
+            <button class="segment is-active" type="button" data-mode="points" aria-pressed="true">Puntos</button>
+            <button class="segment" type="button" data-mode="grid" aria-pressed="false">Malla</button>
+            <button class="segment" type="button" data-mode="mixed" aria-pressed="false">Mixta</button>
           </div>
         </section>
 
@@ -104,10 +115,10 @@
           <div class="section-heading">
             <span>Categorías</span>
             <div class="mini-actions">
-              <button class="icon-button small" id="select-all" type="button">
+              <button class="icon-button small" id="select-all" type="button" aria-label="Seleccionar todas las categorías" title="Seleccionar todas">
                 <i data-lucide="list-checks"></i>
               </button>
-              <button class="icon-button small" id="clear-all" type="button">
+              <button class="icon-button small" id="clear-all" type="button" aria-label="Deseleccionar todas las categorías" title="Deseleccionar todas">
                 <i data-lucide="x"></i>
               </button>
             </div>
@@ -125,8 +136,10 @@
         </section>
       </aside>
 
-      <section class="map-panel">
+      <section class="map-panel" aria-label="Visor cartográfico de actividades económicas">
         <div id="map"></div>
+        <div id="map-3d" hidden aria-label="Vista 3D de edificios y actividades"></div>
+        <div class="map-status" id="map-status" role="status" aria-live="polite"></div>
         <div class="legend" id="legend"></div>
       </section>
     </main>
