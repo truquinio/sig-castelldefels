@@ -382,6 +382,129 @@ function bindGridPopup(feature,layer){
     </div>`);
 }
 
+function safeHttpUrl(value){
+  try{
+    const url=new URL(String(value??""));
+    return ["http:","https:"].includes(url.protocol)?url.href:null;
+  }catch{
+    return null;
+  }
+}
+
+function resolveEstablishmentMedia(feature){
+  const p=feature.properties??{};
+  const commons=String(p.wikimedia_commons??"").trim();
+  const image=String(p.image??"").trim();
+  const mapillary=String(p.mapillary??"").trim();
+
+  const commonsValue=commons||(/^File:/i.test(image)?image:"");
+  if(/^File:/i.test(commonsValue)){
+    const filename=commonsValue.replace(/^File:/i,"").trim();
+    const encoded=encodeURIComponent(filename.replace(/ /g,"_"));
+    return {
+      kind:"image",
+      src:`https://commons.wikimedia.org/wiki/Special:Redirect/file/${encoded}?width=720`,
+      href:`https://commons.wikimedia.org/wiki/File:${encoded}`,
+      label:"Wikimedia Commons",
+      caption:"Imagen vinculada en Wikimedia Commons"
+    };
+  }
+
+  const direct=safeHttpUrl(image);
+  if(direct&&/\.(?:jpe?g|png|webp|avif)(?:$|[?#])/i.test(direct)){
+    return {
+      kind:"image",
+      src:direct,
+      href:direct,
+      label:"OpenStreetMap",
+      caption:"Imagen vinculada en OpenStreetMap"
+    };
+  }
+
+  if(mapillary){
+    const key=encodeURIComponent(mapillary);
+    return {
+      kind:"embed",
+      src:`https://www.mapillary.com/embed?map_style=Mapillary%20streets&image_key=${key}&style=photo`,
+      href:`https://www.mapillary.com/app/?pKey=${key}`,
+      label:"Mapillary",
+      caption:"Imagen vinculada en Mapillary"
+    };
+  }
+
+  const panoramaxThumb=safeHttpUrl(p.panoramax_thumbnail_url);
+  const panoramaxVisual=safeHttpUrl(p.panoramax_visual_url)??panoramaxThumb;
+  if(panoramaxThumb){
+    const captured=p.panoramax_captured_at?new Date(p.panoramax_captured_at):null;
+    const dateLabel=captured&&!Number.isNaN(captured.getTime())
+      ? new Intl.DateTimeFormat("es-ES",{year:"numeric",month:"short"}).format(captured)
+      : null;
+    const distance=Number(p.panoramax_distance_m);
+    const distanceLabel=Number.isFinite(distance)?`${Math.round(distance)} m`:null;
+    const providers=Array.isArray(p.panoramax_providers)?p.panoramax_providers.filter(Boolean):[];
+    const attribution=[dateLabel,distanceLabel,providers[0],p.panoramax_license].filter(Boolean).join(" · ");
+    return {
+      kind:"image",
+      src:panoramaxThumb,
+      href:panoramaxVisual,
+      label:"Panoramax",
+      caption:`Imagen de entorno${attribution?` · ${attribution}`:""}`
+    };
+  }
+
+  const [lon,lat]=feature.geometry?.coordinates??[];
+  const environmentUrl=Number.isFinite(lon)&&Number.isFinite(lat)
+    ? `https://www.mapillary.com/app/?lat=${lat}&lng=${lon}&z=19`
+    : "https://www.mapillary.com/app/";
+  return {
+    kind:"fallback",
+    href:environmentUrl,
+    label:"Mapillary",
+    caption:"Sin foto abierta vinculada"
+  };
+}
+
+function renderMediaFallback(feature){
+  const [lon,lat]=feature.geometry?.coordinates??[];
+  const href=Number.isFinite(lon)&&Number.isFinite(lat)
+    ? `https://www.mapillary.com/app/?lat=${lat}&lng=${lon}&z=19`
+    : "https://www.mapillary.com/app/";
+  return `
+    <div class="establishment-media media-fallback">
+      <div class="media-fallback-mark" aria-hidden="true">▧</div>
+      <strong>Sin foto abierta vinculada</strong>
+      <span>No se muestra una fachada que no podamos atribuir al establecimiento.</span>
+      <a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">Explorar imágenes de calle</a>
+    </div>`;
+}
+
+function renderEstablishmentMedia(feature,title){
+  const media=resolveEstablishmentMedia(feature);
+  if(media.kind==="image"){
+    return `
+      <figure class="establishment-media">
+        <a href="${escapeHtml(media.href)}" target="_blank" rel="noopener noreferrer">
+          <img src="${escapeHtml(media.src)}" alt="${escapeHtml(media.caption.startsWith("Imagen de entorno")?`Imagen de entorno próxima a ${title}`:`Imagen vinculada de ${title}`)}" loading="lazy" decoding="async" />
+        </a>
+        <figcaption>${escapeHtml(media.caption)} · ${escapeHtml(media.label)}</figcaption>
+      </figure>`;
+  }
+  if(media.kind==="embed"){
+    return `
+      <figure class="establishment-media">
+        <iframe src="${escapeHtml(media.src)}" title="Imagen vinculada de ${escapeHtml(title)} en Mapillary" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <figcaption><a href="${escapeHtml(media.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(media.caption)} · ${escapeHtml(media.label)}</a></figcaption>
+      </figure>`;
+  }
+  return renderMediaFallback(feature);
+}
+
+function formatAddress(properties){
+  const line=[properties.addr_street,properties.addr_housenumber].filter(Boolean).map(escapeHtml).join(" ");
+  const locality=[properties.addr_postcode,properties.addr_city].filter(Boolean).map(escapeHtml).join(" · ");
+  return [line,locality].filter(Boolean).join("<br>");
+}
+
 function bindEstablishmentPopup(feature,layer){
   const p=feature.properties??{};
   const reconciliation=getReconciliationState(p);
@@ -393,29 +516,49 @@ function bindEstablishmentPopup(feature,layer){
   if(p.overture_id){
     sourceLinks.push('<a class="popup-link" href="https://docs.overturemaps.org/guides/places/" target="_blank" rel="noopener noreferrer">Overture</a>');
   }
-  if(p.website){
-    sourceLinks.push(`<a class="popup-link" href="${escapeHtml(p.website)}" target="_blank" rel="noopener noreferrer">Web</a>`);
+  const website=safeHttpUrl(p.website);
+  if(website){
+    sourceLinks.push(`<a class="popup-link" href="${escapeHtml(website)}" target="_blank" rel="noopener noreferrer">Web</a>`);
   }
 
   const ids=[
     p.osm_id?`OSM: ${escapeHtml(p.osm_id)}`:"",
     p.overture_id?`Overture: ${escapeHtml(p.overture_id)}`:""
   ].filter(Boolean).join("<br>");
+  const address=formatAddress(p);
 
   layer.bindPopup(`
     <article class="establishment-popup">
-      <div class="popup-eyebrow">Establecimiento observado</div>
-      <h2 class="popup-title">${escapeHtml(title)}</h2>
-      <p class="popup-meta"><strong>${escapeHtml(p.subcategory??p.category??"Sin tipo detallado")}</strong><br>${escapeHtml(p.category??"Sin categoría")}</p>
-      <div class="reconciliation-badge ${reconciliation.tone}">${escapeHtml(reconciliation.label)}</div>
-      <dl class="popup-details">
-        <div><dt>Identificación</dt><dd>${hasExplicitName(feature)?"Nombre disponible":"Nombre comercial no disponible"}</dd></div>
-        <div><dt>Celda 500 m</dt><dd>${escapeHtml(p.grid_id??"—")}</dd></div>
-        ${ids?`<div><dt>Referencias abiertas</dt><dd>${ids}</dd></div>`:""}
-      </dl>
-      <div class="popup-links">${sourceLinks.join(" · ")}</div>
-      <small class="popup-disclaimer">Registro procedente de fuentes abiertas; no acredita situación administrativa municipal.</small>
-    </article>`,{maxWidth:360});
+      ${renderEstablishmentMedia(feature,title)}
+      <div class="popup-body">
+        <div class="popup-eyebrow">Establecimiento observado</div>
+        <h2 class="popup-title">${escapeHtml(title)}</h2>
+        <p class="popup-meta"><strong>${escapeHtml(p.subcategory??p.category??"Sin tipo detallado")}</strong><br>${escapeHtml(p.category??"Sin categoría")}</p>
+        <div class="reconciliation-badge ${reconciliation.tone}">${escapeHtml(reconciliation.label)}</div>
+        <dl class="popup-details">
+          ${address?`<div><dt>Dirección</dt><dd>${address}</dd></div>`:""}
+          ${p.phone?`<div><dt>Teléfono</dt><dd>${escapeHtml(p.phone)}</dd></div>`:""}
+          ${p.opening_hours?`<div><dt>Horario OSM</dt><dd>${escapeHtml(p.opening_hours)}</dd></div>`:""}
+          <div><dt>Identificación</dt><dd>${hasExplicitName(feature)?"Nombre disponible":"Nombre comercial no disponible"}</dd></div>
+          <div><dt>Celda 500 m</dt><dd>${escapeHtml(p.grid_id??"—")}</dd></div>
+          ${ids?`<div><dt>Referencias abiertas</dt><dd>${ids}</dd></div>`:""}
+        </dl>
+        <div class="popup-links">${sourceLinks.join(" · ")}</div>
+        <small class="popup-disclaimer">Registro procedente de fuentes abiertas; no acredita situación administrativa municipal.</small>
+      </div>
+    </article>`,{maxWidth:390,minWidth:250});
+
+  layer.on("popupopen",event=>{
+    const root=event.popup.getElement();
+    const image=root?.querySelector(".establishment-media img");
+    if(!image)return;
+    const replaceBrokenImage=()=>{
+      const media=image.closest(".establishment-media");
+      if(media)media.outerHTML=renderMediaFallback(feature);
+    };
+    image.addEventListener("error",replaceBrokenImage,{once:true});
+    if(image.complete&&!image.naturalWidth)replaceBrokenImage();
+  });
 }
 
 async function switchMapDimension(dimension){

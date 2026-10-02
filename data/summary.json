@@ -1,6 +1,6 @@
 {
   "title": "Actividades económicas observadas en Castelldefels",
-  "generated_at": "2026-10-02T16:55:59.030Z",
+  "generated_at": "2026-10-02T21:54:56.506Z",
   "municipality": "Castelldefels",
   "comarca": "Baix Llobregat",
   "area_km2_icgc": 12.91,
@@ -8,7 +8,7 @@
   "cell_size_m": 500,
   "analytic_crs": "EPSG:25831",
   "rebuild_mode": "offline-snapshot",
-  "source_snapshot_at": "2026-10-02T14:58:02.111Z",
+  "source_snapshot_at": "2026-10-02T21:43:45.859Z",
   "categories": [
     {
       "category": "Comercio minorista",
@@ -66,6 +66,15 @@
     "overture_merged": 129,
     "overture_rejected": 1198
   },
+  "panoramax_imagery": {
+    "matched": 34,
+    "available": 3752,
+    "max_distance_m": 40
+  },
+  "media_coverage": {
+    "explicit_osm_media_reference": 2,
+    "panoramax_environment": 34
+  },
   "top_cells": [
     {
       "id": "r3_c6",
@@ -97,6 +106,7 @@
     "Las actividades proceden de fuentes abiertas y no equivalen al Censo de Actividades Económicas municipal.",
     "OpenStreetMap y Overture Maps pueden contener omisiones, duplicados, cierres no reflejados o clasificaciones imperfectas.",
     "La integración OSM/Overture usa reglas reproducibles de categoría, confianza, nombre y proximidad; no constituye validación administrativa.",
+    "Las imágenes Panoramax se muestran como contexto de calle cuando la captura queda a 40 m o menos; no se presentan como fotografía verificada de la fachada salvo que exista un enlace explícito en la fuente.",
     "La malla de 500 m resume concentración de actividades observadas, no densidad económica, empleo, facturación ni afluencia real."
   ],
   "sources": {
@@ -110,7 +120,7 @@
       "endpoint": "https://overpass-api.de/api/interpreter",
       "license": "ODbL",
       "license_url": "https://www.openstreetmap.org/copyright",
-      "query": "[out:json][timeout:90];\n(\n  node[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|marketplace|community_centre|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"tourism\"~\"^(hotel|hostel|apartment|guest_house)$\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"leisure\"=\"fitness_centre\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|marketplace|community_centre|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"tourism\"~\"^(hotel|hostel|apartment|guest_house)$\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"leisure\"=\"fitness_centre\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|library|townhall|post_office|police|fire_station|fuel|charging_station|marketplace|community_centre|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"tourism\"~\"^(hotel|hostel|apartment|guest_house)$\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"leisure\"=\"fitness_centre\"](41.253492,1.927375,41.306452,2.013197);\n);\nout center tags;"
+      "query": "[out:json][timeout:90];\n(\n  node[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|post_office|fuel|charging_station|marketplace|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"tourism\"~\"^(hotel|hostel|apartment|guest_house)$\"](41.253492,1.927375,41.306452,2.013197);\n  node[\"leisure\"=\"fitness_centre\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|post_office|fuel|charging_station|marketplace|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"tourism\"~\"^(hotel|hostel|apartment|guest_house)$\"](41.253492,1.927375,41.306452,2.013197);\n  way[\"leisure\"=\"fitness_centre\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"amenity\"~\"^(restaurant|cafe|bar|pub|fast_food|pharmacy|bank|atm|clinic|doctors|dentist|hospital|school|kindergarten|post_office|fuel|charging_station|marketplace|theatre|cinema|arts_centre)$\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"shop\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"office\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"tourism\"~\"^(hotel|hostel|apartment|guest_house)$\"](41.253492,1.927375,41.306452,2.013197);\n  relation[\"leisure\"=\"fitness_centre\"](41.253492,1.927375,41.306452,2.013197);\n);\nout center tags;"
     },
     "overture": {
       "name": "Overture Maps Places",
@@ -118,6 +128,13 @@
       "license": "CDLA Permissive 2.0 / Apache 2.0 según fuente",
       "attribution": "Overture Maps Foundation and upstream Places providers",
       "url": "https://docs.overturemaps.org/guides/places/"
+    },
+    "panoramax": {
+      "name": "Panoramax federated catalog",
+      "license": "Solo imágenes con licencia abierta allowlisted durante la ingesta",
+      "attribution": "Autor/proveedor, licencia, fecha y distancia conservados por imagen",
+      "url": "https://api.panoramax.xyz/",
+      "max_match_distance_m": 40
     }
   }
 }

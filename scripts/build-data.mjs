@@ -388,7 +388,16 @@ function elementToPoi(element) {
       tourism: tags.tourism ?? null,
       leisure: tags.leisure ?? null,
       wikidata: tags.wikidata ?? null,
-      website: tags.website ?? null,
+      website: tags.website ?? tags["contact:website"] ?? null,
+      phone: tags.phone ?? tags["contact:phone"] ?? null,
+      opening_hours: tags.opening_hours ?? null,
+      addr_street: tags["addr:street"] ?? null,
+      addr_housenumber: tags["addr:housenumber"] ?? null,
+      addr_postcode: tags["addr:postcode"] ?? null,
+      addr_city: tags["addr:city"] ?? null,
+      image: tags.image ?? null,
+      wikimedia_commons: tags.wikimedia_commons ?? null,
+      mapillary: tags.mapillary ?? null,
       source: "OpenStreetMap via Overpass API",
       name_source: sourceName ? "OpenStreetMap" : "semantic-fallback",
     },
@@ -426,7 +435,16 @@ function normalizeExistingPoi(feature) {
       tourism: tags.tourism ?? null,
       leisure: tags.leisure ?? null,
       wikidata: tags.wikidata ?? null,
-      website: tags.website ?? null,
+      website: tags.website ?? tags["contact:website"] ?? null,
+      phone: tags.phone ?? tags["contact:phone"] ?? null,
+      opening_hours: tags.opening_hours ?? null,
+      addr_street: tags["addr:street"] ?? null,
+      addr_housenumber: tags["addr:housenumber"] ?? null,
+      addr_postcode: tags["addr:postcode"] ?? null,
+      addr_city: tags["addr:city"] ?? null,
+      image: tags.image ?? null,
+      wikimedia_commons: tags.wikimedia_commons ?? null,
+      mapillary: tags.mapillary ?? null,
       source: "OpenStreetMap via Overpass API",
       name_source: sourceName ? (tags.name_source ?? "OpenStreetMap") : "semantic-fallback",
     },
@@ -734,6 +752,86 @@ async function mergeOverturePlaces(osmPois, boundary) {
   };
 }
 
+const PANORAMAX_MAX_DISTANCE_M=40;
+const PANORAMAX_BUCKET_DEGREES=0.001;
+
+function panoramaxBucketKey([lon,lat]){
+  return `${Math.floor(lon/PANORAMAX_BUCKET_DEGREES)}:${Math.floor(lat/PANORAMAX_BUCKET_DEGREES)}`;
+}
+
+function buildPanoramaxIndex(images){
+  const index=new Map();
+  for(const image of images){
+    if(image.geometry?.type!=="Point"||!image.properties?.thumbnail_url)continue;
+    const key=panoramaxBucketKey(image.geometry.coordinates);
+    if(!index.has(key))index.set(key,[]);
+    index.get(key).push(image);
+  }
+  return index;
+}
+
+function nearbyPanoramaxCandidates(index,[lon,lat]){
+  const x=Math.floor(lon/PANORAMAX_BUCKET_DEGREES);
+  const y=Math.floor(lat/PANORAMAX_BUCKET_DEGREES);
+  const candidates=[];
+  for(let dx=-1;dx<=1;dx+=1){
+    for(let dy=-1;dy<=1;dy+=1){
+      candidates.push(...(index.get(`${x+dx}:${y+dy}`)??[]));
+    }
+  }
+  return candidates;
+}
+
+function panoramaxMatchScore(distance,capturedAt){
+  const captured=Date.parse(capturedAt??"");
+  if(!Number.isFinite(captured))return distance+8;
+  const ageYears=Math.max(0,(Date.now()-captured)/(365.25*24*60*60*1000));
+  return distance+Math.min(ageYears*1.5,12);
+}
+
+async function enrichWithPanoramax(features){
+  let collection;
+  try{
+    collection=JSON.parse(await readFile(join(dataDir,"panoramax_castelldefels.geojson"),"utf8"));
+  }catch(error){
+    if(error.code==="ENOENT")return {matched:0,available:0};
+    throw error;
+  }
+
+  const images=collection.features??[];
+  const index=buildPanoramaxIndex(images);
+  let matched=0;
+  for(const feature of features){
+    let best=null;
+    let bestDistance=Infinity;
+    let bestScore=Infinity;
+    for(const image of nearbyPanoramaxCandidates(index,feature.geometry.coordinates)){
+      const distance=distanceMeters(feature.geometry.coordinates,image.geometry.coordinates);
+      if(distance>PANORAMAX_MAX_DISTANCE_M)continue;
+      const score=panoramaxMatchScore(distance,image.properties?.captured_at);
+      if(score<bestScore){
+        best=image;
+        bestDistance=distance;
+        bestScore=score;
+      }
+    }
+    if(!best)continue;
+    const p=feature.properties;
+    const ip=best.properties??{};
+    p.panoramax_id=ip.id??null;
+    p.panoramax_thumbnail_url=ip.thumbnail_url??null;
+    p.panoramax_visual_url=ip.visual_url??ip.thumbnail_url??null;
+    p.panoramax_captured_at=ip.captured_at??null;
+    p.panoramax_distance_m=Number(bestDistance.toFixed(1));
+    p.panoramax_license=ip.license??null;
+    p.panoramax_providers=ip.providers??[];
+    p.panoramax_instance_name=ip.instance_name??null;
+    p.panoramax_instance_url=ip.instance_url??null;
+    matched+=1;
+  }
+  return {matched,available:images.length,max_distance_m:PANORAMAX_MAX_DISTANCE_M};
+}
+
 function sortByCategoryThenName(a, b) {
   const categoryDiff =
     CATEGORY_ORDER.indexOf(a.properties.category) - CATEGORY_ORDER.indexOf(b.properties.category);
@@ -899,11 +997,17 @@ function buildSummary(boundary, pois, grid, overpassEndpoint, overpassQuery, pro
       merged: pois.filter((feature) => feature.properties.osm_id && feature.properties.overture_id).length,
     },
     overture_merge: provenance.overtureStats ?? null,
+    panoramax_imagery: provenance.panoramaxStats ?? null,
+    media_coverage: {
+      explicit_osm_media_reference: pois.filter((feature) => Boolean(feature.properties.image || feature.properties.wikimedia_commons || feature.properties.mapillary)).length,
+      panoramax_environment: pois.filter((feature) => Boolean(feature.properties.panoramax_thumbnail_url)).length,
+    },
     top_cells: topCells,
     limitations: [
       "Las actividades proceden de fuentes abiertas y no equivalen al Censo de Actividades Económicas municipal.",
       "OpenStreetMap y Overture Maps pueden contener omisiones, duplicados, cierres no reflejados o clasificaciones imperfectas.",
       "La integración OSM/Overture usa reglas reproducibles de categoría, confianza, nombre y proximidad; no constituye validación administrativa.",
+      "Las imágenes Panoramax se muestran como contexto de calle cuando la captura queda a 40 m o menos; no se presentan como fotografía verificada de la fachada salvo que exista un enlace explícito en la fuente.",
       "La malla de 500 m resume concentración de actividades observadas, no densidad económica, empleo, facturación ni afluencia real.",
     ],
     sources: {
@@ -925,6 +1029,13 @@ function buildSummary(boundary, pois, grid, overpassEndpoint, overpassQuery, pro
         license: "CDLA Permissive 2.0 / Apache 2.0 según fuente",
         attribution: "Overture Maps Foundation and upstream Places providers",
         url: "https://docs.overturemaps.org/guides/places/",
+      },
+      panoramax: {
+        name: "Panoramax federated catalog",
+        license: "Solo imágenes con licencia abierta allowlisted durante la ingesta",
+        attribution: "Autor/proveedor, licencia, fecha y distancia conservados por imagen",
+        url: "https://api.panoramax.xyz/",
+        max_match_distance_m: PANORAMAX_MAX_DISTANCE_M,
       },
     },
   };
@@ -979,6 +1090,7 @@ async function main() {
   const overtureMerge = await mergeOverturePlaces(pois, boundary);
   const activitiesOutput = { type: "FeatureCollection", features: overtureMerge.features };
   provenance.overtureStats = overtureMerge.stats;
+  provenance.panoramaxStats = await enrichWithPanoramax(activitiesOutput.features);
   const gridOutput = createGrid(boundary, activitiesOutput.features);
   const summary = buildSummary(
     boundary,

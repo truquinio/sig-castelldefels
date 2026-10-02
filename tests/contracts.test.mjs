@@ -22,7 +22,7 @@ test("500 m grid is constructed in ETRS89 UTM 31N", () => {
   assert.match(build, /proj4\(/);
 });
 
-test("v0.5 uses establishment language instead of POI-centric product language", () => {
+test("current UI uses establishment language instead of POI-centric product language", () => {
   assert.match(html, /Establecimientos observados/);
   assert.match(html, /establecimientos económicos/i);
   assert.doesNotMatch(html, /Visor operativo municipal/);
@@ -105,4 +105,34 @@ test("data and methodology page shares the main application shell", async () => 
   assert.match(docs, /class="nav-rail"/);
   assert.match(docs, /Federico Trucco/);
   assert.match(docs, /\.\/css\/styles\.css/);
+});
+
+test("OSM normalization preserves reusable photo and contact metadata", () => {
+  for (const field of ["image","wikimedia_commons","mapillary","phone","opening_hours","addr_street","addr_housenumber"]) {
+    assert.match(build, new RegExp(field), field);
+  }
+});
+
+test("establishment card renders a visual media header with honest fallback", () => {
+  assert.match(app, /resolveEstablishmentMedia/);
+  assert.match(app, /establishment-media/);
+  assert.match(app, /Sin foto abierta vinculada/);
+  assert.match(app, /Imagen vinculada en OpenStreetMap|Wikimedia Commons|Mapillary/);
+});
+
+test("photo rendering never labels nearest street imagery as a verified storefront photo", () => {
+  assert.doesNotMatch(app, /foto actualizada del local/i);
+  assert.match(app, /Imagen vinculada|Imagen de entorno|Sin foto abierta vinculada/);
+});
+
+test("Panoramax enrichment is bounded, attributed and explicitly contextual", async () => {
+  assert.match(build, /PANORAMAX_MAX_DISTANCE_M=40/);
+  assert.match(build, /panoramax_thumbnail_url/);
+  assert.match(app, /caption:`Imagen de entorno/);
+  assert.match(app, /label:"Panoramax"/);
+  assert.match(app, /panoramax_distance_m/);
+  assert.match(app, /panoramax_license/);
+  const summary = JSON.parse(await readFile(new URL("../data/summary.json", import.meta.url), "utf8"));
+  assert.equal(summary.panoramax_imagery?.max_distance_m, 40);
+  assert.ok(summary.panoramax_imagery?.matched > 0);
 });

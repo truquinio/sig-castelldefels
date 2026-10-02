@@ -41,6 +41,7 @@ flowchart LR
 - localizar establecimientos observados en OpenStreetMap y Overture Maps Places;
 - filtrar por categoría y buscar por nombre/subcategoría;
 - identificar si un establecimiento está **corroborado por OSM + Overture** o sólo aparece en una fuente;
+- mostrar imágenes vinculadas cuando una fuente las aporta y, de forma diferenciada, **imágenes de entorno Panoramax a ≤40 m** con fecha/distancia/atribución;
 - consultar la evolución anual comparable de registros OSM 2016–2025 como contexto, sin confundirla con un censo administrativo;
 - usar malla de 500 m y 3D contextual como controles secundarios dentro del mapa;
 - exportar el resultado filtrado a GeoJSON;
@@ -67,6 +68,7 @@ flowchart LR
 npm install
 python -m pip install -r requirements-overture.txt
 npm run fetch:overture
+npm run fetch:panoramax
 node scripts/build-data.mjs
 npm run history:stats
 # npm run history:maps   # opcional; depende de disponibilidad de Overpass attic
@@ -80,7 +82,7 @@ El histórico se mantiene separado del inventario actual: `npm run history:stats
 
 ## 🧰 Stack
 
-**Datos:** OpenStreetMap · Overpass API · Overture Maps Places · GeoJSON
+**Datos:** OpenStreetMap · Overpass API · Overture Maps Places · Panoramax · GeoJSON
 **Análisis:** PostgreSQL / PostGIS  
 **Mapa:** Leaflet (2D) · MapLibre GL JS/OpenFreeMap (3D opcional) · HTML · CSS · JavaScript
 **UX/PWA:** mobile-first · manifest web app · service worker · offline fallback · safe areas · targets táctiles · foco visible · reduced motion

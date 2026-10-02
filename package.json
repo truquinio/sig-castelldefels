@@ -4,12 +4,14 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "check": "node --check web/js/app.js && node --check web/js/map3d.js && node --check web/sw.js && node --check scripts/build-data.mjs && node --check scripts/enrich-osm-names.mjs && node --check scripts/build-history.mjs && node --check scripts/build-history-stats.mjs",
+    "check": "node --check web/js/app.js && node --check web/js/map3d.js && node --check web/sw.js && node --check scripts/build-data.mjs && node --check scripts/enrich-osm-names.mjs && node --check scripts/build-history.mjs && node --check scripts/build-history-stats.mjs && python -m py_compile scripts/fetch-overture.py scripts/fetch-panoramax.py",
     "rebuild:offline": "node scripts/build-data.mjs --offline",
     "enrich:names": "node scripts/enrich-osm-names.mjs",
     "history:stats": "node scripts/build-history-stats.mjs",
     "history:maps": "node scripts/build-history.mjs",
-    "fetch:overture": "python scripts/fetch-overture.py"
+    "fetch:overture": "python scripts/fetch-overture.py",
+    "fetch:panoramax": "python scripts/fetch-panoramax.py",
+    "refresh:open-data": "python scripts/fetch-overture.py && python scripts/fetch-panoramax.py && node scripts/build-data.mjs"
   },
   "dependencies": {
     "proj4": "^2.22.0"
