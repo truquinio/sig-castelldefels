@@ -2,40 +2,36 @@
 
 # 🗺️ SIG Castelldefels
 
-**Análisis geoespacial de servicios urbanos con datos abiertos**
+### Análisis geoespacial de servicios urbanos con datos abiertos
+
+[![Demo](https://img.shields.io/badge/Abrir%20demo-GitHub%20Pages-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white)](https://truquinio.github.io/sig-castelldefels/web/index.html)
 
 ![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=flat&logo=leaflet&logoColor=white)
 ![OpenStreetMap](https://img.shields.io/badge/OpenStreetMap-7EBC6F?style=flat&logo=openstreetmap&logoColor=white)
 ![PostGIS](https://img.shields.io/badge/PostGIS-4169E1?style=flat&logo=postgresql&logoColor=white)
 ![GeoJSON](https://img.shields.io/badge/GeoJSON-data-5C8C46?style=flat)
 
-[**🌐 Abrir demo**](https://truquinio.github.io/sig-castelldefels/web/index.html) · [**📂 Ver repositorio**](https://github.com/truquinio/sig-castelldefels)
-
 </div>
 
 ---
 
-## 📌 Qué es
+## 📌 Qué analiza
 
-Proyecto SIG que analiza la distribución de servicios urbanos en Castelldefels a partir de datos abiertos.
+El proyecto estudia la **distribución de servicios urbanos en Castelldefels** utilizando datos abiertos y una malla espacial de 500 m.
 
-El flujo combina extracción de puntos de interés, filtrado territorial, análisis espacial y visualización web:
+No representa datos internos del Ayuntamiento ni pretende sustituir una fuente oficial: es un proyecto técnico de análisis territorial reproducible.
 
-```text
-OpenStreetMap
-    ↓
-Overpass API
-    ↓
-GeoJSON
-    ↓
-Filtrado municipal
-    ↓
-PostGIS
-    ↓
-Malla de análisis 500 m
-    ↓
-Leaflet
-```
+## 🧭 Flujo de datos
+
+~~~mermaid
+flowchart LR
+    O["OpenStreetMap"] --> A["Overpass API"]
+    A --> G["GeoJSON"]
+    G --> F["Filtrado territorial"]
+    F --> P[("PostGIS")]
+    P --> M["Malla 500 m"]
+    M --> L["Visor Leaflet"]
+~~~
 
 ## 📸 Capturas
 
@@ -43,16 +39,16 @@ Leaflet
 | --- | --- | --- |
 | [![Vista general](https://iili.io/C35wAdJ.md.png)](https://freeimage.host/i/C35wAdJ) | [![Vista de malla](https://iili.io/C35wI0g.md.png)](https://freeimage.host/i/C35wI0g) | [![Vista mixta](https://iili.io/C35wTga.md.png)](https://freeimage.host/i/C35wTga) |
 
-## ✨ Funcionalidades
+## ✨ Qué permite hacer
 
-- Visualización de POIs urbanos.
-- Filtros por categoría.
-- Malla de análisis espacial.
-- Popups informativos.
-- Consultas espaciales con PostGIS.
-- Visor web publicado mediante GitHub Pages.
+- visualizar POIs urbanos;
+- filtrar por categoría;
+- comparar distribución mediante malla;
+- consultar información mediante popups;
+- ejecutar consultas espaciales con PostGIS;
+- explorar el resultado en un visor web público.
 
-## 📊 Dataset de esta versión
+## 📊 Dataset incluido
 
 | Indicador | Valor |
 | --- | ---: |
@@ -61,21 +57,30 @@ Leaflet
 | Celdas de malla | 57 |
 | Tamaño de celda | 500 m |
 
-Estos valores describen el dataset incluido en esta versión del proyecto; no deben interpretarse como un censo municipal oficial.
+> Estos valores describen el dataset de esta versión. No son un censo municipal oficial.
 
-## 🛠️ Tecnologías
+## 🧰 Stack
 
-| Área | Tecnología |
-| --- | --- |
-| Datos | OpenStreetMap · Overpass API · GeoJSON |
-| Análisis espacial | PostgreSQL / PostGIS |
-| Frontend cartográfico | Leaflet · HTML · CSS · JavaScript |
-| Referencia territorial | ICGC / límite municipal usado por el proyecto |
-| CRS mostrado en los datos web | WGS84 / EPSG:4326 |
+**Datos:** OpenStreetMap · Overpass API · GeoJSON  
+**Análisis:** PostgreSQL / PostGIS  
+**Mapa:** Leaflet · HTML · CSS · JavaScript  
+**Referencia territorial:** ICGC / límite municipal utilizado por el proyecto  
+**CRS web:** WGS84 / EPSG:4326
 
-## 🗂️ Estructura
+## 🐘 Ejemplo PostGIS
 
-```text
+~~~sql
+SELECT categoria, COUNT(*)
+FROM pois
+GROUP BY categoria;
+~~~
+
+## 📁 Estructura
+
+<details>
+<summary><strong>Ver estructura del repositorio</strong></summary>
+
+~~~text
 sig-castelldefels/
 ├── data/
 ├── docs/
@@ -84,41 +89,35 @@ sig-castelldefels/
 ├── web/
 ├── index.html
 └── README.md
-```
+~~~
 
-## 🐘 Ejemplo PostGIS
+</details>
 
-```sql
-SELECT categoria, COUNT(*)
-FROM pois
-GROUP BY categoria;
-```
+## 📚 Fuentes y alcance
 
-## 📚 Fuentes de datos
-
-| Fuente | Uso en el proyecto |
+| Fuente | Uso |
 | --- | --- |
-| OpenStreetMap | Puntos de interés y servicios |
+| OpenStreetMap | POIs y servicios |
 | Overpass API | Extracción de elementos OSM |
-| ICGC | Referencia territorial utilizada por el proyecto |
+| ICGC | Referencia territorial |
 | WGS84 / EPSG:4326 | Referencia espacial web |
 
-## ⚠️ Alcance y limitaciones
+### Limitaciones
 
-- No representa el Censo de Actividades Económicas municipal.
-- No utiliza datos internos ni privados del Ayuntamiento.
-- OpenStreetMap puede contener elementos incompletos o desactualizados.
-- La malla representa densidad/distribución de puntos, no actividad económica real.
-- El proyecto es demostrativo y no sustituye análisis territoriales oficiales.
+- no representa el Censo de Actividades Económicas municipal;
+- no utiliza datos internos ni privados del Ayuntamiento;
+- OpenStreetMap puede contener información incompleta o desactualizada;
+- la malla representa distribución/densidad de puntos, no actividad económica real;
+- no sustituye análisis territoriales oficiales.
 
-## 🔭 Evolución posible
+## 🔭 Evolución
 
-- Incorporar capas oficiales complementarias.
-- Documentar más consultas espaciales.
-- Explorar publicación mediante GeoServer/QGIS Server.
-- Añadir nuevos indicadores territoriales verificables.
+- incorporar capas oficiales complementarias;
+- ampliar consultas espaciales documentadas;
+- explorar publicación mediante GeoServer/QGIS Server;
+- añadir nuevos indicadores territoriales verificables.
 
-No hay una licencia de reutilización propia declarada en el repositorio. Los datos de OpenStreetMap mantienen sus términos de licencia correspondientes.
+No hay una licencia de reutilización propia declarada actualmente. Los datos OSM mantienen sus términos de licencia correspondientes.
 
 ---
 
