@@ -117,7 +117,11 @@ sig-castelldefels/
 - explorar publicación mediante GeoServer/QGIS Server;
 - añadir nuevos indicadores territoriales verificables.
 
-No hay una licencia de reutilización propia declarada actualmente. Los datos OSM mantienen sus términos de licencia correspondientes.
+## 📜 Licencia
+
+El **código propio del proyecto** se publica bajo la [Licencia MIT](LICENSE).
+
+Los datos y servicios de terceros conservan sus propias condiciones de uso y licencias. En particular, los datos de OpenStreetMap están sujetos a la ODbL y las fuentes de ICGC/otros organismos mantienen sus términos correspondientes.
 
 ---
 
