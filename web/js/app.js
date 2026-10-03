@@ -14,7 +14,7 @@ const CATEGORY_COLORS={
 const GRID_COLORS=["#edf4f4","#d4e8e5","#afd6d0","#79bdb3","#43a092","#167d72"];
 const baseData=window.SIG_DATA;
 const currentYear=new Date().getFullYear();
-const state={mode:"points",dimension:"2d",query:"",category:"__all__",source:"__all__"};
+const state={mode:"points",dimension:"2d",query:"",category:"__all__",subcategory:"__all__"};
 let map3dController=null;
 let map3dLoading=null;
 let historyIndex={years:[]};
@@ -75,18 +75,21 @@ function bindControls(){
   });
   document.querySelector("#category-select").addEventListener("change",event=>{
     state.category=event.target.value;
+    state.subcategory="__all__";
     render();
   });
   document.querySelector("#reset-filters").addEventListener("click",()=>{
     state.query="";
     state.category="__all__";
-    state.source="__all__";
+    state.subcategory="__all__";
     document.querySelector("#search-input").value="";
     document.querySelector("#category-select").value="__all__";
     render();
   });
-  document.querySelector("#reset-source-filter").addEventListener("click",()=>{
-    state.source="__all__";
+  document.querySelector("#category-back").addEventListener("click",()=>{
+    state.category="__all__";
+    state.subcategory="__all__";
+    document.querySelector("#category-select").value="__all__";
     render();
   });
   document.querySelector("#fit-map").addEventListener("click",()=>{
@@ -159,17 +162,17 @@ function render(){
   if(state.dimension==="3d"&&map3dController)map3dController.setActivities(filtered);
 
   updateDashboard(filtered,filteredGrid);
-  drawCategoryChart(getFilteredEstablishments({ignoreCategory:true}));
-  drawSourceChart(getFilteredEstablishments({ignoreSource:true}));
+  drawCategoryChart(getFilteredEstablishments({ignoreCategory:true,ignoreSubcategory:true}));
+  drawSourceChart(filtered);
 }
 
-function getFilteredEstablishments({ignoreCategory=false,ignoreSource=false}={}){
+function getFilteredEstablishments({ignoreCategory=false,ignoreSubcategory=false}={}){
   return baseData.pois.features.filter(feature=>{
     const p=feature.properties??{};
     const text=`${p.display_name??""} ${p.name??""} ${p.category??""} ${p.subcategory??""} ${p.primary_tag??""}`.toLowerCase();
     const categoryMatch=ignoreCategory||state.category==="__all__"||p.category===state.category;
-    const sourceMatch=ignoreSource||state.source==="__all__"||getReconciliationState(p).key===state.source;
-    return categoryMatch&&sourceMatch&&(!state.query||text.includes(state.query));
+    const subcategoryMatch=ignoreSubcategory||state.subcategory==="__all__"||p.subcategory===state.subcategory;
+    return categoryMatch&&subcategoryMatch&&(!state.query||text.includes(state.query));
   });
 }
 
@@ -234,22 +237,70 @@ function countByCategory(features){
   return [...counts.entries()].sort((a,b)=>b[1]-a[1]);
 }
 
+function countBySubcategory(features,category){
+  const counts=new Map();
+  for(const feature of features){
+    const p=feature.properties??{};
+    if(p.category!==category)continue;
+    const subcategory=(p.subcategory??"Tipo no especificado").trim()||"Tipo no especificado";
+    counts.set(subcategory,(counts.get(subcategory)??0)+1);
+  }
+  return [...counts.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],"es"));
+}
+
 function drawCategoryChart(features){
   const container=document.querySelector("#category-chart");
-  const counts=countByCategory(features);
+  const title=document.querySelector("#category-chart-title");
+  const back=document.querySelector("#category-back");
+  const context=document.querySelector("#category-context");
+
+  if(state.category==="__all__"){
+    const counts=countByCategory(features);
+    const max=Math.max(1,...counts.map(([,count])=>count));
+    title.textContent="Por actividad";
+    back.hidden=true;
+    context.textContent="Selecciona una categoría para ver sus tipos.";
+    container.dataset.level="category";
+    container.innerHTML=counts.map(([category,count])=>`
+      <button class="bar-row" type="button" data-chart-category="${escapeHtml(category)}" aria-pressed="false">
+        <span class="bar-label">${escapeHtml(category)}</span>
+        <span class="bar-track"><span class="bar-fill" style="width:${Math.max(2,count/max*100)}%;background:${getCategoryColor(category)}"></span></span>
+        <span class="bar-value">${formatNumber(count)}</span>
+      </button>
+    `).join("")||'<div class="timeline-help">Sin establecimientos para los filtros actuales.</div>';
+
+    container.querySelectorAll("[data-chart-category]").forEach(button=>{
+      button.addEventListener("click",()=>{
+        state.category=button.dataset.chartCategory;
+        state.subcategory="__all__";
+        document.querySelector("#category-select").value=state.category;
+        render();
+      });
+    });
+    return;
+  }
+
+  const counts=countBySubcategory(features,state.category);
+  const total=counts.reduce((sum,[,count])=>sum+count,0);
   const max=Math.max(1,...counts.map(([,count])=>count));
-  container.innerHTML=counts.map(([category,count])=>`
-    <button class="bar-row ${state.category===category?"is-active":""}" type="button" data-chart-category="${escapeHtml(category)}" aria-pressed="${state.category===category}">
-      <span class="bar-label">${escapeHtml(category)}</span>
-      <span class="bar-track"><span class="bar-fill" style="width:${Math.max(2,count/max*100)}%;background:${getCategoryColor(category)}"></span></span>
+  title.textContent=`Tipos de ${state.category}`;
+  back.hidden=false;
+  const selectedCount=state.subcategory==="__all__"?null:(counts.find(([subcategory])=>subcategory===state.subcategory)?.[1]??0);
+  context.textContent=selectedCount===null
+    ? `${formatNumber(total)} establecimientos · selecciona un tipo para afinar el mapa`
+    : `${formatNumber(selectedCount)} de ${formatNumber(total)} establecimientos · ${state.subcategory}`;
+  container.dataset.level="subcategory";
+  container.innerHTML=counts.map(([subcategory,count])=>`
+    <button class="bar-row ${state.subcategory===subcategory?"is-active":""}" type="button" data-chart-subcategory="${escapeHtml(subcategory)}" aria-pressed="${state.subcategory===subcategory}">
+      <span class="bar-label">${escapeHtml(subcategory)}</span>
+      <span class="bar-track"><span class="bar-fill" style="width:${Math.max(2,count/max*100)}%;background:${getCategoryColor(state.category)}"></span></span>
       <span class="bar-value">${formatNumber(count)}</span>
     </button>
-  `).join("")||'<div class="timeline-help">Sin establecimientos para los filtros actuales.</div>';
+  `).join("")||'<div class="timeline-help">Sin tipos disponibles para esta categoría.</div>';
 
-  container.querySelectorAll("[data-chart-category]").forEach(button=>{
+  container.querySelectorAll("[data-chart-subcategory]").forEach(button=>{
     button.addEventListener("click",()=>{
-      state.category=state.category===button.dataset.chartCategory?"__all__":button.dataset.chartCategory;
-      document.querySelector("#category-select").value=state.category;
+      state.subcategory=state.subcategory===button.dataset.chartSubcategory?"__all__":button.dataset.chartSubcategory;
       render();
     });
   });
@@ -257,7 +308,6 @@ function drawCategoryChart(features){
 
 function drawSourceChart(features){
   const container=document.querySelector("#source-chart");
-  const reset=document.querySelector("#reset-source-filter");
   const counts=getSourceCounts(features);
   const rows=[
     ["merged","OSM + Overture",counts.merged],
@@ -267,27 +317,14 @@ function drawSourceChart(features){
   const max=Math.max(1,...rows.map(([, ,count])=>count));
 
   container.innerHTML=rows.map(([key,label,count])=>`
-    <button
-      class="source-row ${state.source===key?"is-active":""}"
-      type="button"
-      data-source-filter="${key}"
-      aria-pressed="${state.source===key}"
-      ${count===0?"disabled":""}>
+    <div class="source-row source-row-passive">
       <span class="source-label">${escapeHtml(label)}</span>
       <span class="source-value">${formatNumber(count)}</span>
       <span class="source-track" aria-hidden="true">
         <span class="source-fill source-${key}" style="width:${Math.max(count?4:0,count/max*100)}%"></span>
       </span>
-    </button>
+    </div>
   `).join("");
-
-  reset.hidden=state.source==="__all__";
-  container.querySelectorAll("[data-source-filter]").forEach(button=>{
-    button.addEventListener("click",()=>{
-      state.source=state.source===button.dataset.sourceFilter?"__all__":button.dataset.sourceFilter;
-      render();
-    });
-  });
 }
 
 async function loadHistory(){

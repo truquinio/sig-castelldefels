@@ -101,7 +101,7 @@ test("mobile-first accessibility shell exposes skip link and semantic author lin
 });
 
 test("author attribution is more visible without becoming a primary action", () => {
-  assert.match(html, /SIG Castelldefels · v0\.7\.0/);
+  assert.match(html, /SIG Castelldefels · v0\.7\.1/);
   assert.match(html, /Federico Trucco/);
   assert.match(html, /https:\/\/github\.com\/truquinio/);
 });
@@ -179,19 +179,22 @@ test("successful 3D status is temporary while errors remain persistent", () => {
   assert.match(app, /setMapStatus\("La vista 3D no está disponible en este dispositivo\."\);/);
 });
 
-test("analytics cross-filtering keeps category and source dimensions independent", () => {
-  assert.match(app, /source:"__all__"/);
-  assert.match(app, /ignoreCategory=false/);
-  assert.match(app, /ignoreSource=false/);
-  assert.match(app, /drawCategoryChart\(getFilteredEstablishments\(\{ignoreCategory:true\}\)\)/);
-  assert.match(app, /drawSourceChart\(getFilteredEstablishments\(\{ignoreSource:true\}\)\)/);
+test("analytics drill-down uses category then subcategory as the primary BI path", () => {
+  assert.match(app, /subcategory:"__all__"/);
+  assert.match(app, /ignoreCategory=false,ignoreSubcategory=false/);
+  assert.match(app, /countBySubcategory/);
+  assert.match(app, /data-chart-subcategory/);
+  assert.match(app, /Tipos de \$\{state\.category\}/);
+  assert.match(app, /drawCategoryChart\(getFilteredEstablishments\(\{ignoreCategory:true,ignoreSubcategory:true\}\)\)/);
 });
 
-test("source provenance is rendered as an interactive compact bar chart", () => {
-  assert.match(html, /id="source-chart"/);
+test("source provenance is contextual quality information, not a competing primary filter", () => {
+  assert.match(html, /Calidad del dato/);
+  assert.match(html, /Procedencia de los registros/);
   assert.match(app, /function drawSourceChart/);
-  assert.match(app, /data-source-filter/);
-  assert.match(app, /aria-pressed/);
+  assert.match(app, /source-row-passive/);
+  assert.doesNotMatch(app, /data-source-filter/);
+  assert.doesNotMatch(app, /state\.source/);
 });
 
 test("data completeness is visualized without adding decorative chart types", () => {
