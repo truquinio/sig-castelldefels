@@ -151,3 +151,9 @@ test("desktop layout keeps a stable fixed navigation rail and compact map compos
   assert.match(css, /\.map-wrap\{[\s\S]*?height:clamp\(430px,56vh,560px\)/);
   assert.match(css, /\.bottom-grid\{[\s\S]*?grid-template-columns:minmax\(0,1\.45fr\) minmax\(330px,\.75fr\)/);
 });
+
+test("establishment media pipeline remains available but hidden from public cards", () => {
+  assert.match(app, /resolveEstablishmentMedia/);
+  assert.match(app, /renderEstablishmentMedia/);
+  assert.match(css, /\.establishment-popup \.establishment-media\{[\s\S]*?display:none !important;/);
+});

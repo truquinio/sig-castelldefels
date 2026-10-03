@@ -861,3 +861,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[t
   .content-grid{grid-template-columns:minmax(0,1fr) 228px}
   .map-wrap{height:clamp(450px,57vh,575px)}
 }
+
+/* v0.6.4 — media remains implemented in the popup pipeline but is hidden from public cards. */
+.establishment-popup .establishment-media{
+  display:none !important;
+}
