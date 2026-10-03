@@ -46,7 +46,7 @@
     <a class="nav-item" href="./docs.html"><i data-lucide="database"></i><span>Datos</span></a>
 
     <div class="nav-footer">
-      <div class="author-version">SIG Castelldefels · v0.6.7</div>
+      <div class="author-version">SIG Castelldefels · v0.7.0</div>
       <a class="author-name" href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer">Federico Trucco</a>
       <div class="author-links" aria-label="Perfiles de Federico Trucco">
         <a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Federico Trucco"><i data-lucide="github"></i><span>GitHub</span></a>
@@ -117,21 +117,41 @@
         <div id="history-chart" class="history-chart" aria-label="Evolución histórica de registros OpenStreetMap"></div>
       </article>
 
-      <article class="panel">
-        <div class="panel-head"><div><span class="section-kicker">Calidad y conciliación</span><h2>Cómo está construido el inventario</h2></div></div>
-        <div class="quality-grid reconciliation-grid">
-          <div><span>Corroborados OSM + Overture</span><strong id="quality-merged">—</strong></div>
-          <div><span>Solo OpenStreetMap</span><strong id="quality-osm">—</strong></div>
-          <div><span>Solo Overture</span><strong id="quality-overture">—</strong></div>
-          <div><span>Sin nombre explícito</span><strong id="quality-unnamed">—</strong></div>
+      <article class="panel analytics-panel">
+        <div class="panel-head">
+          <div><span class="section-kicker">Análisis interactivo</span><h2>Fuentes y completitud</h2></div>
+          <button class="analysis-reset" id="reset-source-filter" type="button" hidden>Quitar filtro</button>
         </div>
-        <p class="quality-note">“Corroborado” significa coincidencia suficiente entre fuentes abiertas; no equivale a validación administrativa municipal.</p>
+
+        <div class="analysis-block">
+          <div class="analysis-title-row">
+            <strong>Origen del inventario</strong>
+            <span>Haz clic para filtrar el mapa</span>
+          </div>
+          <div id="source-chart" class="source-chart" aria-label="Distribución de establecimientos por fuente"></div>
+        </div>
+
+        <div class="analysis-block completeness-block">
+          <div class="analysis-title-row">
+            <strong>Identificación por nombre</strong>
+            <span id="quality-named">—</span>
+          </div>
+          <div class="completion-track" role="img" aria-label="Porcentaje de establecimientos con nombre">
+            <span id="quality-named-bar" class="completion-fill"></span>
+          </div>
+          <div class="completion-meta">
+            <span id="quality-named-note">—</span>
+            <span id="quality-unnamed">— sin nombre</span>
+          </div>
+        </div>
+
+        <p class="quality-note">Las fuentes abiertas permiten contrastar registros; no equivalen a validación administrativa municipal.</p>
       </article>
     </section>
 
     <footer class="site-footer">
       <div>
-        <span>SIG Castelldefels · v0.6.7</span>
+        <span>SIG Castelldefels · v0.7.0</span>
         <strong>Federico Trucco</strong>
       </div>
       <nav aria-label="Perfiles del autor">

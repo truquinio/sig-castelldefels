@@ -1,4 +1,4 @@
-const CACHE_VERSION="sig-castelldefels-v0.6.7";
+const CACHE_VERSION="sig-castelldefels-v0.7.0";
 const STATIC_CACHE=`${CACHE_VERSION}-static`;
 const DATA_CACHE=`${CACHE_VERSION}-data`;
 const APP_SHELL=[

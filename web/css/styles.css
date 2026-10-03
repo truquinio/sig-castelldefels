@@ -888,3 +888,122 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[t
     min-height:calc(100dvh - var(--topbar-height));
   }
 }
+
+/* v0.7.0 — compact Power BI-style analytics without dashboard clutter. */
+.analysis-reset{
+  min-height:34px;
+  border:0;
+  background:transparent;
+  color:var(--accent);
+  font-size:.67rem;
+  font-weight:850;
+  padding:0 4px;
+  cursor:pointer;
+}
+.analysis-reset[hidden]{display:none}
+.analysis-block{
+  padding:8px 0;
+  border-top:1px solid var(--line);
+}
+.analytics-panel .analysis-block:first-of-type{
+  border-top:0;
+  padding-top:2px;
+}
+.analysis-title-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+}
+.analysis-title-row strong{
+  font-size:.72rem;
+  color:var(--ink);
+}
+.analysis-title-row span{
+  font-size:.63rem;
+  color:var(--muted);
+  text-align:right;
+}
+.source-chart{
+  display:grid;
+  gap:3px;
+}
+.source-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"label value" "track track";
+  align-items:center;
+  gap:2px 8px;
+  min-height:44px;
+  padding:5px 6px;
+  border:1px solid transparent;
+  border-radius:7px;
+  background:transparent;
+  color:var(--ink);
+  text-align:left;
+  cursor:pointer;
+}
+.source-row:hover,
+.source-row.is-active{
+  background:#f1f7f9;
+  border-color:#d5e6ec;
+}
+.source-row.is-active{
+  box-shadow:inset 3px 0 0 var(--accent);
+}
+.source-label{
+  grid-area:label;
+  font-size:.7rem;
+  line-height:1.15;
+}
+.source-value{
+  grid-area:value;
+  font-size:.72rem;
+  font-weight:900;
+}
+.source-track{
+  grid-area:track;
+  height:5px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e5ecef;
+}
+.source-fill{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+}
+.source-merged{background:var(--accent)}
+.source-osm{background:#648ba2}
+.source-overture{background:#9aa8b1}
+.completion-track{
+  height:8px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e5ecef;
+}
+.completion-fill{
+  display:block;
+  width:0;
+  height:100%;
+  border-radius:inherit;
+  background:var(--accent);
+  transition:width .18s ease;
+}
+.completion-meta{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:.64rem;
+}
+@media (min-width:960px){
+  .analytics-panel .panel-head{margin-bottom:4px}
+  .analysis-block{padding:7px 0}
+  .source-row{
+    min-height:38px;
+    padding:4px 5px;
+  }
+}

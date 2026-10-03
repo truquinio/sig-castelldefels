@@ -101,7 +101,7 @@ test("mobile-first accessibility shell exposes skip link and semantic author lin
 });
 
 test("author attribution is more visible without becoming a primary action", () => {
-  assert.match(html, /SIG Castelldefels · v0\.6/);
+  assert.match(html, /SIG Castelldefels · v0\.7\.0/);
   assert.match(html, /Federico Trucco/);
   assert.match(html, /https:\/\/github\.com\/truquinio/);
 });
@@ -177,4 +177,26 @@ test("successful 3D status is temporary while errors remain persistent", () => {
   assert.match(app, /3D contextual de edificios; no modifica el inventario ni su clasificación\.",\{clearAfter:4000\}/);
   assert.match(app, /setMapStatus\("No se pudo cargar 3D\. El mapa 2D sigue disponible\."\);/);
   assert.match(app, /setMapStatus\("La vista 3D no está disponible en este dispositivo\."\);/);
+});
+
+test("analytics cross-filtering keeps category and source dimensions independent", () => {
+  assert.match(app, /source:"__all__"/);
+  assert.match(app, /ignoreCategory=false/);
+  assert.match(app, /ignoreSource=false/);
+  assert.match(app, /drawCategoryChart\(getFilteredEstablishments\(\{ignoreCategory:true\}\)\)/);
+  assert.match(app, /drawSourceChart\(getFilteredEstablishments\(\{ignoreSource:true\}\)\)/);
+});
+
+test("source provenance is rendered as an interactive compact bar chart", () => {
+  assert.match(html, /id="source-chart"/);
+  assert.match(app, /function drawSourceChart/);
+  assert.match(app, /data-source-filter/);
+  assert.match(app, /aria-pressed/);
+});
+
+test("data completeness is visualized without adding decorative chart types", () => {
+  assert.match(html, /id="quality-named"/);
+  assert.match(html, /id="quality-named-bar"/);
+  assert.match(app, /quality-named-bar/);
+  assert.doesNotMatch(html, /donut|treemap|gauge/i);
 });

@@ -14,7 +14,7 @@ const CATEGORY_COLORS={
 const GRID_COLORS=["#edf4f4","#d4e8e5","#afd6d0","#79bdb3","#43a092","#167d72"];
 const baseData=window.SIG_DATA;
 const currentYear=new Date().getFullYear();
-const state={mode:"points",dimension:"2d",query:"",category:"__all__"};
+const state={mode:"points",dimension:"2d",query:"",category:"__all__",source:"__all__"};
 let map3dController=null;
 let map3dLoading=null;
 let historyIndex={years:[]};
@@ -80,8 +80,13 @@ function bindControls(){
   document.querySelector("#reset-filters").addEventListener("click",()=>{
     state.query="";
     state.category="__all__";
+    state.source="__all__";
     document.querySelector("#search-input").value="";
     document.querySelector("#category-select").value="__all__";
+    render();
+  });
+  document.querySelector("#reset-source-filter").addEventListener("click",()=>{
+    state.source="__all__";
     render();
   });
   document.querySelector("#fit-map").addEventListener("click",()=>{
@@ -154,14 +159,17 @@ function render(){
   if(state.dimension==="3d"&&map3dController)map3dController.setActivities(filtered);
 
   updateDashboard(filtered,filteredGrid);
-  drawCategoryChart(filtered);
+  drawCategoryChart(getFilteredEstablishments({ignoreCategory:true}));
+  drawSourceChart(getFilteredEstablishments({ignoreSource:true}));
 }
 
-function getFilteredEstablishments(){
+function getFilteredEstablishments({ignoreCategory=false,ignoreSource=false}={}){
   return baseData.pois.features.filter(feature=>{
     const p=feature.properties??{};
     const text=`${p.display_name??""} ${p.name??""} ${p.category??""} ${p.subcategory??""} ${p.primary_tag??""}`.toLowerCase();
-    return (state.category==="__all__"||p.category===state.category)&&(!state.query||text.includes(state.query));
+    const categoryMatch=ignoreCategory||state.category==="__all__"||p.category===state.category;
+    const sourceMatch=ignoreSource||state.source==="__all__"||getReconciliationState(p).key===state.source;
+    return categoryMatch&&sourceMatch&&(!state.query||text.includes(state.query));
   });
 }
 
@@ -184,11 +192,12 @@ function updateDashboard(filtered,filteredGrid){
     ? `Zona de 500 × 500 m · ${topCell.properties.top_category??"sin sector dominante"}`
     : "Sin concentración para el filtro";
 
-  const sourceCounts=getSourceCounts(filtered);
-  document.querySelector("#quality-merged").textContent=formatNumber(sourceCounts.merged);
-  document.querySelector("#quality-osm").textContent=formatNumber(sourceCounts.osm);
-  document.querySelector("#quality-overture").textContent=formatNumber(sourceCounts.overture);
-  document.querySelector("#quality-unnamed").textContent=formatNumber(filtered.length-named);
+  const unnamed=filtered.length-named;
+  document.querySelector("#quality-named").textContent=`${namedPct}%`;
+  document.querySelector("#quality-named-note").textContent=`${formatNumber(named)} con nombre`;
+  document.querySelector("#quality-unnamed").textContent=`${formatNumber(unnamed)} sin nombre`;
+  document.querySelector("#quality-named-bar").style.width=`${namedPct}%`;
+  document.querySelector(".completion-track")?.setAttribute("aria-label",`${namedPct}% de establecimientos con nombre`);
 }
 
 function getSourceCounts(features){
@@ -230,7 +239,7 @@ function drawCategoryChart(features){
   const counts=countByCategory(features);
   const max=Math.max(1,...counts.map(([,count])=>count));
   container.innerHTML=counts.map(([category,count])=>`
-    <button class="bar-row ${state.category===category?"is-active":""}" type="button" data-chart-category="${escapeHtml(category)}">
+    <button class="bar-row ${state.category===category?"is-active":""}" type="button" data-chart-category="${escapeHtml(category)}" aria-pressed="${state.category===category}">
       <span class="bar-label">${escapeHtml(category)}</span>
       <span class="bar-track"><span class="bar-fill" style="width:${Math.max(2,count/max*100)}%;background:${getCategoryColor(category)}"></span></span>
       <span class="bar-value">${formatNumber(count)}</span>
@@ -241,6 +250,41 @@ function drawCategoryChart(features){
     button.addEventListener("click",()=>{
       state.category=state.category===button.dataset.chartCategory?"__all__":button.dataset.chartCategory;
       document.querySelector("#category-select").value=state.category;
+      render();
+    });
+  });
+}
+
+function drawSourceChart(features){
+  const container=document.querySelector("#source-chart");
+  const reset=document.querySelector("#reset-source-filter");
+  const counts=getSourceCounts(features);
+  const rows=[
+    ["merged","OSM + Overture",counts.merged],
+    ["osm","Solo OpenStreetMap",counts.osm],
+    ["overture","Solo Overture Maps",counts.overture]
+  ];
+  const max=Math.max(1,...rows.map(([, ,count])=>count));
+
+  container.innerHTML=rows.map(([key,label,count])=>`
+    <button
+      class="source-row ${state.source===key?"is-active":""}"
+      type="button"
+      data-source-filter="${key}"
+      aria-pressed="${state.source===key}"
+      ${count===0?"disabled":""}>
+      <span class="source-label">${escapeHtml(label)}</span>
+      <span class="source-value">${formatNumber(count)}</span>
+      <span class="source-track" aria-hidden="true">
+        <span class="source-fill source-${key}" style="width:${Math.max(count?4:0,count/max*100)}%"></span>
+      </span>
+    </button>
+  `).join("");
+
+  reset.hidden=state.source==="__all__";
+  container.querySelectorAll("[data-source-filter]").forEach(button=>{
+    button.addEventListener("click",()=>{
+      state.source=state.source===button.dataset.sourceFilter?"__all__":button.dataset.sourceFilter;
       render();
     });
   });
