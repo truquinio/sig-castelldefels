@@ -157,3 +157,17 @@ test("establishment media pipeline remains available but hidden from public card
   assert.match(app, /renderEstablishmentMedia/);
   assert.match(css, /\.establishment-popup \.establishment-media\{[\s\S]*?display:none !important;/);
 });
+
+test("topbar and desktop navigation share one fixed scroll geometry", () => {
+  assert.match(css, /--topbar-height:60px/);
+  assert.match(css, /body\{[\s\S]*?padding-top:var\(--topbar-height\)/);
+  assert.match(css, /\.topbar\{[\s\S]*?position:fixed;[\s\S]*?top:0;[\s\S]*?left:0;[\s\S]*?right:0;/);
+  assert.match(css, /\.nav-rail\{[\s\S]*?top:var\(--topbar-height\);[\s\S]*?height:calc\(100dvh - var\(--topbar-height\)\)/);
+});
+
+test("PWA upgrades actively replace stale application shells", async () => {
+  const sw = await readFile(new URL("../web/sw.js", import.meta.url), "utf8");
+  assert.match(sw, /hadPreviousVersion/);
+  assert.match(sw, /client\.navigate\(client\.url\)/);
+  assert.match(app, /registration\.update\(\)/);
+});

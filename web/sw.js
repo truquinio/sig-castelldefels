@@ -1,4 +1,4 @@
-const CACHE_VERSION="sig-castelldefels-v0.6.4";
+const CACHE_VERSION="sig-castelldefels-v0.6.6";
 const STATIC_CACHE=`${CACHE_VERSION}-static`;
 const DATA_CACHE=`${CACHE_VERSION}-data`;
 const APP_SHELL=[
@@ -20,11 +20,26 @@ self.addEventListener("install",event=>{
 });
 
 self.addEventListener("activate",event=>{
-  event.waitUntil(
-    caches.keys()
-      .then(keys=>Promise.all(keys.filter(key=>!key.startsWith(CACHE_VERSION)).map(key=>caches.delete(key))))
-      .then(()=>self.clients.claim())
-  );
+  event.waitUntil((async()=>{
+    const keys=await caches.keys();
+    const hadPreviousVersion=keys.some(key=>
+      key.startsWith("sig-castelldefels-")&&!key.startsWith(CACHE_VERSION)
+    );
+    await Promise.all(keys.filter(key=>!key.startsWith(CACHE_VERSION)).map(key=>caches.delete(key)));
+    await self.clients.claim();
+
+    if(hadPreviousVersion){
+      const clients=await self.clients.matchAll({type:"window",includeUncontrolled:true});
+      await Promise.all(clients.map(async client=>{
+        try{
+          const url=new URL(client.url);
+          if(url.origin===self.location.origin)await client.navigate(client.url);
+        }catch{
+          // A failed refresh must never block service-worker activation.
+        }
+      }));
+    }
+  })());
 });
 
 async function networkFirst(request,cacheName){

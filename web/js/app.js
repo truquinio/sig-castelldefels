@@ -51,7 +51,8 @@ registerServiceWorker();
 async function registerServiceWorker(){
   if(!("serviceWorker" in navigator))return;
   try{
-    await navigator.serviceWorker.register("./sw.js",{scope:"./"});
+    const registration=await navigator.serviceWorker.register("./sw.js",{scope:"./"});
+    registration.update().catch(()=>{});
   }catch(error){
     console.warn("Service worker no disponible",error);
   }
