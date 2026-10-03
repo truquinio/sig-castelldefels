@@ -171,3 +171,10 @@ test("PWA upgrades actively replace stale application shells", async () => {
   assert.match(sw, /client\.navigate\(client\.url\)/);
   assert.match(app, /registration\.update\(\)/);
 });
+
+test("successful 3D status is temporary while errors remain persistent", () => {
+  assert.match(app, /function setMapStatus\(message,\{clearAfter=0\}=\{\}\)/);
+  assert.match(app, /3D contextual de edificios; no modifica el inventario ni su clasificación\.",\{clearAfter:4000\}/);
+  assert.match(app, /setMapStatus\("No se pudo cargar 3D\. El mapa 2D sigue disponible\."\);/);
+  assert.match(app, /setMapStatus\("La vista 3D no está disponible en este dispositivo\."\);/);
+});

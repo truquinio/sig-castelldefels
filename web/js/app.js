@@ -18,6 +18,7 @@ const state={mode:"points",dimension:"2d",query:"",category:"__all__"};
 let map3dController=null;
 let map3dLoading=null;
 let historyIndex={years:[]};
+let mapStatusTimer=null;
 
 const map=L.map("map",{zoomControl:false,preferCanvas:true});
 L.control.zoom({position:"bottomright"}).addTo(map);
@@ -584,12 +585,26 @@ function bindEstablishmentPopup(feature,layer){
   });
 }
 
+function setMapStatus(message,{clearAfter=0}={}){
+  const status=document.querySelector("#map-status");
+  if(!status)return;
+  if(mapStatusTimer){
+    clearTimeout(mapStatusTimer);
+    mapStatusTimer=null;
+  }
+  status.textContent=message;
+  if(message&&clearAfter>0){
+    mapStatusTimer=setTimeout(()=>{
+      if(status.textContent===message)status.textContent="";
+      mapStatusTimer=null;
+    },clearAfter);
+  }
+}
+
 async function switchMapDimension(dimension){
   if(dimension===state.dimension)return;
   const map2d=document.querySelector("#map");
   const map3d=document.querySelector("#map-3d");
-  const status=document.querySelector("#map-status");
-
   if(dimension==="2d"){
     if(map3dController){
       const view=map3dController.getView();
@@ -598,7 +613,7 @@ async function switchMapDimension(dimension){
     state.dimension="2d";
     map3d.hidden=true;
     map2d.hidden=false;
-    status.textContent="";
+    setMapStatus("");
     updateDimensionButtons();
     requestAnimationFrame(()=>map.invalidateSize());
     return;
@@ -606,11 +621,11 @@ async function switchMapDimension(dimension){
 
   const probe=document.createElement("canvas");
   if(!(probe.getContext("webgl2")||probe.getContext("webgl"))){
-    status.textContent="La vista 3D no está disponible en este dispositivo.";
+    setMapStatus("La vista 3D no está disponible en este dispositivo.");
     return;
   }
 
-  status.textContent="Cargando contexto 3D…";
+  setMapStatus("Cargando contexto 3D…");
   try{
     if(!map3dController){
       const center=map.getCenter();
@@ -631,12 +646,12 @@ async function switchMapDimension(dimension){
     map3d.hidden=false;
     map3dController.setActivities(getFilteredEstablishments());
     map3dController.resize();
-    status.textContent="3D contextual de edificios; no modifica el inventario ni su clasificación.";
+    setMapStatus("3D contextual de edificios; no modifica el inventario ni su clasificación.",{clearAfter:4000});
     updateDimensionButtons();
   }catch(error){
     console.error(error);
     map3dLoading=null;
-    status.textContent="No se pudo cargar 3D. El mapa 2D sigue disponible.";
+    setMapStatus("No se pudo cargar 3D. El mapa 2D sigue disponible.");
   }
 }
 
