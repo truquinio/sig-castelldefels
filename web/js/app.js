@@ -862,7 +862,7 @@ async function switchMapDimension(dimension){
     map3d.hidden=false;
     map3dController.setActivities(getFilteredEstablishments());
     map3dController.resize();
-    setMapStatus("3D contextual de edificios; no modifica el inventario ni su clasificación.",{clearAfter:4000});
+    setMapStatus("Maqueta urbana contextual; no modifica el inventario ni su clasificación.",{clearAfter:4000});
     updateDimensionButtons();
   }catch(error){
     console.error(error);

@@ -65,6 +65,7 @@ The map is the signature element. Every other block should be quieter and must j
 - Layer controls: transient panel inside the map; cartographic controls only, never documentation or normative content.
 - Explore controls: extend search/filtering in place; do not create a new primary navigation module for routine filtering.
 - Selection context: transient map-linked summary; full establishment detail opens only on explicit user request.
+- 3D context: professional urban maquette built from real vector geometry; neutral built environment, strong color reserved for activity data, no decorative game-like asset packs.
 - KPI cards: informational, subordinate to the map.
 - Category rows: dense and scan-friendly.
 - Establishment card: richest component; image/context first, then identity, category, reconciliation and useful details.

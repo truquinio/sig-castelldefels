@@ -6,6 +6,7 @@ const build = await readFile(new URL("../scripts/build-data.mjs", import.meta.ur
 const html = await readFile(new URL("../web/index.html", import.meta.url), "utf8");
 const app = await readFile(new URL("../web/js/app.js", import.meta.url), "utf8");
 const css = await readFile(new URL("../web/css/styles.css", import.meta.url), "utf8");
+const map3d = await readFile(new URL("../web/js/map3d.js", import.meta.url), "utf8");
 
 test("OSM economic extraction excludes clearly non-economic features", () => {
   const selectorBlock = build.match(/const selectors = \[([\s\S]*?)\];/)?.[1] ?? "";
@@ -101,7 +102,7 @@ test("mobile-first accessibility shell exposes skip link and semantic author lin
 });
 
 test("author attribution is more visible without becoming a primary action", () => {
-  assert.match(html, /SIG Castelldefels · v0\.7\.2/);
+  assert.match(html, /SIG Castelldefels · v0\.8\.0/);
   assert.match(html, /Federico Trucco/);
   assert.match(html, /https:\/\/github\.com\/truquinio/);
 });
@@ -174,7 +175,7 @@ test("PWA upgrades actively replace stale application shells", async () => {
 
 test("successful 3D status is temporary while errors remain persistent", () => {
   assert.match(app, /function setMapStatus\(message,\{clearAfter=0\}=\{\}\)/);
-  assert.match(app, /3D contextual de edificios; no modifica el inventario ni su clasificación\.",\{clearAfter:4000\}/);
+  assert.match(app, /Maqueta urbana contextual; no modifica el inventario ni su clasificación\.",\{clearAfter:4000\}/);
   assert.match(app, /setMapStatus\("No se pudo cargar 3D\. El mapa 2D sigue disponible\."\);/);
   assert.match(app, /setMapStatus\("La vista 3D no está disponible en este dispositivo\."\);/);
 });
@@ -243,4 +244,19 @@ test("context selection suppresses Leaflet auto-popup until full detail is reque
   assert.match(app, /layer\.off\("click",layer\._openPopup,layer\)/);
   assert.match(app, /openSelectedContextDetail/);
   assert.match(app, /target\.openPopup\(\)/);
+});
+
+test("3D maquette reuses MapLibre and real vector buildings without decorative asset packs", () => {
+  assert.match(map3d, /applyMaquetteBaseStyle/);
+  assert.match(map3d, /source-layer": "building"/);
+  assert.match(map3d, /fill-extrusion-vertical-gradient/);
+  assert.match(map3d, /buildingColorExpression/);
+  assert.match(map3d, /sig-activities-halo/);
+  assert.doesNotMatch(map3d, /THREE\.|from\s+["\']three["\']|import\(["\']three["\']\)/);
+});
+
+test("3D interface describes the contextual urban maquette without changing the main navigation", () => {
+  assert.match(html, /Maqueta urbana contextual/);
+  assert.match(html, /data-dimension="3d"/);
+  assert.doesNotMatch(html, /data-section-target="3d"/);
 });
