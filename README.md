@@ -21,6 +21,18 @@ El proyecto estudia **establecimientos económicos observados en Castelldefels**
 
 No representa datos internos del Ayuntamiento ni pretende sustituir una fuente oficial: es un proyecto técnico de análisis territorial reproducible.
 
+## ▶️ Abrir el visor
+
+[Demo pública](https://truquinio.github.io/sig-castelldefels/web/index.html). Para consultar el inventario incluido no necesitas reconstruir datos ni instalar PostGIS.
+
+Para servir la copia local desde la raíz:
+
+~~~bash
+python -m http.server 8000
+~~~
+
+Abre `http://localhost:8000/web/index.html`. Las descargas y la actualización de fuentes son un flujo separado, descrito en Reproducibilidad.
+
 ## 🧭 Flujo de datos
 
 ~~~mermaid
@@ -65,7 +77,7 @@ flowchart TD
 ## 🔁 Reproducibilidad
 
 ~~~bash
-npm install
+npm ci
 python -m pip install -r requirements-overture.txt
 npm run fetch:overture
 npm run fetch:panoramax
@@ -157,9 +169,6 @@ Los datos y servicios de terceros mantienen sus propias licencias y condiciones 
 
 © 2026 Federico Trucco. All rights reserved.
 
----
-
-**Federico Trucco / [@truquinio](https://github.com/truquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
 
 ---
 
