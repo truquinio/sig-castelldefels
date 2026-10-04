@@ -14,11 +14,12 @@ const CATEGORY_COLORS={
 const GRID_COLORS=["#edf4f4","#d4e8e5","#afd6d0","#79bdb3","#43a092","#167d72"];
 const baseData=window.SIG_DATA;
 const currentYear=new Date().getFullYear();
-const state={mode:"points",dimension:"2d",query:"",category:"__all__",subcategory:"__all__"};
+const state={mode:"points",dimension:"2d",query:"",category:"__all__",subcategory:"__all__",boundary:true};
 let map3dController=null;
 let map3dLoading=null;
 let historyIndex={years:[]};
 let mapStatusTimer=null;
+let selectedContextFeature=null;
 
 const map=L.map("map",{zoomControl:false,preferCanvas:true});
 L.control.zoom({position:"bottomright"}).addTo(map);
@@ -61,6 +62,7 @@ async function registerServiceWorker(){
 
 async function setup(){
   buildCategorySelect();
+  updateSubcategorySelect();
   bindControls();
   render();
   await loadHistory();
@@ -76,6 +78,11 @@ function bindControls(){
   document.querySelector("#category-select").addEventListener("change",event=>{
     state.category=event.target.value;
     state.subcategory="__all__";
+    updateSubcategorySelect();
+    render();
+  });
+  document.querySelector("#subcategory-select").addEventListener("change",event=>{
+    state.subcategory=event.target.value;
     render();
   });
   document.querySelector("#reset-filters").addEventListener("click",()=>{
@@ -84,14 +91,24 @@ function bindControls(){
     state.subcategory="__all__";
     document.querySelector("#search-input").value="";
     document.querySelector("#category-select").value="__all__";
+    updateSubcategorySelect();
     render();
   });
   document.querySelector("#category-back").addEventListener("click",()=>{
     state.category="__all__";
     state.subcategory="__all__";
     document.querySelector("#category-select").value="__all__";
+    updateSubcategorySelect();
     render();
   });
+  document.querySelector("#layers-toggle").addEventListener("click",()=>setLayersPanel(document.querySelector("#map-layers-panel").hidden));
+  document.querySelector("#layers-close").addEventListener("click",()=>setLayersPanel(false));
+  document.querySelector("#boundary-toggle").addEventListener("change",event=>{
+    state.boundary=event.target.checked;
+    render();
+  });
+  document.querySelector("#context-close").addEventListener("click",hideMapContext);
+  document.querySelector("#context-open-detail").addEventListener("click",openSelectedContextDetail);
   document.querySelector("#fit-map").addEventListener("click",()=>{
     if(state.dimension==="3d"&&map3dController)map3dController.fitBoundary();
     else map.fitBounds(boundaryLayer.getBounds(),{padding:[24,24]});
@@ -109,6 +126,11 @@ function bindControls(){
       });
       render();
     });
+  });
+  document.addEventListener("keydown",event=>{
+    if(event.key!=="Escape")return;
+    setLayersPanel(false);
+    hideMapContext();
   });
   document.querySelectorAll("[data-section-target]").forEach(button=>{
     button.addEventListener("click",()=>{
@@ -131,6 +153,101 @@ function buildCategorySelect(){
     option.value=category;
     option.textContent=category;
     select.append(option);
+  }
+}
+
+function updateSubcategorySelect(){
+  const select=document.querySelector("#subcategory-select");
+  if(!select)return;
+
+  select.replaceChildren();
+  const all=document.createElement("option");
+  all.value="__all__";
+
+  if(state.category==="__all__"){
+    all.textContent="Selecciona una categoría";
+    select.append(all);
+    select.disabled=true;
+    state.subcategory="__all__";
+    return;
+  }
+
+  all.textContent="Todos los tipos";
+  select.append(all);
+  const values=[...new Set(baseData.pois.features
+    .filter(feature=>feature.properties?.category===state.category)
+    .map(feature=>(feature.properties?.subcategory??"Tipo no especificado").trim()||"Tipo no especificado"))]
+    .sort((a,b)=>a.localeCompare(b,"es"));
+
+  for(const subcategory of values){
+    const option=document.createElement("option");
+    option.value=subcategory;
+    option.textContent=subcategory;
+    select.append(option);
+  }
+
+  if(state.subcategory!=="__all__"&&!values.includes(state.subcategory)){
+    state.subcategory="__all__";
+  }
+  select.value=state.subcategory;
+  select.disabled=false;
+}
+
+function setLayersPanel(open){
+  const panel=document.querySelector("#map-layers-panel");
+  const toggle=document.querySelector("#layers-toggle");
+  if(!panel||!toggle)return;
+  panel.hidden=!open;
+  toggle.setAttribute("aria-expanded",String(open));
+  toggle.classList.toggle("is-active",open);
+  if(open)hideMapContext();
+}
+
+function featureIdentity(feature){
+  const p=feature?.properties??{};
+  if(p.osm_id)return `osm:${p.osm_id}`;
+  if(p.overture_id)return `overture:${p.overture_id}`;
+  const [lon,lat]=feature?.geometry?.coordinates??[];
+  return `fallback:${p.display_name??p.name??""}:${lon??""}:${lat??""}`;
+}
+
+function showMapContext(feature){
+  selectedContextFeature=feature;
+  setLayersPanel(false);
+
+  const p=feature.properties??{};
+  const title=p.display_name??p.name??p.subcategory??"Actividad sin identificar";
+  const reconciliation=getReconciliationState(p);
+  const address=[p.addr_street,p.addr_housenumber].filter(Boolean).join(" ");
+  const panel=document.querySelector("#map-context-panel");
+  document.querySelector("#context-title").textContent=title;
+  document.querySelector("#context-body").innerHTML=`
+    <div class="context-classification">
+      <strong>${escapeHtml(p.subcategory??"Tipo no especificado")}</strong>
+      <span>${escapeHtml(p.category??"Sector no clasificado")}</span>
+    </div>
+    <div class="context-source">${escapeHtml(reconciliation.label)}</div>
+    ${address?`<div class="context-address"><i data-lucide="map-pin"></i><span>${escapeHtml(address)}</span></div>`:""}
+  `;
+  panel.hidden=false;
+  if(window.lucide)window.lucide.createIcons();
+}
+
+function hideMapContext(){
+  selectedContextFeature=null;
+  const panel=document.querySelector("#map-context-panel");
+  if(panel)panel.hidden=true;
+}
+
+function openSelectedContextDetail(){
+  if(!selectedContextFeature)return;
+  const identity=featureIdentity(selectedContextFeature);
+  let target=null;
+  poiLayer.eachLayer(layer=>{
+    if(!target&&featureIdentity(layer.feature)===identity)target=layer;
+  });
+  if(target){
+    target.openPopup();
   }
 }
 
@@ -157,7 +274,17 @@ function render(){
     map.removeLayer(poiLayer);
   }
 
-  boundaryLayer.bringToFront();
+  if(state.boundary){
+    if(!map.hasLayer(boundaryLayer))boundaryLayer.addTo(map);
+    boundaryLayer.bringToFront();
+  }else if(map.hasLayer(boundaryLayer)){
+    map.removeLayer(boundaryLayer);
+  }
+
+  if(selectedContextFeature&&!filtered.some(feature=>featureIdentity(feature)===featureIdentity(selectedContextFeature))){
+    hideMapContext();
+  }
+
   if(showPoints)poiLayer.bringToFront();
   if(state.dimension==="3d"&&map3dController)map3dController.setActivities(filtered);
 
@@ -274,6 +401,7 @@ function drawCategoryChart(features){
         state.category=button.dataset.chartCategory;
         state.subcategory="__all__";
         document.querySelector("#category-select").value=state.category;
+        updateSubcategorySelect();
         render();
       });
     });
@@ -301,6 +429,7 @@ function drawCategoryChart(features){
   container.querySelectorAll("[data-chart-subcategory]").forEach(button=>{
     button.addEventListener("click",()=>{
       state.subcategory=state.subcategory===button.dataset.chartSubcategory?"__all__":button.dataset.chartSubcategory;
+      document.querySelector("#subcategory-select").value=state.subcategory;
       render();
     });
   });
@@ -652,6 +781,12 @@ function bindEstablishmentPopup(feature,layer){
         <small class="popup-disclaimer">Datos de fuentes abiertas. Esta ficha no equivale a un registro, licencia ni expediente municipal.</small>
       </div>
     </article>`,{maxWidth:390,minWidth:250});
+
+  if(layer._openPopup)layer.off("click",layer._openPopup,layer);
+  layer.on("click",()=>{
+    showMapContext(feature);
+    setTimeout(()=>layer.closePopup(),0);
+  });
 
   layer.on("popupopen",event=>{
     const root=event.popup.getElement();

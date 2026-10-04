@@ -46,7 +46,7 @@
     <a class="nav-item" href="./docs.html"><i data-lucide="database"></i><span>Datos</span></a>
 
     <div class="nav-footer">
-      <div class="author-version">SIG Castelldefels · v0.7.1</div>
+      <div class="author-version">SIG Castelldefels · v0.7.2</div>
       <a class="author-name" href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer">Federico Trucco</a>
       <div class="author-links" aria-label="Perfiles de Federico Trucco">
         <a href="https://github.com/truquinio" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Federico Trucco"><i data-lucide="github"></i><span>GitHub</span></a>
@@ -71,9 +71,14 @@
       <article class="kpi-card"><div class="kpi-icon"><i data-lucide="map-pinned"></i></div><div><span>Mayor concentración</span><strong id="metric-hot-cell">—</strong><small id="metric-hot-cell-note">Malla de 500 m</small></div></article>
     </section>
 
-    <section class="toolbar-card" aria-label="Filtros">
+    <section class="toolbar-card explore-toolbar" aria-label="Explorar establecimientos">
+      <div class="toolbar-heading">
+        <span class="section-kicker">Explorar</span>
+        <span>Busca y acota el inventario sin salir del mapa.</span>
+      </div>
       <div class="search-box"><i data-lucide="search"></i><input id="search-input" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" placeholder="Buscar establecimiento, categoría o tipo…" aria-label="Buscar establecimientos" /></div>
       <label class="select-wrap">Categoría<select id="category-select"><option value="__all__">Todas las categorías</option></select></label>
+      <label class="select-wrap">Tipo de actividad<select id="subcategory-select" disabled><option value="__all__">Selecciona una categoría</option></select></label>
       <button class="soft-button" id="reset-filters" type="button"><i data-lucide="rotate-ccw"></i><span>Restablecer</span></button>
     </section>
 
@@ -91,13 +96,46 @@
               <button class="dimension-button is-active" type="button" data-dimension="2d" aria-pressed="true">2D</button>
               <button class="dimension-button" type="button" data-dimension="3d" aria-pressed="false">3D</button>
             </div>
-            <div class="segmented" aria-label="Representación">
-              <button class="segment is-active" type="button" data-mode="points" aria-pressed="true">Puntos</button>
-              <button class="segment" type="button" data-mode="grid" aria-pressed="false">Malla</button>
-              <button class="segment" type="button" data-mode="mixed" aria-pressed="false">Mixta</button>
-            </div>
+            <button class="map-tool-button map-tool-labelled" id="layers-toggle" type="button" aria-expanded="false" aria-controls="map-layers-panel"><i data-lucide="layers-3"></i><span>Capas</span></button>
             <button class="map-tool-button" id="fit-map" type="button" title="Ajustar al municipio" aria-label="Ajustar mapa al municipio"><i data-lucide="focus"></i></button>
           </div>
+
+          <aside class="map-layers-panel" id="map-layers-panel" hidden aria-label="Capas del mapa">
+            <div class="map-panel-head">
+              <div><span class="section-kicker">Cartografía</span><strong>Capas</strong></div>
+              <button class="map-panel-close" id="layers-close" type="button" aria-label="Cerrar capas"><i data-lucide="x"></i></button>
+            </div>
+
+            <div class="layer-group">
+              <span class="layer-group-title">Actividades</span>
+              <div class="segmented layer-mode-switch" aria-label="Representación de actividades">
+                <button class="segment is-active" type="button" data-mode="points" aria-pressed="true">Puntos</button>
+                <button class="segment" type="button" data-mode="grid" aria-pressed="false">Malla</button>
+                <button class="segment" type="button" data-mode="mixed" aria-pressed="false">Mixta</button>
+              </div>
+            </div>
+
+            <div class="layer-group">
+              <span class="layer-group-title">Contexto</span>
+              <label class="layer-check"><input id="boundary-toggle" type="checkbox" checked /><span>Límite municipal</span></label>
+              <div class="layer-info"><i data-lucide="blocks"></i><span>Edificios contextuales al activar 3D</span><small>3D</small></div>
+            </div>
+
+            <div class="layer-group">
+              <span class="layer-group-title">Fondo</span>
+              <div class="layer-info"><i data-lucide="map"></i><span>OpenStreetMap</span><small>base</small></div>
+            </div>
+          </aside>
+
+          <aside class="map-context-panel" id="map-context-panel" hidden aria-label="Contexto del establecimiento seleccionado">
+            <div class="map-panel-head">
+              <div><span class="section-kicker">Selección</span><strong id="context-title">—</strong></div>
+              <button class="map-panel-close" id="context-close" type="button" aria-label="Cerrar selección"><i data-lucide="x"></i></button>
+            </div>
+            <div id="context-body" class="context-body"></div>
+            <button class="context-detail-button" id="context-open-detail" type="button"><i data-lucide="panel-right-open"></i><span>Ver ficha completa</span></button>
+          </aside>
+
           <div class="map-status" id="map-status" role="status" aria-live="polite"></div>
         </div>
       </article>
@@ -154,7 +192,7 @@
 
     <footer class="site-footer">
       <div>
-        <span>SIG Castelldefels · v0.7.1</span>
+        <span>SIG Castelldefels · v0.7.2</span>
         <strong>Federico Trucco</strong>
       </div>
       <nav aria-label="Perfiles del autor">

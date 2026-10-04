@@ -101,7 +101,7 @@ test("mobile-first accessibility shell exposes skip link and semantic author lin
 });
 
 test("author attribution is more visible without becoming a primary action", () => {
-  assert.match(html, /SIG Castelldefels · v0\.7\.1/);
+  assert.match(html, /SIG Castelldefels · v0\.7\.2/);
   assert.match(html, /Federico Trucco/);
   assert.match(html, /https:\/\/github\.com\/truquinio/);
 });
@@ -202,4 +202,45 @@ test("data completeness is visualized without adding decorative chart types", ()
   assert.match(html, /id="quality-named-bar"/);
   assert.match(app, /quality-named-bar/);
   assert.doesNotMatch(html, /donut|treemap|gauge/i);
+});
+
+test("Explore extends existing filters without adding a new primary navigation section", () => {
+  assert.match(html, /class="toolbar-card explore-toolbar"/);
+  assert.match(html, /id="subcategory-select"/);
+  assert.match(app, /function updateSubcategorySelect/);
+  assert.doesNotMatch(html, /data-section-target="explore"/);
+});
+
+test("map layers are grouped contextually inside the map", () => {
+  assert.match(html, /id="layers-toggle"/);
+  assert.match(html, /id="map-layers-panel"/);
+  assert.match(html, /Actividades/);
+  assert.match(html, /Contexto/);
+  assert.match(html, /Fondo/);
+  assert.match(html, /id="boundary-toggle"/);
+  assert.match(app, /function setLayersPanel/);
+  assert.match(app, /state\.boundary/);
+  assert.doesNotMatch(html, /data-section-target="layers"/);
+});
+
+test("map selection exposes a contextual panel while keeping the full technical card available", () => {
+  assert.match(html, /id="map-context-panel"/);
+  assert.match(html, /id="context-open-detail"/);
+  assert.match(app, /function showMapContext/);
+  assert.match(app, /function openSelectedContextDetail/);
+  assert.match(app, /target\.openPopup\(\)/);
+  assert.match(app, /showMapContext\(feature\)/);
+});
+
+test("documentation remains separate from cartographic controls", () => {
+  assert.match(html, /href="\.\/docs\.html"/);
+  assert.match(html, />Datos y método<\/span>/);
+  const layersPanel = html.match(/<aside class="map-layers-panel"[\s\S]*?<\/aside>/)?.[0] ?? "";
+  assert.doesNotMatch(layersPanel, /docs\.html|Datos y método|Normativa/);
+});
+
+test("context selection suppresses Leaflet auto-popup until full detail is requested", () => {
+  assert.match(app, /layer\.off\("click",layer\._openPopup,layer\)/);
+  assert.match(app, /openSelectedContextDetail/);
+  assert.match(app, /target\.openPopup\(\)/);
 });

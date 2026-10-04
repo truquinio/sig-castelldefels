@@ -62,6 +62,9 @@ The map is the signature element. Every other block should be quieter and must j
 ### Component intent
 
 - Map controls: compact, high-contrast, touch-safe.
+- Layer controls: transient panel inside the map; cartographic controls only, never documentation or normative content.
+- Explore controls: extend search/filtering in place; do not create a new primary navigation module for routine filtering.
+- Selection context: transient map-linked summary; full establishment detail opens only on explicit user request.
 - KPI cards: informational, subordinate to the map.
 - Category rows: dense and scan-friendly.
 - Establishment card: richest component; image/context first, then identity, category, reconciliation and useful details.

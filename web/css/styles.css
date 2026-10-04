@@ -1057,3 +1057,211 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[t
 .category-back{
   justify-self:start;
 }
+
+/* v0.7.2 — Ciudad 3D-inspired patterns adapted to the activities SIG. */
+.toolbar-heading{
+  grid-column:1/-1;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  padding:0 2px;
+}
+.toolbar-heading>span:last-child{
+  color:var(--muted);
+  font-size:.66rem;
+}
+.map-tool-labelled{
+  width:auto;
+  min-width:76px;
+  padding:0 10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-weight:800;
+}
+.map-tool-labelled.is-active{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.map-layers-panel,
+.map-context-panel{
+  position:absolute;
+  z-index:640;
+  top:66px;
+  max-height:calc(100% - 78px);
+  overflow:auto;
+  border:1px solid rgba(13,83,105,.22);
+  border-radius:11px;
+  background:rgba(255,255,255,.98);
+  box-shadow:0 12px 28px rgba(31,49,61,.17);
+  backdrop-filter:blur(10px);
+}
+.map-layers-panel{
+  left:8px;
+  width:min(286px,calc(100% - 16px));
+  padding:10px;
+}
+.map-context-panel{
+  right:8px;
+  width:min(310px,calc(100% - 16px));
+  padding:11px;
+}
+.map-panel-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.map-panel-head>div{
+  min-width:0;
+  display:grid;
+  gap:2px;
+}
+.map-panel-head strong{
+  min-width:0;
+  overflow-wrap:anywhere;
+  font-size:.83rem;
+  line-height:1.2;
+}
+.map-panel-close{
+  width:36px;
+  height:36px;
+  min-height:36px;
+  flex:0 0 36px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+.map-panel-close svg{width:16px;height:16px}
+.layer-group{
+  display:grid;
+  gap:6px;
+  padding:9px 0;
+  border-top:1px solid var(--line);
+}
+.layer-group-title{
+  color:var(--muted);
+  font-size:.64rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.layer-mode-switch{
+  width:100%;
+}
+.layer-check,
+.layer-info{
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--ink);
+  font-size:.7rem;
+}
+.layer-check input{
+  width:18px;
+  height:18px;
+  accent-color:var(--accent);
+}
+.layer-info svg{
+  width:17px;
+  height:17px;
+  color:var(--muted);
+}
+.layer-info span{flex:1}
+.layer-info small{
+  color:var(--muted);
+  font-size:.6rem;
+  font-weight:850;
+  text-transform:uppercase;
+}
+.context-body{
+  display:grid;
+  gap:8px;
+  padding-top:2px;
+}
+.context-classification{
+  display:grid;
+  gap:2px;
+}
+.context-classification strong{
+  font-size:.75rem;
+  color:var(--ink);
+}
+.context-classification span,
+.context-source,
+.context-address{
+  color:var(--muted);
+  font-size:.68rem;
+  line-height:1.35;
+}
+.context-source{
+  padding:7px 8px;
+  border-radius:8px;
+  background:var(--card-soft);
+  border:1px solid var(--line);
+}
+.context-address{
+  display:flex;
+  align-items:flex-start;
+  gap:6px;
+}
+.context-address svg{
+  width:15px;
+  height:15px;
+  flex:0 0 15px;
+  margin-top:1px;
+}
+.context-detail-button{
+  width:100%;
+  min-height:44px;
+  margin-top:10px;
+  border:1px solid var(--line-strong);
+  border-radius:8px;
+  background:#fff;
+  color:var(--accent-2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-size:.7rem;
+  font-weight:850;
+  cursor:pointer;
+}
+.context-detail-button svg{width:16px;height:16px}
+@media (min-width:520px){
+  .explore-toolbar{
+    grid-template-columns:minmax(0,1fr) minmax(180px,.7fr);
+  }
+  .explore-toolbar .search-box{grid-column:1/-1}
+  .explore-toolbar .soft-button{grid-column:1/-1}
+}
+@media (min-width:720px){
+  .explore-toolbar{
+    grid-template-columns:minmax(260px,1.35fr) minmax(160px,.7fr) minmax(170px,.75fr) auto;
+  }
+  .explore-toolbar .toolbar-heading{grid-column:1/-1}
+  .explore-toolbar .search-box{grid-column:auto}
+  .explore-toolbar .soft-button{grid-column:auto}
+}
+@media (max-width:719px){
+  .toolbar-heading{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:2px;
+  }
+  .map-context-panel{
+    top:auto;
+    bottom:8px;
+    width:calc(100% - 16px);
+    max-height:48%;
+  }
+}
