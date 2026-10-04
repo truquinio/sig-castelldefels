@@ -1,4 +1,12 @@
-# Datos generados
+<div align="center">
+
+# 📊 Datos generados
+
+[**Proyecto**](../README.md)
+
+</div>
+
+---
 
 Archivos creados por `scripts/build-data.mjs`.
 
@@ -15,3 +23,7 @@ Archivos creados por `scripts/build-data.mjs`.
 ## Nota
 
 OpenStreetMap y Overture Maps son fuentes externas con sus propias licencias y atribuciones. El dataset combinado conserva trazabilidad y no representa un inventario municipal oficial. La presencia de un registro no implica validación administrativa, y la ausencia de un registro no implica inexistencia de la actividad.
+
+---
+
+**by [truquinio](https://github.com/truquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
