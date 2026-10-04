@@ -4,12 +4,12 @@
 
 ### Visor territorial mobile-first y PWA de establecimientos económicos con datos abiertos
 
-[![Demo](https://img.shields.io/badge/Abrir%20demo-GitHub%20Pages-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white)](https://truquinio.github.io/sig-castelldefels/web/index.html)
+[![Demo](https://img.shields.io/badge/Abrir%20demo-GitHub%20Pages-2ea44f?style=flat-square)](https://truquinio.github.io/sig-castelldefels/web/index.html)
 
-![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=flat&logo=leaflet&logoColor=white)
-![OpenStreetMap](https://img.shields.io/badge/OpenStreetMap-7EBC6F?style=flat&logo=openstreetmap&logoColor=white)
-![PostGIS](https://img.shields.io/badge/PostGIS-4169E1?style=flat&logo=postgresql&logoColor=white)
-![GeoJSON](https://img.shields.io/badge/GeoJSON-data-5C8C46?style=flat)
+![Leaflet](https://img.shields.io/badge/Leaflet-199900?style=flat-square)
+![OpenStreetMap](https://img.shields.io/badge/OpenStreetMap-7EBC6F?style=flat-square)
+![PostGIS](https://img.shields.io/badge/PostGIS-4169E1?style=flat-square)
+![GeoJSON](https://img.shields.io/badge/GeoJSON-data-5C8C46?style=flat-square)
 
 </div>
 
@@ -24,7 +24,7 @@ No representa datos internos del Ayuntamiento ni pretende sustituir una fuente o
 ## 🧭 Flujo de datos
 
 ~~~mermaid
-flowchart LR
+flowchart TD
     O["OpenStreetMap"] --> A["Overpass API"]
     V["Overture Maps Places"] --> C["Clasificación + confianza"]
     A --> G["OSM GeoJSON"]
@@ -160,3 +160,7 @@ Los datos y servicios de terceros mantienen sus propias licencias y condiciones 
 ---
 
 **Federico Trucco / [@truquinio](https://github.com/truquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
+
+---
+
+**by [truquinio](https://github.com/truquinio)** · [LinkedIn](https://www.linkedin.com/in/federico-trucco/)
